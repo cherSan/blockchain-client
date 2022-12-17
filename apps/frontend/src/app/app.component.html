@@ -1,5 +1,5 @@
 <a nz-dropdown [nzDropdownMenu]="menu">
-  Hover me
+  {{title}}
   <span nz-icon nzType="down"></span>
 </a>
 <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -10,5 +10,7 @@
     <li nz-menu-item nzDanger>4th danger item</li>
   </ul>
 </nz-dropdown-menu>
+
+<input nz-input [value]="title" (input)="setValue($event)"><button nz-button (click)="send()">SEND</button>
 
 <router-outlet></router-outlet>

@@ -21,6 +21,13 @@
           "libs/graph-ql-client/**/*.html"
         ]
       }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx graphql-codegen --config libs/graph-ql-client/codegen.yml"
+      }
     }
   },
   "tags": []

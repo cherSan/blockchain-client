@@ -42,3 +42,4 @@ Thumbs.db
 /.vscode/
 /schema.gql
 /apps/backend/src/schema.gql
+/libs/graph-ql-client/src/lib/graph-ql.service.ts
