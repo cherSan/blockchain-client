@@ -1,0 +1,6 @@
+export enum Roles {
+  ANON,
+  UNAUTHORIZED,
+  AUTHORIZED,
+  REGISTERED
+}
