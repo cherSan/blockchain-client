@@ -1,0 +1,26 @@
+overwrite: true
+schema: "apps/backend/src/schema.gql"
+generates:
+  libs/graph-ql-client/src/lib/graph-ql.service.ts:
+    documents: "libs/graph-ql-client/src/lib/documents/**/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-apollo-angular"
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      addExplicitOverride: true
+      subscriptionSuffix: 'SubscriptionService'
+      mutationSuffix: 'MutationService'
+      querySuffix: 'QueryService'
+      sdkClass: true
+      noGraphQLTag: false
+      skipTypename: true
+      useTypeImports: true
+      dedupeFragments: true
+      typesPrefix: 'I'
+      defaultScalarType: 'unknown'
+      strictScalars: true
+      dedupeOperationSuffix: true

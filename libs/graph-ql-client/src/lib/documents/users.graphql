@@ -1,0 +1,13 @@
+mutation User($user: CreateUser!) {
+  user(user: $user) {
+    id
+    title
+  }
+}
+
+query Users {
+  users {
+    id
+    title
+  }
+}

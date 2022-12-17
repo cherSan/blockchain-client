@@ -18,6 +18,8 @@
         "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
         "styles": [
           "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "node_modules/ng-zorro-antd/ng-zorro-antd.dark.css",
+          "libs/ui/src/styles/ui.less",
           "apps/frontend/src/styles.scss"
         ],
         "scripts": []
@@ -65,7 +67,10 @@
           "browserTarget": "frontend:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/frontend/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
