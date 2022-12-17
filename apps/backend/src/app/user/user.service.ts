@@ -13,18 +13,11 @@ export class UserService {
   }
   async create(user: Partial<User>): Promise<User> {
     const newUser = this.usersRepository.create(user);
-    const response = await this.usersRepository.save(newUser);
-    return {
-      id: response.id,
-      title: response.title
-    };
+    return await this.usersRepository.save(newUser);
   }
 
-  async findOneById(id: string): Promise<User> {
-    return {
-      id: 2,
-      title: "tets"
-    } as any;
+  async find(): Promise<User[]> {
+    return await this.usersRepository.find();
   }
   async remove(id: string): Promise<boolean> {
     return true;

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IUserMutationService } from "../../../../libs/graph-ql-client/src/lib/graph-ql.service";
+import { ApolloAngularSDK } from "@blockchain_client/graph-ql-client";
+import { map, switchMap } from "rxjs";
 
 @Component({
   selector: 'ant-root',
@@ -8,10 +9,14 @@ import { IUserMutationService } from "../../../../libs/graph-ql-client/src/lib/g
 })
 export class AppComponent {
   title = 'frontend';
+  users$;
 
   constructor(
-    private userService: IUserMutationService
+    private sdk: ApolloAngularSDK
   ) {
+    this.users$ = sdk.usersWatch().valueChanges.pipe(
+      map(value => value?.data?.users)
+    )
   }
 
   setValue($event: Event) {
@@ -19,8 +24,16 @@ export class AppComponent {
   }
 
   send() {
-    this.userService.mutate({
-      title: this.title
-    }).subscribe()
+    this.sdk.user({
+      user: {
+        title: this.title
+      }
+    })
+      .pipe(
+        switchMap(() => {
+          return this.sdk.usersWatch().refetch()
+        })
+      )
+      .subscribe()
   }
 }

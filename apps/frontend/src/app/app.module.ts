@@ -8,7 +8,7 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { GraphQlClientModule } from "@untitled3/graph-ql-client";
+import { GraphQlClientModule } from "@blockchain_client/graph-ql-client";
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],

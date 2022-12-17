@@ -12,7 +12,8 @@ import { UserModule } from "./user/user.module";
       driver: MercuriusDriver,
       autoSchemaFile: 'apps/backend/src/schema.gql',
       graphiql: true,
-      subscription: true
+      subscription: true,
+      sortSchema: true
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
@@ -22,7 +23,8 @@ import { UserModule } from "./user/user.module";
       autoLoadEntities: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      synchronize: true
+      synchronize: true,
+      logging: true
     })
   ],
 })

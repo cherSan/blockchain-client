@@ -13,4 +13,8 @@
 
 <input nz-input [value]="title" (input)="setValue($event)"><button nz-button (click)="send()">SEND</button>
 
+<div *ngFor="let user of users$ | async">
+  {{user.id}} - {{user.title}}
+</div>
+
 <router-outlet></router-outlet>

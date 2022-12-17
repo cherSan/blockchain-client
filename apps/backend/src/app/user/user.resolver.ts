@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { NotFoundException } from "@nestjs/common";
-import { User } from "./user.model";
+import { CreateUser, User } from "./user.model";
 import { UserService } from "./user.service";
 
 @Resolver(of => User)
@@ -8,22 +8,19 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {
   }
 
-  @Query(returns => User)
-  async user(@Args('id') id: string): Promise<User> {
-    const recipe = await this.userService.findOneById(id);
+  @Query(() => [User], { name: 'users' })
+  async getUsers(): Promise<User[]> {
+    const recipe = await this.userService.find();
     if (!recipe) {
-      throw new NotFoundException(id);
+      throw new NotFoundException();
     }
     return recipe;
   }
 
-  @Mutation(returns => User)
-  async addUser(
-    @Args('title') title: string,
+  @Mutation(() => User, { name: 'user' })
+  async createUser(
+    @Args('user') createUser: CreateUser,
   ): Promise<User> {
-    const user = await this.userService.create({
-      title
-    });
-    return user;
+    return await this.userService.create(createUser);
   }
 }
