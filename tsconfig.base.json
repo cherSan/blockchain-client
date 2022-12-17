@@ -15,7 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@blockchain_client/graph-ql-client": ["libs/graph-ql-client/src/index.ts"]
+      "@blockchain_client/graph-ql-client": [
+        "libs/graph-ql-client/src/index.ts"
+      ],
+      "@blockchain_client/ui": ["libs/ui/src/index.ts"],
+      "@blockchain_client/ui/layouts": ["libs/ui/layouts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
