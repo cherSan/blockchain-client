@@ -1,35 +1,27 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
 import { GraphQlClientModule } from "@blockchain_client/graph-ql-client";
-import { LayoutsModule } from "@blockchain_client/ui/layouts";
 import { UiModule } from "@blockchain_client/ui";
-
-import { NzDropDownModule } from "ng-zorro-antd/dropdown";
-import { NzIconModule } from "ng-zorro-antd/icon";
-import { NzInputModule } from "ng-zorro-antd/input";
-import { NzButtonModule } from "ng-zorro-antd/button";
+import { DEFAULT_ROUTE, InitializationModule } from "@blockchain_client/initialization";
+import { UserModule } from "@blockchain_client/user";
 
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { NavigationModule } from "./navigation/navigation.module";
+
 @NgModule({
   declarations: [
-    AppComponent,
-    NxWelcomeComponent
+    AppComponent
   ],
   imports: [
-    CommonModule,
-    RouterModule.forRoot([], { initialNavigation: "enabledBlocking" }),
     GraphQlClientModule,
     UiModule,
-    NzDropDownModule,
-    NzIconModule,
-    NzInputModule,
-    NzButtonModule,
-    LayoutsModule
+    NavigationModule,
+    InitializationModule,
+    UserModule
   ],
-  providers: [],
+  providers: [
+    { provide: DEFAULT_ROUTE, useValue: '/home' }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
