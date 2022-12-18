@@ -4,10 +4,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 
 import { UserModule } from "./user/user.module";
+import { StatsModule } from "./stats/stats.module";
 
 @Module({
   imports: [
     UserModule,
+    StatsModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       autoSchemaFile: 'apps/backend/src/schema.gql',

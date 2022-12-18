@@ -21,25 +21,41 @@
         </ng-template>
       </nz-space>
     </nz-page-header-extra>
-    <nz-page-header-content class="header-content">
+    <nz-page-header-content class="header-content" *ngIf="stats">
       <div class="content">
         <div class="main">
           <nz-descriptions nzSize="small" [nzColumn]="2">
-            <nz-descriptions-item nzTitle="Created" [nzSpan]="1">Lili Qu</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Association" [nzSpan]="1"><a>421421</a></nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Creation Time" [nzSpan]="1">2017-01-10</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Effective Time" [nzSpan]="1">2017-10-10</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Remarks" [nzSpan]="2">
-              Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="candidatesTotal" [nzSpan]="1">{{stats.candidatesTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="hashrate" [nzSpan]="1">{{stats.hashrate}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="immatureTotal" [nzSpan]="1">{{stats.immatureTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="maturedTotal" [nzSpan]="1">{{stats.maturedTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="minersTotal" [nzSpan]="2">{{stats.minersTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="now" [nzSpan]="2">{{stats.now | date: 'yyyy-mm-dd HH:mm:ss'}}</nz-descriptions-item>
           </nz-descriptions>
         </div>
-        <div class="extra">
-          <div>
-            <nz-statistic nzTitle="Status" nzValue="Pending"></nz-statistic>
-            <nz-statistic nzTitle="Price" [nzValue]="568.08" nzPrefix="$" style="margin: 0 32px"></nz-statistic>
-          </div>
-        </div>
+        <nz-row [nzGutter]="16">
+          <nz-col [nzSpan]="12">
+            <nz-statistic nzTitle="roundShares" [nzValue]="stats.stats.roundShares"></nz-statistic>
+          </nz-col>
+          <nz-col [nzSpan]="12">
+            <nz-statistic nzTitle="nShares" [nzValue]="stats.stats.nShares"></nz-statistic>
+          </nz-col>
+        </nz-row>
+        <nz-collapse nzAccordion>
+          <nz-collapse-panel *ngFor="let node of stats.nodes" [nzHeader]="node.name">
+            <nz-row [nzGutter]="16">
+              <nz-col [nzSpan]="8">
+                <nz-statistic nzTitle="lastBeat" [nzValue]="node.lastBeat"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSpan]="8">
+                <nz-statistic nzTitle="difficulty" [nzValue]="node.difficulty"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSpan]="8">
+                <nz-statistic nzTitle="height" [nzValue]="node.height"></nz-statistic>
+              </nz-col>
+            </nz-row>
+          </nz-collapse-panel>
+        </nz-collapse>
       </div>
     </nz-page-header-content>
     <nz-page-header-footer>

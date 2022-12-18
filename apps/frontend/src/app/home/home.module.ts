@@ -18,6 +18,8 @@ import { UserAddOutline, LoginOutline } from '@ant-design/icons-angular/icons';
 
 import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 import { InfoPageComponent } from './info-page/info-page.component';
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
 
 const routes: Routes = [
   {
@@ -62,7 +64,9 @@ const routes: Routes = [
     NzIconModule.forChild([
       LoginOutline,
       UserAddOutline
-    ])
+    ]),
+    NzGridModule,
+    NzCollapseModule
   ]
 })
 export class HomeModule { }
