@@ -7,23 +7,17 @@ import { map, Observable, switchMap, tap } from "rxjs";
   templateUrl: './main-pange.component.html',
   styleUrls: ['./main-pange.component.scss']
 })
-export class MainPangeComponent implements OnInit {
+export class MainPangeComponent {
 
-  stats?: IStatsQuery["stats"] | IListenStatsSubscription["stats"];
+  stats$: Observable<undefined | IStatsQuery["stats"] | IListenStatsSubscription["stats"]>;
   constructor(
     private gql: ApolloAngularSDK
   ) {
-
-  }
-
-  ngOnInit(): void {
-    this.gql.stats().pipe(
+    this.stats$ = this.gql.stats().pipe(
       map(response => response.data?.stats),
-      tap(value => this.stats = value),
       switchMap(() => this.gql.listenStats()),
       map(response => response.data?.stats),
-      tap(value => this.stats = value),
-    ).subscribe()
+    );
   }
 
 }
