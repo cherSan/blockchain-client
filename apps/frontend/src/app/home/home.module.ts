@@ -13,6 +13,9 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzSpaceModule } from "ng-zorro-antd/space";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { UserAddOutline, LoginOutline } from '@ant-design/icons-angular/icons';
+
 import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 import { InfoPageComponent } from './info-page/info-page.component';
 
@@ -55,7 +58,11 @@ const routes: Routes = [
     NzPageHeaderModule,
     NzTabsModule,
     NzSpaceModule,
-    NzInputModule
+    NzInputModule,
+    NzIconModule.forChild([
+      LoginOutline,
+      UserAddOutline
+    ])
   ]
 })
 export class HomeModule { }

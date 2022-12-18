@@ -1,14 +1,27 @@
 <main-layout>
-  <nz-page-header>
+  <nz-page-header [nzGhost]="true">
     <nz-page-header-title>BITCOIN MINING</nz-page-header-title>
-    <nz-page-header-subtitle>Give me the money</nz-page-header-subtitle>
+    <nz-page-header-subtitle>
+      <button nz-button [nzType]="'link'">
+        <span nz-icon nzType="login" nzTheme="outline"></span>
+        Login
+      </button>
+      <button nz-button [nzType]="'link'">
+        <span nz-icon nzType="user-add" nzTheme="outline"></span>
+        Register
+      </button>
+    </nz-page-header-subtitle>
     <nz-page-header-extra>
       <nz-space>
-        <input nz-input placeholder="YOUR ACCOUNT">
-        <button *nzSpaceItem nz-button nzType="primary">FAST MINING</button>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+          <input nz-input placeholder="YOUR ACCOUNT">
+        </nz-input-group>
+        <ng-template #suffixButton>
+          <button *nzSpaceItem nz-button nzSearch nzType="primary">FAST START MINING</button>
+        </ng-template>
       </nz-space>
     </nz-page-header-extra>
-    <nz-page-header-content>
+    <nz-page-header-content class="header-content">
       <div class="content">
         <div class="main">
           <nz-descriptions nzSize="small" [nzColumn]="2">
