@@ -72,9 +72,7 @@ export class AssetsComponent {
 
   error$ = this.data$.pipe(
     ignoreElements(),
-    catchError((err) => {
-      return of(err);
-    })
+    catchError((err) => of(err))
   )
 
   constructor(

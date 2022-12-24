@@ -9,9 +9,7 @@ export class ListenerService<T> {
   protected error?: GraphQLError = undefined;
   protected observer$ = interval(this.timer).pipe(
     timeInterval(),
-    switchMap(() => {
-      return this.httpService.get(`${this.uri}${this.serviceKey}`)
-    }),
+    switchMap(() => this.httpService.get(`${this.uri}${this.serviceKey}`)),
     tap(() => this.error = undefined),
     map(response => response?.data),
     catchError(async (_) => {
@@ -32,7 +30,6 @@ export class ListenerService<T> {
     protected readonly httpService: HttpService,
     protected readonly pubsub: PubSubService
   ) {
-    this.observer$.subscribe()
   }
   async get(): Promise<T> {
     if (this.error) {

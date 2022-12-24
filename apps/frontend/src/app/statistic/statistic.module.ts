@@ -18,6 +18,8 @@ import { RatesComponent } from './rates/rates.component';
 import { AssetsComponent } from './assets/assets.component';
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { NzAlertModule } from "ng-zorro-antd/alert";
+import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
+import { PipesModule } from "../pipes/pipes.module";
 
 const routes: Routes = [
   {
@@ -45,7 +47,9 @@ const routes: Routes = [
     NzDescriptionsModule,
     GridModule,
     NzBadgeModule,
-    NzAlertModule
+    NzAlertModule,
+    NzSkeletonModule,
+    PipesModule
   ]
 })
 export class StatisticModule { }

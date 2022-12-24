@@ -33,10 +33,7 @@ export class RatesComponent {
 
   error$ = this.data$.pipe(
     ignoreElements(),
-    catchError((err) => {
-      console.info(2322, err)
-      return of(err);
-    })
+    catchError((err) => of(err))
   )
 
   constructor(
