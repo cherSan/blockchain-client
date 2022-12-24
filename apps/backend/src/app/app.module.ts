@@ -4,14 +4,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 
 import { UserModule } from "./user/user.module";
-import { StatsModule } from "./stats/stats.module";
 import { EthersModule } from "./ethers/ethers.module";
 import { CoincapModule } from "./coincap/coincap.module";
+import { PoolModule } from "./pool/pool.module";
 
 @Module({
   imports: [
     UserModule,
-    StatsModule,
+    PoolModule,
     EthersModule,
     CoincapModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({

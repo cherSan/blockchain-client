@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('../statistic/statistic.module').then(m => m.StatisticModule),
     canActivate: [InitializationGuard, RoleGuard],
     data: {
-      roles: [Roles.AUTHORIZED, Roles.REGISTERED]
+      roles: [Roles.UNAUTHORIZED, Roles.AUTHORIZED, Roles.REGISTERED]
     }
   }
 ]

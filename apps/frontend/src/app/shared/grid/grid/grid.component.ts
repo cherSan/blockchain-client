@@ -13,6 +13,15 @@ export class GridComponent {
   resize = () => {}
 
   @Input()
+  title?: string = undefined;
+
+  @Input()
+  extra?: string = undefined;
+
+  @Input()
+  error?: string = undefined;
+
+  @Input()
   rowData?: any[] | null;
 
   @Input()
