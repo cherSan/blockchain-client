@@ -49,6 +49,14 @@ export class LineAreaChartComponent {
   options: ChartConfiguration<'line'>['options'] = {
     responsive: true,
     maintainAspectRatio: true,
+    elements: {
+      point: {
+        radius: 0
+      },
+      line: {
+        backgroundColor: '#fff'
+      }
+    },
     plugins: {
       legend: {
         display: false
