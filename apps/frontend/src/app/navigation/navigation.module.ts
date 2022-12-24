@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('../home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('../statistic/statistic.module').then(m => m.StatisticModule),
     canActivate: [InitializationGuard, RoleGuard],
     data: {
       roles: [Roles.UNAUTHORIZED, Roles.AUTHORIZED, Roles.REGISTERED]
@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'home2',
-    loadChildren: () => import('../home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('../statistic/statistic.module').then(m => m.StatisticModule),
     canActivate: [InitializationGuard, RoleGuard],
     data: {
       roles: [Roles.AUTHORIZED, Roles.REGISTERED]

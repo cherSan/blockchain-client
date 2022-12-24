@@ -19,7 +19,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     uri: `ws://localhost:3000${uri}`,
     options:{
       reconnect:true
-    }
+    },
   });
 
   const link = split(

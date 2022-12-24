@@ -1,0 +1,37 @@
+<nz-page-header>
+  <nz-page-header-title>POOL</nz-page-header-title>
+  <nz-page-header-subtitle class="menu">
+    <button nz-button nzType="primary" routerLinkActive="ant-btn-primary" [routerLink]="['1']" >
+      <span nz-icon nzType="user" nzTheme="outline"></span>
+    </button>
+  </nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <nz-button-group>
+      <button nz-button *ngFor="let item of menu" routerLinkActive="ant-btn-primary" [routerLink]="item.routerLink">
+        {{item.label}}
+      </button>
+    </nz-button-group>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+      <nz-input-group nzSearch [nzAddOnAfter]="button">
+        <input type="text" nz-input />
+        <ng-template #button>
+          <button nz-button nzType="primary">JOIN</button>
+        </ng-template>
+      </nz-input-group>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <span nz-icon nzType="home"></span>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>
+          <span nz-icon nzType="user"></span>
+          <span>Application List</span>
+        </a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>Application</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header-footer>
+</nz-page-header>

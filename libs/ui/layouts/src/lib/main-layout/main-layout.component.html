@@ -1,3 +1,11 @@
-<nz-layout>
-  <ng-content></ng-content>
+<nz-layout class="layout-container">
+  <div class="header">
+    <ng-content select="[header]"></ng-content>
+  </div>
+  <nz-content>
+    <ng-content></ng-content>
+  </nz-content>
+  <div class="flex-initial footer">
+    <ng-content select="[footer]"></ng-content>
+  </div>
 </nz-layout>
