@@ -1,0 +1,21 @@
+query EthHistory {
+  history {
+    data {
+      priceUsd
+      date
+      time
+    }
+    timestamp
+  }
+}
+
+subscription ListenEthHistory {
+  history {
+    data {
+      priceUsd
+      date
+      time
+    }
+    timestamp
+  }
+}

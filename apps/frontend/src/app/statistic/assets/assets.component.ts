@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { catchError, ignoreElements, map, Observable, of, switchMap } from "rxjs";
+import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import {
   ApolloAngularSDK,
   IAssetsQuery,
@@ -64,10 +64,14 @@ export class AssetsComponent {
     },
   ];
 
+  public data: undefined | IAssetsQuery["assets"] | IListenAssetsSubscription["assets"];
+
   data$: Observable<undefined | IAssetsQuery["assets"] | IListenAssetsSubscription["assets"]> = this.gql.assets().pipe(
     map(response => response.data?.assets),
+    tap(data => this.data = data),
     switchMap(() => this.gql.listenAssets()),
-    map(response => response.data?.assets)
+    map(response => response.data?.assets),
+    tap(data => this.data = data),
   );
 
   error$ = this.data$.pipe(
