@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { catchError, ignoreElements, map, Observable, of, switchMap } from "rxjs";
+import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import { ColDef } from "ag-grid-community";
 import {
   ApolloAngularSDK,
@@ -25,10 +25,14 @@ export class RatesComponent {
     },
   ];
 
+  data: undefined | IRatesQuery["rates"] | IListenRatesSubscription["rates"];
+
   data$: Observable<undefined | IRatesQuery["rates"] | IListenRatesSubscription["rates"]> = this.gql.rates().pipe(
     map(response => response.data?.rates),
+    tap(data => this.data = data),
     switchMap(() => this.gql.listenRates()),
     map(response => response.data?.rates),
+    tap(data => this.data = data),
   );
 
   error$ = this.data$.pipe(

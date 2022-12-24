@@ -20,6 +20,7 @@ import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
 import { PipesModule } from "../pipes/pipes.module";
+import { EthHistoryGraphComponent } from './eth-history-graph/eth-history-graph.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,8 @@ const routes: Routes = [
     PoolHashrateGraphComponent,
     MainStatsComponent,
     RatesComponent,
-    AssetsComponent
+    AssetsComponent,
+    EthHistoryGraphComponent
   ],
   imports: [
     CommonModule,

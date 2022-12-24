@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { ChartConfiguration } from "chart.js";
+import { LineChartData } from "../line-chart-data";
 
 @Component({
   selector: 'line-area-chart',
@@ -7,44 +8,38 @@ import { ChartConfiguration } from "chart.js";
   styleUrls: ['./line-area-chart.component.scss']
 })
 export class LineAreaChartComponent {
-  private dataCache: ChartConfiguration<'line'>['data'] = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'TPS',
-        data: [65, 59, 80, 81, 56, 55, 40],
+  public datasets: ChartConfiguration<'line'>['data']['datasets'] = [];
+  public labels: ChartConfiguration<'line'>['data']['labels'] = [];
+
+  @Input()
+  set value(data: LineChartData | undefined) {
+    if (JSON.stringify(this.labels) !== JSON.stringify(data?.labels)) {
+      this.labels = data?.labels;
+    }
+    const dataset = data?.dataset;
+    const tmpDatasets = Object.entries(dataset || {}).map(([label, data]) => {
+      return {
+        label,
+        data,
         fill: true,
         borderColor: '#5EEAD4',
         backgroundColor: 'rgba(94,234,212, .2)'
       }
-    ]
-  };
+    });
 
-  // @Input()
-  // set data(data) {
-  //   this.dataCache = data || {
-  //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  //     datasets: [
-  //       {
-  //         label: 'First Dataset',
-  //         data: [65, 59, 80, 81, 56, 55, 40],
-  //         fill: false,
-  //         borderColor: '#42A5F5',
-  //         tension: .4
-  //       },
-  //       {
-  //         label: 'Second Dataset',
-  //         data: [28, 48, 40, 19, 86, 27, 90],
-  //         fill: false,
-  //         borderColor: '#FFA726',
-  //         tension: .4
-  //       }
-  //     ]
-  //   };
-  // }
-
-  get data() {
-    return this.dataCache;
+    this.datasets = tmpDatasets.map((value, key) => {
+      if (
+        value.label !== this.datasets[key]?.label ||
+        JSON.stringify(value.data) !== JSON.stringify(this.datasets[key].data)
+      ) {
+        return {
+          ...value,
+          label: tmpDatasets[key].label,
+          data: value.data
+        }
+      }
+      return this.datasets[key];
+    })
   }
 
   @Input()

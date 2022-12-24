@@ -1,8 +1,8 @@
 <grid
   class="assets"
   [title]="'Assets'"
-  [extra]="((data$ | async)?.timestamp | date: 'yyyy-mm-dd HH:mm:ss') || undefined"
+  [extra]="(data?.timestamp | date: 'yyyy-mm-dd HH:mm:ss') || undefined"
   [error]="error$ | async"
-  [rowData]="(data$ | async)?.data"
+  [rowData]="data?.data"
   [columnDefs]="columnDefs"
 ></grid>

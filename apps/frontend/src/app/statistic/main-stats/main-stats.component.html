@@ -1,5 +1,5 @@
 <nz-alert *ngIf="error$ | async" nzType="error" [nzMessage]="error$ | async"></nz-alert>
-<nz-descriptions *ngIf="data$ | async as data" nzTitle="Ethereum (ETH2)" nzBordered [nzSize]="'small'" [nzColumn]="2">
+<nz-descriptions *ngIf="data" nzTitle="Ethereum (ETH2)" nzBordered [nzSize]="'small'" [nzColumn]="2">
   <nz-descriptions-item nzTitle="Supply">{{data?.EthSupply | siSymbol}}</nz-descriptions-item>
   <nz-descriptions-item nzTitle="Staking">{{data?.Eth2Staking | siSymbol}}</nz-descriptions-item>
   <nz-descriptions-item nzTitle="Burnt Fees">{{data?.BurntFees | siSymbol}}</nz-descriptions-item>

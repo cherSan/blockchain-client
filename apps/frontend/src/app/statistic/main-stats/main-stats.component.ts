@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { catchError, ignoreElements, map, Observable, of, switchMap } from "rxjs";
+import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import {
   ApolloAngularSDK,
   IEthersStatsQuery,
@@ -13,10 +13,13 @@ import {
 })
 export class MainStatsComponent {
 
+  public data: undefined | IEthersStatsQuery["etherStats"] | IListenEthersStatsSubscription["etherStats"];
   data$: Observable<undefined | IEthersStatsQuery["etherStats"] | IListenEthersStatsSubscription["etherStats"]> = this.gql.ethersStats().pipe(
     map(response => response.data?.etherStats),
+    tap(data => this.data = data),
     switchMap(() => this.gql.listenEthersStats()),
     map(response => response.data?.etherStats),
+    tap(data => this.data = data)
   );
 
   error$ = this.data$.pipe(
