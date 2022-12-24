@@ -2,8 +2,9 @@ import { Query, Resolver, Subscription } from "@nestjs/graphql";
 import { NotFoundException } from "@nestjs/common";
 import { Stats } from "./stats.model";
 import { StatsService } from "./stats.service";
+import { GraphQLError } from "graphql/error";
 
-@Resolver(of => Stats)
+@Resolver(() => Stats)
 export class StatsResolver {
   constructor(
     private readonly statsService: StatsService
@@ -12,15 +13,23 @@ export class StatsResolver {
 
   @Query(() => Stats, { name: 'stats' })
   async getStats(): Promise<Stats> {
-    const recipe = await this.statsService.get();
-    if (!recipe) {
-      throw new NotFoundException();
+    try {
+      const recipe = await this.statsService.get()
+      if (!recipe) {
+        throw new NotFoundException();
+      }
+      return recipe;
+    } catch (e) {
+      throw new GraphQLError(e)
     }
-    return recipe;
   }
 
   @Subscription(() => Stats)
   async stats() {
-    return this.statsService.pubsub.asyncIterator('stats');
+    try {
+      return this.statsService.subscribe();
+    } catch (e) {
+      throw new GraphQLError(e);
+    }
   }
 }

@@ -5,11 +5,15 @@ import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 
 import { UserModule } from "./user/user.module";
 import { StatsModule } from "./stats/stats.module";
+import { EthersModule } from "./ethers/ethers.module";
+import { CoincapModule } from "./coincap/coincap.module";
 
 @Module({
   imports: [
     UserModule,
     StatsModule,
+    EthersModule,
+    CoincapModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       autoSchemaFile: 'apps/backend/src/schema.gql',
@@ -28,6 +32,6 @@ import { StatsModule } from "./stats/stats.module";
       synchronize: true,
       logging: true
     })
-  ],
+  ]
 })
 export class AppModule {}
