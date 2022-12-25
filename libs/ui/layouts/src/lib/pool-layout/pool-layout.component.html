@@ -1,8 +1,17 @@
 <nz-page-header>
-  <nz-page-header-title>ETHEREUM</nz-page-header-title>
-  <nz-page-header-subtitle>COIN</nz-page-header-subtitle>
-  <nz-page-header-extra>asd</nz-page-header-extra>
-  <nz-page-header-content>as22d</nz-page-header-content>
+  <nz-page-header-title>{{title}}</nz-page-header-title>
+  <nz-page-header-subtitle>{{code}}</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+      <input nz-input name="wallet" type="text" id="wallet">
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="large" nzSearch>Join pool</button>
+      </ng-template>
+    </nz-input-group>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <ng-content select="[headerContent]"></ng-content>
+  </nz-page-header-content>
   <nz-page-header-footer>
     <nz-tabset nzLinkRouter>
       <nz-tab>

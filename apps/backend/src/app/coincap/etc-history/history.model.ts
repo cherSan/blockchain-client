@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType({ description: 'volume-weighted price based on real-time market data, translated to USD' })
-export class History {
+export class ETCHistory {
   @Field()
   priceUsd: string;
   @Field()
@@ -11,8 +11,8 @@ export class History {
 }
 
 @ObjectType({ description: 'volume-weighted price based on real-time market data, translated to USD' })
-export class HistoryInfo {
-  @Field(() => [History])
+export class ETCHistoryInfo {
+  @Field(() => [ETCHistory])
   data: History[];
   @Field()
   timestamp: number;

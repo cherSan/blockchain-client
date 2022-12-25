@@ -1,13 +1,11 @@
-<lo-pool>
+<lo-pool
+  [title]="'Ethereum Classic'"
+  [code]="'ETC'"
+>
+  <pool-header-content-layout headerContent></pool-header-content-layout>
   <div nz-row [nzGutter]="[20, 20]">
     <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
-      <main-stats></main-stats>
-    </div>
-    <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
       <eth-history-graph></eth-history-graph>
-    </div>
-    <div nz-col [nzXs]="24">
-      <pool-hashrate-graph></pool-hashrate-graph>
     </div>
   </div>
 

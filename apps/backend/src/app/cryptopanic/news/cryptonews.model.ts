@@ -48,3 +48,14 @@ export class CryptoNews {
   source: Source;
 }
 
+@ObjectType({ description: 'news' })
+export class News {
+  @Field(() => [CryptoNews])
+  results: CryptoNews[];
+  @Field()
+  count: number;
+  @Field({nullable: true})
+  next: string;
+  @Field({ nullable: true })
+  previous: string;
+}

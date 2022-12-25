@@ -6,8 +6,8 @@ import { RateService } from "./rates/rate.service";
 import { RateResolver } from "./rates/rate.resolver";
 import { AssetService } from "./assets/asset.service";
 import { AssetResolver } from "./assets/asset.resolver";
-import { HistoryService } from "./history/history.service";
-import { HistoryResolver } from "./history/history.resolver";
+import { ETCHistoryService } from "./etc-history/history.service";
+import { ETCHistoryResolver } from "./etc-history/history.resolver";
 
 @Module({
   imports: [HttpModule],
@@ -24,8 +24,8 @@ import { HistoryResolver } from "./history/history.resolver";
     RateResolver,
     AssetService,
     AssetResolver,
-    HistoryService,
-    HistoryResolver,
+    ETCHistoryService,
+    ETCHistoryResolver,
     PubSubService
   ]
 })

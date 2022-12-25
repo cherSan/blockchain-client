@@ -8,6 +8,7 @@ import { EthersModule } from "./ethers/ethers.module";
 import { CoincapModule } from "./coincap/coincap.module";
 import { PoolModule } from "./pool/pool.module";
 import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
+import { MinerstatModule } from "./minerstat/minerstat.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
     EthersModule,
     CoincapModule,
     CryptopanicModule,
+    MinerstatModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       autoSchemaFile: 'apps/backend/src/schema.gql',

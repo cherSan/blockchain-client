@@ -1,18 +1,18 @@
 import { Query, Resolver, Subscription } from "@nestjs/graphql";
 import { NotFoundException } from "@nestjs/common";
 import { GraphQLError } from "graphql/error";
-import { CryptonewsService } from "./cryptonews.service";
-import { News } from "./cryptonews.model";
+import { Coins } from "./coins.model";
+import { CoinsService } from "./coins.service";
 
-@Resolver(() => News)
-export class CryptonewsResolver {
+@Resolver(() => [Coins])
+export class CoinsResolver {
   constructor(
-    private readonly service: CryptonewsService
+    private readonly service: CoinsService
   ) {
   }
 
-  @Query(() => News, { name: 'hotNews' })
-  async getNews(): Promise<News> {
+  @Query(() => [Coins], { name: 'coins' })
+  async getCoins(): Promise<Coins[]> {
     try {
       const recipe = await this.service.get()
       if (!recipe) {
@@ -24,8 +24,8 @@ export class CryptonewsResolver {
     }
   }
 
-  @Subscription(() => News)
-  async hotNews() {
+  @Subscription(() => [Coins])
+  async coins() {
     try {
       return this.service.subscribe();
     } catch (e) {

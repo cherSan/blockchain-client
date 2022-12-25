@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import {
   ApolloAngularSDK,
-  IEthHistoryQuery,
-  IListenEthHistorySubscription
+  IEtcHistoryQuery,
+  IListenEtcHistorySubscription,
 } from "@blockchain_client/graph-ql-client";
+
+type History = IEtcHistoryQuery["etcHistory"] | IListenEtcHistorySubscription["etcHistory"];
 
 @Component({
   selector: 'eth-history-graph',
@@ -12,12 +14,12 @@ import {
   styleUrls: ['./eth-history-graph.component.scss']
 })
 export class EthHistoryGraphComponent {
-  public data: undefined | IEthHistoryQuery["history"] | IListenEthHistorySubscription["history"];
-  data$: Observable<undefined | IEthHistoryQuery["history"] | IListenEthHistorySubscription["history"]> = this.gql.ethHistory().pipe(
-    map(response => response.data?.history),
+  public data: undefined | History;
+  data$: Observable<undefined | History> = this.gql.etcHistory().pipe(
+    map(response => response.data?.etcHistory),
     tap(data => this.data = data),
-    switchMap(() => this.gql.listenEthHistory()),
-    map(response => response.data?.history),
+    switchMap(() => this.gql.listenEtcHistory()),
+    map(response => response.data?.etcHistory),
     tap(data => this.data = data),
   );
 

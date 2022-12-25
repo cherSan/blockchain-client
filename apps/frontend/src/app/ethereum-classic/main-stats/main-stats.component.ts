@@ -6,6 +6,8 @@ import {
   IListenEthersStatsSubscription,
 } from "@blockchain_client/graph-ql-client";
 
+type Stats = IEthersStatsQuery["etherStats"] | IListenEthersStatsSubscription["etherStats"];
+
 @Component({
   selector: 'main-stats',
   templateUrl: './main-stats.component.html',
@@ -13,8 +15,8 @@ import {
 })
 export class MainStatsComponent {
 
-  public data: undefined | IEthersStatsQuery["etherStats"] | IListenEthersStatsSubscription["etherStats"];
-  data$: Observable<undefined | IEthersStatsQuery["etherStats"] | IListenEthersStatsSubscription["etherStats"]> = this.gql.ethersStats().pipe(
+  public data: undefined | Stats;
+  data$: Observable<undefined | Stats> = this.gql.ethersStats().pipe(
     map(response => response.data?.etherStats),
     tap(data => this.data = data),
     switchMap(() => this.gql.listenEthersStats()),

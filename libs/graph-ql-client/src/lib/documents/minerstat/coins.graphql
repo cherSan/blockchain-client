@@ -1,0 +1,35 @@
+query MinerstatsCoins {
+  coins {
+    id
+    coin
+    name
+    type
+    algorithm
+    network_hashrate
+    difficulty
+    reward
+    reward_unit
+    reward_block
+    price
+    volume
+    updated
+  }
+}
+
+query ListenMinerstatsCoins {
+  coins {
+    id
+    coin
+    name
+    type
+    algorithm
+    network_hashrate
+    difficulty
+    reward
+    reward_unit
+    reward_block
+    price
+    volume
+    updated
+  }
+}

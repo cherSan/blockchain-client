@@ -1,18 +1,18 @@
 import { Query, Resolver, Subscription } from "@nestjs/graphql";
 import { NotFoundException } from "@nestjs/common";
 import { GraphQLError } from "graphql/error";
-import { HistoryInfo } from "./history.model";
-import { HistoryService } from "./history.service";
+import { ETCHistoryInfo } from "./history.model";
+import { ETCHistoryService } from "./history.service";
 
-@Resolver(() => HistoryInfo)
-export class HistoryResolver {
+@Resolver(() => ETCHistoryInfo)
+export class ETCHistoryResolver {
   constructor(
-    private readonly service: HistoryService
+    private readonly service: ETCHistoryService
   ) {
   }
 
-  @Query(() => HistoryInfo, { name: 'history' })
-  async getHistory(): Promise<HistoryInfo> {
+  @Query(() => ETCHistoryInfo, { name: 'etcHistory' })
+  async getHistory(): Promise<ETCHistoryInfo> {
     try {
       const recipe = await this.service.get()
       if (!recipe) {
@@ -24,8 +24,8 @@ export class HistoryResolver {
     }
   }
 
-  @Subscription(() => HistoryInfo)
-  async history() {
+  @Subscription(() => ETCHistoryInfo)
+  async etcHistory() {
     try {
       return this.service.subscribe();
     } catch (e) {

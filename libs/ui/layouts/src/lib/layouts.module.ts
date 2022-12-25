@@ -13,6 +13,9 @@ import { PoolLayoutComponent } from './pool-layout/pool-layout.component';
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { PoolHeaderContentLayoutComponent } from './pool-header-content-layout/pool-header-content-layout.component';
 
 @NgModule({
   imports: [
@@ -28,15 +31,19 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
     ]),
     NzTypographyModule,
     NzPageHeaderModule,
-    NzTabsModule
+    NzTabsModule,
+    NzInputModule,
+    NzButtonModule
   ],
   declarations: [
     MainLayoutComponent,
-    PoolLayoutComponent
+    PoolLayoutComponent,
+    PoolHeaderContentLayoutComponent
   ],
   exports: [
     MainLayoutComponent,
-    PoolLayoutComponent
+    PoolLayoutComponent,
+    PoolHeaderContentLayoutComponent
   ]
 })
 export class LayoutsModule {}
