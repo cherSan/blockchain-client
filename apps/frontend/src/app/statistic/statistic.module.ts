@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, DatePipe } from "@angular/common";
+import { AsyncPipe, DatePipe, NgForOf, NgIf } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 
 import { NzGridModule } from "ng-zorro-antd/grid";
@@ -14,6 +14,9 @@ import { PageComponent } from './page/page.component';
 import { RatesComponent } from './rates/rates.component';
 import { AssetsComponent } from './assets/assets.component';
 import { MainRatesComponent } from './main-rates/main-rates.component';
+import { NewsComponent } from './news/news.component';
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzTagModule } from "ng-zorro-antd/tag";
 
 const routes: Routes = [
   {
@@ -28,7 +31,8 @@ const routes: Routes = [
     RatesComponent,
     AssetsComponent,
     MainRatesComponent,
-    GetRatesPipe
+    GetRatesPipe,
+    NewsComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -37,7 +41,11 @@ const routes: Routes = [
     AsyncPipe,
     NzAlertModule,
     NzGridModule,
-    NzStatisticModule
+    NzStatisticModule,
+    NgIf,
+    NzListModule,
+    NgForOf,
+    NzTagModule
   ]
 })
 export class StatisticModule { }

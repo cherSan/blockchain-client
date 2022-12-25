@@ -8,7 +8,6 @@ type AssetsType = IAssetsQuery["assets"] | IListenAssetsSubscription["assets"];
 export class GetRatesPipe implements PipeTransform {
 
   transform(value: AssetsType | null | undefined = undefined, [symbol1, symbol2]: [string, string]): string {
-    console.log(1111);
     if (value === undefined || value === null) {
       return ''
     }

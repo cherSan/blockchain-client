@@ -11,6 +11,8 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PoolLayoutComponent } from './pool-layout/pool-layout.component';
 import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { NzTypographyModule } from "ng-zorro-antd/typography";
       DatabaseOutline,
       InfoCircleOutline
     ]),
-    NzTypographyModule
+    NzTypographyModule,
+    NzPageHeaderModule,
+    NzTabsModule
   ],
   declarations: [
     MainLayoutComponent,
