@@ -1,0 +1,7 @@
+<img
+  nz-image
+  [nzSrc]="'/assets/crypto-icons/' + value?.toLowerCase() + '.svg'"
+  [nzFallback]="'/assets/no-image.jpg'"
+  [alt]="value"
+/>
+<nz-statistic [nzValue]="value" [nzTitle]="title"></nz-statistic>

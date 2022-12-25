@@ -14,7 +14,8 @@ type CryptoNews = ICryptoNewsQuery['hotNews'] | IListenCryptoNewsSubscription['h
 })
 export class NewsComponent {
   data: undefined | CryptoNews;
-
+  page = 1;
+  records = 2;
   data$: Observable<undefined | CryptoNews> = this.gql.cryptoNews().pipe(
     map(response => response.data?.hotNews),
     tap(data => this.data = data),
@@ -28,8 +29,17 @@ export class NewsComponent {
     catchError((err) => of(err))
   )
 
+  get pagedData(): CryptoNews["results"] {
+    const from = (this.page - 1) * this.records;
+    const to = from + this.records;
+    return (this.data?.results || []).slice(from, to);
+  }
+
   constructor(
     private gql: ApolloAngularSDK
   ) { }
 
+  onPageIndexChange(page: number) {
+    this.page = page;
+  }
 }

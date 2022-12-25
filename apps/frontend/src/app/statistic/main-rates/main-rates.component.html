@@ -1,5 +1,5 @@
 <nz-alert *ngIf="error$ | async" nzType="error" [nzMessage]="error$ | async"></nz-alert>
-<nz-row [nzGutter]="[16, 22]">
+<nz-row [nzGutter]="[22, 50]">
   <nz-col [nzSpan]="8">
     <nz-statistic [nzValue]="data | getRates: ['BTC','USD']" [nzTitle]="'BTC / USD'"></nz-statistic>
   </nz-col>

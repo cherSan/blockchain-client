@@ -27,6 +27,7 @@ html {
 }
 
 .ag-grid-lost-position {
+  color: red;
   &:before {
     content: '';
     position: absolute;
@@ -39,6 +40,7 @@ html {
 }
 
 .ag-grid-win-position {
+  color: green;
   &:before {
     content: '';
     position: absolute;
@@ -48,4 +50,8 @@ html {
     background: green;
     height: 100%;
   }
+}
+
+.ag-theme-alpine-dark {
+  --ag-cell-horizontal-padding: calc(var(--ag-grid-size) * 2);
 }

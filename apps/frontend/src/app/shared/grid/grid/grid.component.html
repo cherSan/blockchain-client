@@ -10,6 +10,9 @@
 <ag-grid-angular
   class="grid"
   [columnDefs]="columnDefs"
+  [pagination]="true"
+  [paginationPageSize]="10"
+  [domLayout]="'autoHeight'"
   [defaultColDef]="defaultColDef"
   [rowData]="rowData"
   (gridReady)="onGridReady($event)"
@@ -17,6 +20,5 @@
   [getRowId]="getRowId"
   [enableCellChangeFlash]="true"
   [columnTypes]="columnTypes"
-  [alwaysShowVerticalScroll]="true"
 ></ag-grid-angular>
 

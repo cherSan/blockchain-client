@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input } from "@angular/core";
 import { ColDef, GetRowIdParams, GridReadyEvent } from "ag-grid-community";
+import { transform } from "../../../utils/si-symbol";
 
 @Component({
   selector: 'grid',
@@ -32,7 +33,8 @@ export class GridComponent {
     sortable: false,
     filter: false,
     editable: false,
-    suppressMenu: true
+    suppressMenu: true,
+    autoHeight: true
   };
 
   public columnTypes: {
@@ -45,9 +47,16 @@ export class GridComponent {
       cellRenderer: 'agAnimateShowChangeCellRenderer',
       cellStyle: { textAlign: 'right' },
       filter: 'agNumberColumnFilter',
-      valueFormatter: (params) => {
-        return parseFloat(params.value).toFixed(4).toString()
-      },
+      valueFormatter: (params) => transform(params.value),
+    },
+    Price: {
+      editable: false,
+      aggFunc: 'sum',
+      valueParser: 'Number(newValue)',
+      cellRenderer: 'agAnimateShowChangeCellRenderer',
+      cellStyle: { textAlign: 'right' },
+      filter: 'agNumberColumnFilter',
+      valueFormatter: (params) => parseInt(`${params?.value}`).toFixed(2),
     }
   };
 

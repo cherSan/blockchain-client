@@ -5,7 +5,8 @@ import {
   IAssetsQuery,
   IListenAssetsSubscription,
 } from "@blockchain_client/graph-ql-client";
-import { ColDef } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
+import { CoinRenderComponent } from "../../shared/grid/coin-render/coin-render.component";
 
 @Component({
   selector: 'assets',
@@ -26,41 +27,55 @@ export class AssetsComponent {
         return parseFloat(valueA) - parseFloat(valueB)
       }
     },
-    { field: 'name', filter: true, floatingFilter: true, suppressFiltersToolPanel: true},
-    { field: 'symbol', filter: true, floatingFilter: true, suppressFiltersToolPanel: true},
     {
-      field: 'supply',
-      type: 'ChangeDetection'
+      field: 'name',
+      filter: false,
+      width: 170,
+      minWidth: 170,
+      cellRendererSelector:  (_: ICellRendererParams) =>  ({
+        params: {
+          value: ['symbol', 'name']
+        },
+        component: CoinRenderComponent,
+      })
     },
     {
-      field: 'maxSupply',
-      type: 'ChangeDetection'
-    },
-    {
-      field: 'marketCapUsd',
-      type: 'ChangeDetection'
-    },
-    {
-      field: 'volumeUsd24Hr',
-      type: 'ChangeDetection'
-    },
-    {
+      minWidth: 90,
       field: 'priceUsd',
-      type: 'ChangeDetection'
+      type: 'Price',
+      headerName: 'Price (USD)'
     },
     {
+      minWidth: 90,
       field: 'changePercent24Hr',
       type: 'ChangeDetection',
       cellClass: (params) => {
         return parseFloat(params.value) < 0 ? 'ag-grid-lost-position' : 'ag-grid-win-position'
-      }
+      },
+      headerName: 'Change (24hr)'
     },
     {
+      minWidth: 90,
+      field: 'marketCapUsd',
+      type: 'ChangeDetection',
+      headerName: 'Market Cap (USD)'
+    },
+    {
+      minWidth: 90,
       field: 'vwap24Hr',
       type: 'ChangeDetection',
-      valueFormatter: (params) => {
-        return parseFloat(params.value).toFixed(4).toString()
-      }
+      headerName: 'VWAP (24hr)'
+    },
+    {
+      minWidth: 90,
+      field: 'supply',
+      type: 'ChangeDetection'
+    },
+    {
+      minWidth: 90,
+      field: 'volumeUsd24Hr',
+      type: 'ChangeDetection',
+      headerName: 'Volume (24hr)'
     },
   ];
 

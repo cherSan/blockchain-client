@@ -17,6 +17,8 @@ import { MainRatesComponent } from './main-rates/main-rates.component';
 import { NewsComponent } from './news/news.component';
 import { NzListModule } from "ng-zorro-antd/list";
 import { NzTagModule } from "ng-zorro-antd/tag";
+import { NzPaginationModule } from "ng-zorro-antd/pagination";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
 
 const routes: Routes = [
   {
@@ -45,7 +47,9 @@ const routes: Routes = [
     NgIf,
     NzListModule,
     NgForOf,
-    NzTagModule
+    NzTagModule,
+    NzPaginationModule,
+    NzTypographyModule
   ]
 })
 export class StatisticModule { }

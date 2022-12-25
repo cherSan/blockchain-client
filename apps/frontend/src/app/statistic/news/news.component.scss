@@ -1,5 +1,6 @@
-.news-list {
-  height: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
+nz-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
