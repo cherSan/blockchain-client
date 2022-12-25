@@ -1,11 +1,48 @@
 <nz-layout class="layout-container">
-  <div class="header">
-    <ng-content select="[header]"></ng-content>
-  </div>
-  <nz-content>
-    <ng-content></ng-content>
-  </nz-content>
-  <div class="flex-initial footer">
-    <ng-content select="[footer]"></ng-content>
-  </div>
+  <nz-sider nzCollapsible [nzWidth]="200">
+    <div class="logo">
+      <h3 nz-typography><span nz-icon [nzIconfont]="'icon-hand-holding-usd'"></span><span>POOL</span></h3>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item [nzMatchRouter]="true">
+        <a [routerLink]="['/', 'statistic']">
+          <span nz-icon [nzIconfont]="'icon-chart-area'"></span>
+          <span>Statistic</span>
+        </a>
+      </li>
+      <li nz-menu-item [nzMatchRouter]="true">
+        <a [routerLink]="['/', 'home2']">
+          <span nz-icon [nzIconfont]="'icon-question-circle'"></span>
+          <span>How To Start?</span>
+        </a>
+      </li>
+      <li nz-submenu [nzTitle]="title" nzOpen>
+        <ng-template #title>
+          <span nz-icon [nzIconfont]="'icon-coins'"></span>
+          <span>Pools</span>
+        </ng-template>
+        <ul>
+          <li nz-menu-item [nzMatchRouter]="true">
+            <a [routerLink]="['/', 'ethereum-classic']">
+              <span nz-icon [nzIconfont]="'icon-ETC'"></span>
+              <span>Ethereum Classic</span>
+            </a>
+          </li>
+          <li nz-menu-item nzDisabled [nzMatchRouter]="true">
+            <span nz-icon [nzIconfont]="'icon-BCH'"></span>
+            <span>Bitcoin</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-item [nzMatchRouter]="true">
+        <span nz-icon [nzIconfont]="'icon-readme'"></span>
+        <span>About Us</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="content">
+    <nz-content>
+      <ng-content></ng-content>
+    </nz-content>
+  </nz-layout>
 </nz-layout>

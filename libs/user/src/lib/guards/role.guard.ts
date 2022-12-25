@@ -11,7 +11,7 @@ import { Roles } from "../enums/roles";
 })
 export class RoleGuard implements CanActivate {
   constructor(
-    @Inject(DEFAULT_ROUTE) private defaultRoute: string,
+    @Inject(DEFAULT_ROUTE) private defaultRoute: string[],
     private user: UserService,
     private router: Router
   ) {
@@ -27,7 +27,7 @@ export class RoleGuard implements CanActivate {
         if (existRoles && existRoles.includes(role)) {
           return of(true);
         }
-        return from(this.router.navigate([this.defaultRoute], {replaceUrl: true}).then(() => {
+        return from(this.router.navigate(this.defaultRoute, {replaceUrl: true}).then(() => {
           console.info('Route unavailable for current user');
           return false
         }))

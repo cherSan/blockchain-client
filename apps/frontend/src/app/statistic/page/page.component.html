@@ -1,17 +1,11 @@
-<main-layout>
-  <top-menu header></top-menu>
-  <div nz-row [nzGutter]="[20, 20]">
-    <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12" [nzXXl]="8">
-      <main-stats></main-stats>
-    </div>
-    <div nz-col [nzXs]="24" [nzMd]="12" [nzLg]="12" [nzXXl]="8">
-      <eth-history-graph></eth-history-graph>
-    </div>
-    <div nz-col [nzXs]="24" [nzMd]="24" [nzLg]="24" [nzXXl]="8">
-      <rates></rates>
-    </div>
-    <div nz-col [nzXs]="24">
-      <assets></assets>
-    </div>
+<div nz-row [nzGutter]="[20, 20]">
+  <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
+    <main-rates></main-rates>
   </div>
-</main-layout>
+  <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
+    <rates></rates>
+  </div>
+  <div nz-col [nzXs]="24">
+    <assets></assets>
+  </div>
+</div>

@@ -1,26 +1,22 @@
-<nz-card
-  [nzTitle]="title"
-  [nzExtra]="extra"
->
-  <nz-card-meta
-    [nzTitle]="errorContainer"
-    *ngIf="error"
-  >
-    <ng-template #errorContainer>
-      <nz-alert nzType="error" [nzMessage]="error"></nz-alert>
-    </ng-template>
-  </nz-card-meta>
-  <ag-grid-angular
-    class="grid"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [rowData]="rowData"
-    (gridReady)="onGridReady($event)"
-    [animateRows]="true"
-    [getRowId]="getRowId"
-    [enableCellChangeFlash]="true"
-    [columnTypes]="columnTypes"
-    [alwaysShowVerticalScroll]="true"
-  ></ag-grid-angular>
-</nz-card>
+<nz-ribbon *ngIf="extra" [nzText]="extra" nzColor="volcano">
+  <nz-card>
+    <nz-card-meta
+      *ngIf="title"
+      [nzTitle]="title"
+    ></nz-card-meta>
+    <nz-alert *ngIf="error" nzType="error" [nzMessage]="error"></nz-alert>
+  </nz-card>
+</nz-ribbon>
+<ag-grid-angular
+  class="grid"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="rowData"
+  (gridReady)="onGridReady($event)"
+  [animateRows]="true"
+  [getRowId]="getRowId"
+  [enableCellChangeFlash]="true"
+  [columnTypes]="columnTypes"
+  [alwaysShowVerticalScroll]="true"
+></ag-grid-angular>
 

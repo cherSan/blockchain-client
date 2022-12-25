@@ -10,6 +10,10 @@ export class MenuComponent {
   @Input()
   menu: any = [
     {
+      label: 'Pool',
+      routerLink: ['/', 'home']
+    },
+    {
       label: 'Statistic',
       routerLink: ['/', 'home']
     },

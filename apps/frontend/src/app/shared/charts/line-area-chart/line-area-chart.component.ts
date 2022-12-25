@@ -18,12 +18,15 @@ export class LineAreaChartComponent {
     }
     const dataset = data?.dataset;
     const tmpDatasets = Object.entries(dataset || {}).map(([label, data]) => {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
       return {
         label,
         data,
         fill: true,
-        borderColor: '#5EEAD4',
-        backgroundColor: 'rgba(94,234,212, .2)'
+        borderColor: `rgb(${r},${g},${b})`,
+        backgroundColor: `rgba(${r},${g},${b},.1)`
       }
     });
 
@@ -46,6 +49,14 @@ export class LineAreaChartComponent {
   options: ChartConfiguration<'line'>['options'] = {
     responsive: true,
     maintainAspectRatio: true,
+    elements: {
+      point: {
+        radius: 0
+      },
+      line: {
+        backgroundColor: '#fff'
+      }
+    },
     plugins: {
       legend: {
         display: false

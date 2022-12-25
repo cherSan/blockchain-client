@@ -1,26 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, DatePipe } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
-import { LayoutsModule } from "@blockchain_client/ui/layouts";
 
-import { NzCardModule } from "ng-zorro-antd/card";
 import { NzGridModule } from "ng-zorro-antd/grid";
-import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzAlertModule } from "ng-zorro-antd/alert";
+import { NzStatisticModule } from "ng-zorro-antd/statistic";
 
-import { ChartsModule } from "../shared/charts/charts.module";
-import { MenuModule } from "../shared/menu/menu.module";
+import { GridModule } from "../shared/grid/grid.module";
+
+import { GetRatesPipe } from './get-rates.pipe';
 
 import { PageComponent } from './page/page.component';
-import { PoolHashrateGraphComponent } from './pool-hashrate-graph/pool-hashrate-graph.component';
-import { MainStatsComponent } from './main-stats/main-stats.component';
-import { GridModule } from "../shared/grid/grid.module";
 import { RatesComponent } from './rates/rates.component';
 import { AssetsComponent } from './assets/assets.component';
-import { NzBadgeModule } from "ng-zorro-antd/badge";
-import { NzAlertModule } from "ng-zorro-antd/alert";
-import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
-import { PipesModule } from "../pipes/pipes.module";
-import { EthHistoryGraphComponent } from './eth-history-graph/eth-history-graph.component';
+import { MainRatesComponent } from './main-rates/main-rates.component';
 
 const routes: Routes = [
   {
@@ -32,26 +25,19 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PageComponent,
-    PoolHashrateGraphComponent,
-    MainStatsComponent,
     RatesComponent,
     AssetsComponent,
-    EthHistoryGraphComponent
+    MainRatesComponent,
+    GetRatesPipe
   ],
   imports: [
-    CommonModule,
     RouterModule.forChild(routes),
-    LayoutsModule,
-    MenuModule,
-    ChartsModule,
-    NzCardModule,
-    NzGridModule,
-    NzDescriptionsModule,
     GridModule,
-    NzBadgeModule,
+    DatePipe,
+    AsyncPipe,
     NzAlertModule,
-    NzSkeletonModule,
-    PipesModule
+    NzGridModule,
+    NzStatisticModule
   ]
 })
 export class StatisticModule { }

@@ -18,7 +18,7 @@ export class HistoryService extends ListenerService<HistoryInfo> {
 
   protected observer$ = interval(this.timer).pipe(
     timeInterval(),
-    switchMap(() => this.httpService.get(`${this.uri}assets/ethereum/history?interval=d1`)),
+    switchMap(() => this.httpService.get(`${this.uri}assets/ethereum-classic/history?interval=d1`)),
     tap(() => this.error = undefined),
     map(response => response?.data),
     catchError(async (_) => {

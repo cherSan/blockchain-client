@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'main-layout',
+  selector: 'lo-main',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
