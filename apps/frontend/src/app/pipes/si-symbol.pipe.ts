@@ -29,8 +29,8 @@ export class SiSymbolPipe implements PipeTransform {
     '-21': 'z',
     '-24': 'y'
   };
-  transform(value?: number | string): string {
-    if (typeof value !== 'number' && typeof value !== 'string') {
+  transform(value?: number | string | null): string {
+    if (value === null || typeof value !== 'number' && typeof value !== 'string') {
       return 'NaN'
     }
 

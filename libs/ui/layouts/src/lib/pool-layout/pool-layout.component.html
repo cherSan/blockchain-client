@@ -1,0 +1,18 @@
+<nz-header>
+  <ul nz-menu nzTheme="dark" nzMode="horizontal">
+    <li nz-menu-item [nzMatchRouter]="true">
+      <a [routerLink]="['..', 'pool']">POOL</a>
+    </li>
+    <li nz-menu-item [nzMatchRouter]="true">
+      <a [routerLink]="['..', 'blocks']">BLOCKS</a>
+    </li>
+    <li nz-menu-item>MINERS</li>
+    <li nz-menu-item>REWARD</li>
+  </ul>
+</nz-header>
+<nz-content>
+  <ng-content></ng-content>
+</nz-content>
+<nz-footer>
+  <ng-content select="[footer]"></ng-content>
+</nz-footer>

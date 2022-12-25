@@ -15,13 +15,26 @@ import {
 export class RatesComponent {
 
   public columnDefs: ColDef[] = [
-    { field: 'id', hide: true },
-    { field: 'symbol', sort: 'asc', sortIndex: 2, filter: true, floatingFilter: true, suppressFiltersToolPanel: true},
-    { field: 'currencySymbol'},
-    { field: 'type', sort: 'asc', sortIndex: 1 },
+    { field: 'id', hide: true, width: 100 },
+    {
+      field: 'symbol',
+      sort: 'asc',
+      width: 150,
+      sortIndex: 2,
+      filter: true,
+      floatingFilter: true,
+      suppressFiltersToolPanel: true
+    },
+    {
+      field: 'type',
+      sort: 'asc',
+      sortIndex: 1,
+      width: 150
+    },
     {
       field: 'rateUsd',
-      type: 'ChangeDetection'
+      type: 'ChangeDetection',
+      width: 300
     },
   ];
 

@@ -1,7 +1,12 @@
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+
+import { from, of, switchMap } from "rxjs";
+
+import { NzIconService } from "ng-zorro-antd/icon";
+
 import { UserService } from "@blockchain_client/user";
-import { from, switchMap } from "rxjs";
+
 import { DEFAULT_ROUTE } from "./default-route.injection";
 
 @Injectable({
@@ -21,14 +26,23 @@ export class InitializationService {
   constructor(
     @Inject(DEFAULT_ROUTE) private defaultRoute: string,
     private route: Router,
-    private user: UserService
+    private user: UserService,
+    private iconService: NzIconService
   ) {
     this.lastGuardedRoute = defaultRoute;
   }
 
   run() {
     setTimeout(() => {
+
       this.user.checkUser().pipe(
+        switchMap(() => {
+          this.iconService.fetchFromIconfont({
+            scriptUrl: '//at.alicdn.com/t/c/font_3838451_2p59wcyvae3.js'
+          });
+          console.info('Fetch icons: complete');
+          return of(true);
+        }),
         switchMap(() => {
           return from(
             this.route.navigate([this.lastGuardedRoute], { replaceUrl: true }).then(() => {

@@ -1,0 +1,20 @@
+nz-header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #303030;
+  z-index: 10;
+  background: #000;
+  padding: 0;
+}
+
+nz-footer {
+  position: sticky;
+  bottom: 0;
+  border-bottom: 1px solid #303030;
+  z-index: 10;
+  background: #000;
+}
+
+nz-content {
+  padding: 40px;
+}
