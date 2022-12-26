@@ -99,8 +99,10 @@ export class CoinDetailsComponent {
     this.columns = [
       { field: 'id', hide: true },
       {
-        field: 'name',
-        filter: false,
+        field: 'symbol',
+        filter: true,
+        floatingFilter: true,
+        headerName: '',
         width: 170,
         minWidth: 170,
         cellRendererSelector:  (_: ICellRendererParams) =>  ({

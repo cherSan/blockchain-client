@@ -1,0 +1,81 @@
+<nz-empty *ngIf="error$ | async"></nz-empty>
+<nz-page-header [nzBackIcon]="back">
+  <ng-template #back>
+    <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
+  </ng-template>
+  <nz-page-header-title>{{data?.name}}</nz-page-header-title>
+  <nz-page-header-subtitle>{{data?.coin}}</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <img
+      *ngIf="data?.coin"
+      nz-image
+      [nzSrc]="'/assets/crypto-icons/' + data?.coin?.toLowerCase() + '.svg'"
+      [nzFallback]="'/assets/no-image.png'"
+      [alt]="data?.coin || ''"
+      width="60px"
+      height="60px"
+    />
+  </nz-page-header-extra>
+
+  <nz-page-header-tags>
+    <nz-tag>
+      {{data?.algorithm}}
+    </nz-tag>
+    <nz-tag [nzColor]="'success'">
+      {{data?.price}} $
+    </nz-tag>
+    <nz-tag>
+      {{(data!.updated! * 1000) | date: 'yyyy-MM-dd hh:mm:ss'}}
+    </nz-tag>
+  </nz-page-header-tags>
+  <nz-page-header-content *ngIf="data">
+    <nz-row [nzGutter]="[22, 10]">
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.algorithm"
+          [nzTitle]="'Algorithm'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.network_hashrate | siSymbol"
+          [nzTitle]="'Network Hashrate'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.difficulty | siSymbol"
+          [nzTitle]="'Difficulty'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.reward_block"
+          [nzTitle]="'Reward Block'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.reward"
+          [nzTitle]="'Reward'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="data.reward_unit"
+          [nzTitle]="'Reward Unit'"
+        ></nz-statistic>
+      </nz-col>
+    </nz-row>
+  </nz-page-header-content>
+</nz-page-header>
+<div class="content">
+  <div *ngIf="data?.coin !== undefined" nz-row [nzGutter]="[20, 20]">
+    <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
+      <coin-graph [coin]="data!.coin!"></coin-graph>
+    </div>
+    <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
+
+    </div>
+  </div>
+</div>

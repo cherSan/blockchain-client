@@ -29,6 +29,10 @@ const routes: Routes = [
         loadChildren: () => import('../market-data/market-data.module').then(m => m.MarketDataModule)
       },
       {
+        path: 'mining-data',
+        loadChildren: () => import('../mining-data/mining-data.module').then(m => m.MiningDataModule)
+      },
+      {
         path: 'ethereum-classic',
         loadChildren: () => import('../ethereum-classic/ethereum-classic.module').then(m => m.EthereumClassicModule)
       }

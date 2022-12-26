@@ -25,14 +25,15 @@ export class AssetsComponent {
       type: 'Number',
       sort: 'asc',
       sortIndex: 1,
-      hide: true,
       comparator: (valueA, valueB) => {
         return parseFloat(valueA) - parseFloat(valueB)
       }
     },
     {
-      field: 'name',
-      filter: false,
+      field: 'symbol',
+      filter: true,
+      floatingFilter: true,
+      headerName: '',
       width: 170,
       minWidth: 170,
       cellRendererSelector:  (_: ICellRendererParams) =>  ({
