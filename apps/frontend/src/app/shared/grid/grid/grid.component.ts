@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input } from "@angular/core";
-import { ColDef, GetRowIdParams, GridReadyEvent } from "ag-grid-community";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ColDef, GetRowIdParams, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
+import { transform } from "../../../utils/si-symbol";
 
 @Component({
   selector: 'grid',
@@ -13,10 +14,10 @@ export class GridComponent {
   resize = () => {}
 
   @Input()
-  title?: string = undefined;
+  title?: string | null = undefined;
 
   @Input()
-  extra?: string = undefined;
+  extra?: string | null = undefined;
 
   @Input()
   error?: string = undefined;
@@ -32,8 +33,12 @@ export class GridComponent {
     sortable: false,
     filter: false,
     editable: false,
-    suppressMenu: true
+    suppressMenu: true,
+    autoHeight: true
   };
+
+  @Output()
+  rowClick = new EventEmitter()
 
   public columnTypes: {
     [key: string]: ColDef;
@@ -45,9 +50,16 @@ export class GridComponent {
       cellRenderer: 'agAnimateShowChangeCellRenderer',
       cellStyle: { textAlign: 'right' },
       filter: 'agNumberColumnFilter',
-      valueFormatter: (params) => {
-        return parseFloat(params.value).toFixed(4).toString()
-      },
+      valueFormatter: (params) => transform(params.value),
+    },
+    Price: {
+      editable: false,
+      aggFunc: 'sum',
+      valueParser: 'Number(newValue)',
+      cellRenderer: 'agAnimateShowChangeCellRenderer',
+      cellStyle: { textAlign: 'right' },
+      filter: 'agNumberColumnFilter',
+      valueFormatter: (params) => parseInt(`${params?.value}`).toFixed(2),
     }
   };
 
@@ -58,5 +70,9 @@ export class GridComponent {
   onGridReady(params: GridReadyEvent) {
     params.api.sizeColumnsToFit();
     this.resize = params.api.sizeColumnsToFit.bind(params.api);
+  }
+
+  onRowClicked($event: RowClickedEvent<typeof this.rowData>) {
+    this.rowClick.emit($event)
   }
 }

@@ -1,5 +1,5 @@
-query EthHistory {
-  history {
+query EtcHistory {
+  etcHistory {
     data {
       priceUsd
       date
@@ -9,8 +9,8 @@ query EthHistory {
   }
 }
 
-subscription ListenEthHistory {
-  history {
+subscription ListenEtcHistory {
+  etcHistory {
     data {
       priceUsd
       date

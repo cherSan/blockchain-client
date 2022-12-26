@@ -1,11 +1,10 @@
-.content {
-  height: 100vh;
-  overflow-y: auto;
-}
-
 .logo {
+  height: 40px;
   display: flex;
   padding-top: 20px;
+  position: sticky;
+  top: 0;
+  box-sizing: content-box;
 
   h3 {
     margin-left: 30px;
@@ -17,4 +16,8 @@
       margin-right: 30px;
     }
   }
+}
+.menu {
+  position: sticky;
+  top: 63px;
 }

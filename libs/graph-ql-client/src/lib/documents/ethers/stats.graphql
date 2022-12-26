@@ -1,15 +1,19 @@
 query EthersStats {
   etherStats {
-    EthSupply
-    Eth2Staking
-    BurntFees
+    result {
+      EthSupply
+      Eth2Staking
+      BurntFees
+    }
   }
 }
 
 subscription ListenEthersStats {
   etherStats {
-    EthSupply
-    Eth2Staking
-    BurntFees
+    result {
+      EthSupply
+      Eth2Staking
+      BurntFees
+    }
   }
 }

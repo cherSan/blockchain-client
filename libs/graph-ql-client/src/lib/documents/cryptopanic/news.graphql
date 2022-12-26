@@ -1,0 +1,51 @@
+query CryptoNews {
+  hotNews {
+    results {
+      id
+      kind
+      domain
+      title
+      published_at
+      symbol
+      url
+      slug
+      created_at
+      currencies {
+        code
+        title
+      }
+      source {
+        title
+        region
+        domain
+        path
+      }
+    }
+  }
+}
+
+subscription ListenCryptoNews {
+  hotNews {
+    results {
+      id
+      kind
+      domain
+      title
+      published_at
+      symbol
+      url
+      slug
+      created_at
+      currencies {
+        code
+        title
+      }
+      source {
+        title
+        region
+        domain
+        path
+      }
+    }
+  }
+}

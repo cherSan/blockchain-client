@@ -8,6 +8,10 @@ html, body {
   overflow: hidden;
 }
 
+body {
+  overflow-y: auto;
+}
+
 html {
   scrollbar-width: thin;
   scrollbar-color: #6969dd #e0e0e0;
@@ -27,6 +31,7 @@ html {
 }
 
 .ag-grid-lost-position {
+  color: red;
   &:before {
     content: '';
     position: absolute;
@@ -39,6 +44,7 @@ html {
 }
 
 .ag-grid-win-position {
+  color: green;
   &:before {
     content: '';
     position: absolute;
@@ -47,5 +53,19 @@ html {
     width: 5px;
     background: green;
     height: 100%;
+  }
+}
+
+.ag-theme-alpine-dark {
+  --ag-cell-horizontal-padding: calc(var(--ag-grid-size) * 2);
+}
+
+.ant-carousel-vertical .slick-dots li {
+  height: 4px;
+  margin: 0 0 8px;
+
+  &.slick-active {
+    height: 18px;
+    margin: 0 0 8px;
   }
 }

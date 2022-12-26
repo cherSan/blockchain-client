@@ -1,18 +1,34 @@
-<nz-header>
-  <ul nz-menu nzTheme="dark" nzMode="horizontal">
-    <li nz-menu-item [nzMatchRouter]="true">
-      <a [routerLink]="['..', 'pool']">POOL</a>
-    </li>
-    <li nz-menu-item [nzMatchRouter]="true">
-      <a [routerLink]="['..', 'blocks']">BLOCKS</a>
-    </li>
-    <li nz-menu-item>MINERS</li>
-    <li nz-menu-item>REWARD</li>
-  </ul>
-</nz-header>
+<nz-page-header>
+  <nz-page-header-title>{{title}}</nz-page-header-title>
+  <nz-page-header-subtitle>{{code}}</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+      <input nz-input name="wallet" type="text" id="wallet">
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="large" nzSearch>Join pool</button>
+      </ng-template>
+    </nz-input-group>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <ng-content select="[headerContent]"></ng-content>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">POOL</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['..', 'blocks']">BLOCKS</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">MINERS</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">REWARD</a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
+</nz-page-header>
 <nz-content>
   <ng-content></ng-content>
 </nz-content>
-<nz-footer>
-  <ng-content select="[footer]"></ng-content>
-</nz-footer>

@@ -3,16 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { AgGridModule } from "ag-grid-angular";
 
-import { GridComponent } from './grid/grid.component';
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 
+import { GridComponent } from './grid/grid.component';
+import { CoinRenderComponent } from './coin-render/coin-render.component';
+import { NzStatisticModule } from "ng-zorro-antd/statistic";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzImageModule } from "ng-zorro-antd/image";
+
 @NgModule({
   declarations: [
-    GridComponent
+    GridComponent,
+    CoinRenderComponent
   ],
   imports: [
     CommonModule,
@@ -21,10 +27,14 @@ import { NzBadgeModule } from "ng-zorro-antd/badge";
     NzAlertModule,
     NzTypographyModule,
     NzPageHeaderModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzStatisticModule,
+    NzIconModule,
+    NzImageModule
   ],
   exports: [
-    GridComponent
+    GridComponent,
+    CoinRenderComponent
   ]
 })
 export class GridModule { }

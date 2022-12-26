@@ -8,6 +8,7 @@ import { LayoutsModule } from "@blockchain_client/ui/layouts";
 
 import { ApplicationLayoutComponent } from './application-layout/application-layout.component';
 import { NzLayoutModule } from "ng-zorro-antd/layout";
+import { NzBackTopModule } from "ng-zorro-antd/back-top";
 
 
 
@@ -20,7 +21,8 @@ import { NzLayoutModule } from "ng-zorro-antd/layout";
     LayoutsModule,
     NzMenuModule,
     NzIconModule,
-    NzLayoutModule
+    NzLayoutModule,
+    NzBackTopModule
   ],
   exports: [
     ApplicationLayoutComponent

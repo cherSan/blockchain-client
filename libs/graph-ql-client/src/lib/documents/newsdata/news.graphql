@@ -1,0 +1,40 @@
+query NewsData {
+  newsData {
+    data {
+      title
+      link
+      keywords
+      creator
+      video_url
+      description
+      content
+      pubDate
+      image_url
+      source_id
+      language
+      country
+      category
+    }
+    update_at
+  }
+}
+subscription ListenNewsData {
+  newsData {
+    data {
+      title
+      link
+      keywords
+      creator
+      video_url
+      description
+      content
+      pubDate
+      image_url
+      source_id
+      language
+      country
+      category
+    }
+    update_at
+  }
+}

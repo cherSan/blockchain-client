@@ -20,7 +20,7 @@ export class AssetService extends ListenerService<AssetsInfo> {
     protected readonly httpService: HttpService,
     protected readonly pubsub: PubSubService
   ) {
-    super(timer, uri, httpService, pubsub);
-    this.observer$.subscribe();
+    super(httpService, pubsub);
+    this.observer$(`${uri}assets`, timer).subscribe();
   }
 }

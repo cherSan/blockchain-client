@@ -11,6 +11,13 @@ import { NzIconModule } from "ng-zorro-antd/icon";
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PoolLayoutComponent } from './pool-layout/pool-layout.component';
 import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { PoolHeaderContentLayoutComponent } from './pool-header-content-layout/pool-header-content-layout.component';
+import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { PipesModule } from "../../../../../apps/frontend/src/app/pipes/pipes.module";
 
 @NgModule({
   imports: [
@@ -24,15 +31,23 @@ import { NzTypographyModule } from "ng-zorro-antd/typography";
       DatabaseOutline,
       InfoCircleOutline
     ]),
-    NzTypographyModule
+    NzTypographyModule,
+    NzPageHeaderModule,
+    NzTabsModule,
+    NzInputModule,
+    NzButtonModule,
+    NzDescriptionsModule,
+    PipesModule
   ],
   declarations: [
     MainLayoutComponent,
-    PoolLayoutComponent
+    PoolLayoutComponent,
+    PoolHeaderContentLayoutComponent
   ],
   exports: [
     MainLayoutComponent,
-    PoolLayoutComponent
+    PoolLayoutComponent,
+    PoolHeaderContentLayoutComponent
   ]
 })
 export class LayoutsModule {}

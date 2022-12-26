@@ -24,7 +24,7 @@ import { StatsResolver } from "./stats/stats.resolver";
     },
     {
       provide: ETHERS_REST_TIMER_UPDATE,
-      useValue: 10000
+      useValue: 30000
     },
     StatsService,
     StatsResolver,
