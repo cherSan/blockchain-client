@@ -43,8 +43,8 @@ export function transform(value?: number | string | null): string {
 
   const signPrefix = num < 0 ? '-' : '';
   if (sig > 1000) {
-    return signPrefix + sig.toFixed(0) + prefixes[exponent as keyof Prefixes];
+    return signPrefix + sig.toFixed(0) + (prefixes[exponent as keyof Prefixes]);
   }
-  return signPrefix + parseFloat(sig.toPrecision(3)) + prefixes[exponent as keyof Prefixes];
+  return signPrefix + parseFloat(sig.toPrecision(3)) + (prefixes[exponent as keyof Prefixes] || '');
 
 }

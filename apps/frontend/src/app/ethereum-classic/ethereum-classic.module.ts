@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { AsyncPipe, NgIf } from "@angular/common";
+import { AsyncPipe, CurrencyPipe, NgIf } from "@angular/common";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzGridModule } from "ng-zorro-antd/grid";
 
 import { LayoutsModule } from "@blockchain_client/ui/layouts";
 
@@ -16,7 +17,7 @@ import { BlocksComponent } from './blocks/blocks.component';
 import { EthHistoryGraphComponent } from "./eth-history-graph/eth-history-graph.component";
 import { MainStatsComponent } from "./main-stats/main-stats.component";
 import { PoolHashrateGraphComponent } from "./pool-hashrate-graph/pool-hashrate-graph.component";
-import { NzGridModule } from "ng-zorro-antd/grid";
+import { DifficultyGraphComponent } from './difficulty-graph/difficulty-graph.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,8 @@ const routes: Routes = [
     BlocksComponent,
     EthHistoryGraphComponent,
     MainStatsComponent,
-    PoolHashrateGraphComponent
+    PoolHashrateGraphComponent,
+    DifficultyGraphComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -52,7 +54,8 @@ const routes: Routes = [
     NzDescriptionsModule,
     PipesModule,
     NgIf,
-    NzGridModule
+    NzGridModule,
+    CurrencyPipe
   ]
 })
 export class EthereumClassicModule { }

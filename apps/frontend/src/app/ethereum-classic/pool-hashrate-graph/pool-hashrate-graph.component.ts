@@ -14,10 +14,6 @@ export class PoolHashrateGraphComponent {
     tap(data => this.stats = data),
     switchMap(() => this.gql.listenStats()),
     map(response => response.data?.stats),
-    map(data => {
-      console.log(data);
-      return data;
-    })
   );
 
   stateError$ = this.stats$.pipe(

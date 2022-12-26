@@ -1,0 +1,17 @@
+query CoinDynamic($coin: String!) {
+  coinDynamicData(coin: $coin) {
+    labels
+    difficultyData
+    hashrateData
+    priceData
+  }
+}
+
+subscription ListenCoinDynamic($coin: String!) {
+  coinDynamicData(coin: $coin) {
+    labels
+    difficultyData
+    hashrateData
+    priceData
+  }
+}

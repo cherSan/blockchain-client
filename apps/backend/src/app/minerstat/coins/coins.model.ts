@@ -24,7 +24,7 @@ export class Coins {
   reward_block: number
   @Field({ description: 'Coin\'s price in USD. If coin has no data on price, the price is -1.' })
   price: number
-  @Field({ description: 'Coin\'s last 24h volume in USD. If coin has no data on volume, the volume is -1.' })
+  @Field({ nullable: true, description: 'Coin\'s last 24h volume in USD. If coin has no data on volume, the volume is -1.' })
   volume: number
   @Field({ description: 'The UNIX timestamp of the last time the coin was updated.' })
   updated: number
