@@ -1,9 +1,4 @@
 <nz-empty *ngIf="error$ | async"></nz-empty>
-<nz-back-top> [nzTemplate]="tpl" [nzVisibilityHeight]="100" (nzOnClick)="notify()">
-  <ng-template #tpl>
-    <div class="ant-back-top-inner">UP</div>
-  </ng-template>
-</nz-back-top>
 <nz-page-header [nzBackIcon]="back">
   <ng-template #back>
     <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
@@ -14,7 +9,7 @@
     <img
       nz-image
       [nzSrc]="'/assets/crypto-icons/' + symbol?.toLowerCase() + '.svg'"
-      [nzFallback]="'/assets/no-image.jpg'"
+      [nzFallback]="'/assets/no-image.png'"
       [alt]="symbol"
       width="60px"
       height="60px"

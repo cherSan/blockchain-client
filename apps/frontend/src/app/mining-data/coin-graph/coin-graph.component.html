@@ -1,0 +1,11 @@
+<nz-card [nzTitle]="title || (coin$ | async) || ''">
+  <nz-card-meta
+    [nzTitle]="errorContainer"
+    *ngIf="error$ | async"
+  >
+    <ng-template #errorContainer>
+      <nz-alert nzType="error" [nzMessage]="error$ | async"></nz-alert>
+    </ng-template>
+  </nz-card-meta>
+  <line-area-chart [value]="data"></line-area-chart>
+</nz-card>
