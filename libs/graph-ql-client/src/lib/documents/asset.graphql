@@ -1,0 +1,37 @@
+query Assets {
+  assets {
+    data {
+      id
+      rank
+      symbol
+      name
+      supply
+      maxSupply
+      marketCapUsd
+      volumeUsd24Hr
+      priceUsd
+      changePercent24Hr
+      vwap24Hr
+    }
+    timestamp
+  }
+}
+
+subscription ListenAssets {
+  assets {
+    data {
+      id
+      rank
+      symbol
+      name
+      supply
+      maxSupply
+      marketCapUsd
+      volumeUsd24Hr
+      priceUsd
+      changePercent24Hr
+      vwap24Hr
+    }
+    timestamp
+  }
+}

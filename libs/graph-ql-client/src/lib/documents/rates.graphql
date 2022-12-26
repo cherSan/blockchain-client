@@ -1,0 +1,25 @@
+query Rates {
+  rates {
+    data {
+      symbol
+      rateUsd
+      currencySymbol
+      type
+      id
+    }
+    timestamp
+  }
+}
+
+subscription ListenRates {
+  rates {
+    data {
+      symbol
+      rateUsd
+      currencySymbol
+      type
+      id
+    }
+    timestamp
+  }
+}
