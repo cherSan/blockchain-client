@@ -21,12 +21,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'statistic',
+        redirectTo: 'market-data',
         pathMatch: 'full'
       },
       {
-        path: 'statistic',
-        loadChildren: () => import('../statistic/statistic.module').then(m => m.StatisticModule)
+        path: 'market-data',
+        loadChildren: () => import('../market-data/market-data.module').then(m => m.MarketDataModule)
       },
       {
         path: 'ethereum-classic',

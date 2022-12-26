@@ -1,8 +1,8 @@
 <grid
-  class="rates"
-  [title]="'Rates'"
+  [title]="'Assets'"
   [extra]="(data?.timestamp | date: 'yyyy-mm-dd HH:mm:ss') || undefined"
   [error]="error$ | async"
   [rowData]="data?.data"
   [columnDefs]="columnDefs"
+  (rowClick)="onRowClick($event)"
 ></grid>

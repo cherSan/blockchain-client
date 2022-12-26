@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+
 import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import {
   ApolloAngularSDK,
   IAssetsQuery,
   IListenAssetsSubscription,
 } from "@blockchain_client/graph-ql-client";
-import { ColDef, ICellRendererParams } from "ag-grid-community";
+import { ColDef, ICellRendererParams, RowClickedEvent } from "ag-grid-community";
 import { CoinRenderComponent } from "../../shared/grid/coin-render/coin-render.component";
 
+type Assets = IAssetsQuery["assets"] | IListenAssetsSubscription["assets"];
 @Component({
   selector: 'assets',
   templateUrl: './assets.component.html',
@@ -68,20 +71,15 @@ export class AssetsComponent {
     },
     {
       minWidth: 90,
-      field: 'supply',
-      type: 'ChangeDetection'
-    },
-    {
-      minWidth: 90,
       field: 'volumeUsd24Hr',
       type: 'ChangeDetection',
       headerName: 'Volume (24hr)'
     },
   ];
 
-  public data: undefined | IAssetsQuery["assets"] | IListenAssetsSubscription["assets"];
+  public data: undefined | Assets;
 
-  data$: Observable<undefined | IAssetsQuery["assets"] | IListenAssetsSubscription["assets"]> = this.gql.assets().pipe(
+  data$: Observable<undefined | Assets> = this.gql.assets().pipe(
     map(response => response.data?.assets),
     tap(data => this.data = data),
     switchMap(() => this.gql.listenAssets()),
@@ -95,7 +93,12 @@ export class AssetsComponent {
   )
 
   constructor(
-    private gql: ApolloAngularSDK
+    private gql: ApolloAngularSDK,
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) { }
 
+  onRowClick($event: RowClickedEvent<Assets["data"][number]>) {
+    return this.router.navigate([$event.data?.symbol], {relativeTo: this.activeRoute})
+  }
 }

@@ -10,13 +10,12 @@ import { ICellRendererParams } from 'ag-grid-community';
 export class CoinRenderComponent implements ICellRendererAngularComp {
   title?: string;
   value?: string;
-  agInit(params: ICellRendererParams): void {console.log(222, params)
+  agInit(params: ICellRendererParams): void {
     this.value = params.data[params.value[0]];
     this.title = params.data[params.value[1]];
   }
 
   refresh(params: ICellRendererParams) {
-    console.log(333, params)
     return false;
   }
 }

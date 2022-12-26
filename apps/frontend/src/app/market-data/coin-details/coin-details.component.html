@@ -1,0 +1,114 @@
+<nz-empty *ngIf="error$ | async"></nz-empty>
+<nz-back-top> [nzTemplate]="tpl" [nzVisibilityHeight]="100" (nzOnClick)="notify()">
+  <ng-template #tpl>
+    <div class="ant-back-top-inner">UP</div>
+  </ng-template>
+</nz-back-top>
+<nz-page-header [nzBackIcon]="back">
+  <ng-template #back>
+    <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
+  </ng-template>
+  <nz-page-header-title>{{title}}</nz-page-header-title>
+  <nz-page-header-subtitle>{{symbol}}</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <img
+      nz-image
+      [nzSrc]="'/assets/crypto-icons/' + symbol?.toLowerCase() + '.svg'"
+      [nzFallback]="'/assets/no-image.jpg'"
+      [alt]="symbol"
+      width="60px"
+      height="60px"
+    />
+  </nz-page-header-extra>
+
+  <nz-page-header-tags>
+    <nz-tag>
+      RANK: {{rank}}
+    </nz-tag>
+    <nz-tag [nzColor]="'success'">
+      {{price | currency: '$'}}
+    </nz-tag>
+    <nz-tag [nzColor]="changePercent24Hr < 0 ? 'error': 'success'">
+      <span *ngIf="changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-chevron-circle-left'"></span>
+      <span *ngIf="changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-chevron-circle-right'"></span>
+      {{((changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'}}
+    </nz-tag>
+  </nz-page-header-tags>
+  <nz-page-header-content>
+    <nz-row [nzGutter]="[22, 50]">
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="((changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'"
+          [nzTitle]="'CHANGE'"
+          [nzPrefix]="prefixTplTwo"
+          [nzValueStyle]="{ color: changePercent24Hr < 0 ? 'red': 'green' }"
+        >
+          <ng-template #prefixTplTwo>
+            <span *ngIf="changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-arrow-down'"></span>
+            <span *ngIf="changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-arrow-up'"></span>
+          </ng-template>
+        </nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="(marketCapUsd | siSymbol) || 'N/A'"
+          [nzPrefix]="'$'"
+          [nzTitle]="'Market Cap'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="(volumeUsd24Hr | siSymbol) || 'N/A'"
+          [nzPrefix]="'$'"
+          [nzTitle]="'Volume (24Hr)'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="(volumeUsd24Hr | siSymbol) || 'N/A'"
+          [nzPrefix]="'$'"
+          [nzTitle]="'Volume (24Hr)'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="(vwap24Hr | siSymbol) || 'N/A'"
+          [nzPrefix]="'$'"
+          [nzTitle]="'VWARP (24Hr)'"
+        ></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
+        <nz-statistic
+          [nzValue]="(supply | siSymbol) || 'N/A'"
+          [nzPrefix]="'$'"
+          [nzTitle]="'Supply'"
+        ></nz-statistic>
+      </nz-col>
+    </nz-row>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    Last Update: {{update | date: 'yyyy-MM-dd hh:mm:ss'}}
+  </nz-page-header-footer>
+</nz-page-header>
+<div class="content">
+<nz-descriptions nzBordered [nzColumn]="2" nzColon nzTitle="Rates" [nzExtra]="'Last update time: ' + (update | date: 'yyyy-MM-dd hh:mm:ss')">
+  <ng-container *ngFor="let pair of pairs">
+    <nz-descriptions-item nzSpan="1" [nzTitle]="titleTpl1">
+      <ng-template #titleTpl1>
+        {{symbol}} / <a [routerLink]="[pair.symbol]" [relativeTo]="activeRouter.parent">{{pair.symbol}}</a>
+      </ng-template>
+      <div class="currency-pairs">
+        {{pair.forward | currency: '$': 'code': '0.6-6'}}
+      </div>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzSpan="1" [nzTitle]="titleTpl2">
+      <ng-template #titleTpl2>
+        <a [routerLink]="[pair.symbol]" [relativeTo]="activeRouter.parent">{{pair.symbol}}</a> / {{symbol}}
+      </ng-template>
+      <div class="currency-pairs">
+        {{pair.backward | currency: '$': 'code': '0.6-6'}}
+      </div>
+    </nz-descriptions-item>
+  </ng-container>
+</nz-descriptions>
+</div>

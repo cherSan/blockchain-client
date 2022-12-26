@@ -19,7 +19,6 @@ export class PoolHashrateGraphComponent {
   stateError$ = this.stats$.pipe(
     ignoreElements(),
     catchError((err) => {
-      console.log(err);
       return of(err);
     })
   )

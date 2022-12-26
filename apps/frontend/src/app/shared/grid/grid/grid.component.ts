@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input } from "@angular/core";
-import { ColDef, GetRowIdParams, GridReadyEvent } from "ag-grid-community";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ColDef, GetRowIdParams, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
 import { transform } from "../../../utils/si-symbol";
 
 @Component({
@@ -37,6 +37,9 @@ export class GridComponent {
     autoHeight: true
   };
 
+  @Output()
+  rowClick = new EventEmitter()
+
   public columnTypes: {
     [key: string]: ColDef;
   } = {
@@ -67,5 +70,9 @@ export class GridComponent {
   onGridReady(params: GridReadyEvent) {
     params.api.sizeColumnsToFit();
     this.resize = params.api.sizeColumnsToFit.bind(params.api);
+  }
+
+  onRowClicked($event: RowClickedEvent<typeof this.rowData>) {
+    this.rowClick.emit($event)
   }
 }
