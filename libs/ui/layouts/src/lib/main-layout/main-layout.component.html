@@ -3,11 +3,17 @@
     <div class="logo">
       <h3 nz-typography><span nz-icon [nzIconfont]="'icon-hand-holding-usd'"></span><span>POOL</span></h3>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline">
+    <ul nz-menu nzTheme="dark" nzMode="inline" class="menu">
       <li nz-menu-item [nzMatchRouter]="true">
-        <a [routerLink]="['/', 'statistic']">
+        <a [routerLink]="['/', 'market-data']">
           <span nz-icon [nzIconfont]="'icon-chart-area'"></span>
-          <span>Statistic</span>
+          <span>Market Data</span>
+        </a>
+      </li>
+      <li nz-menu-item [nzMatchRouter]="true">
+        <a [routerLink]="['/', 'mining-data']">
+          <span nz-icon [nzIconfont]="'icon-tachometer-alt'"></span>
+          <span>Mining Data</span>
         </a>
       </li>
       <li nz-menu-item [nzMatchRouter]="true">

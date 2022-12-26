@@ -18,7 +18,7 @@ import { ETCHistoryResolver } from "./etc-history/history.resolver";
     },
     {
       provide: COINCAP_REST_TIMER_UPDATE,
-      useValue: 5000
+      useValue: 30000
     },
     RateService,
     RateResolver,

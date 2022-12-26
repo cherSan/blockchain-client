@@ -1,5 +1,14 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf, PercentPipe } from "@angular/common";
+import {
+  AsyncPipe,
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  NgForOf,
+  NgIf,
+  PercentPipe,
+  TitleCasePipe
+} from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -28,6 +37,8 @@ import { NzSpaceModule } from "ng-zorro-antd/space";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
 import { NzBackTopModule } from "ng-zorro-antd/back-top";
+import { NzCarouselModule } from "ng-zorro-antd/carousel";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 const routes: Routes = [
   {
@@ -73,7 +84,10 @@ const routes: Routes = [
     NzSpaceModule,
     NzDescriptionsModule,
     NzBadgeModule,
-    NzBackTopModule
+    NzBackTopModule,
+    NzCarouselModule,
+    NzCardModule,
+    TitleCasePipe
   ]
 })
 export class MarketDataModule { }

@@ -10,17 +10,23 @@ import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
 import { GraphQLError } from "graphql/error";
 import { CoinDynamicData } from "./dynamic-data.model";
 
-type DynamicDataField = {
-  [key: string]: number[]
+interface DynamicData {
+  difficultyData: number;
+  hashrateData: number;
+  priceData: number;
+}
+interface UpdateList {
+  [updateTimestamp: number]: DynamicData
+}
+
+interface CoinsDynamicData {
+  [coinSymbol: string]: UpdateList
 }
 
 @Injectable()
 export class CoinsService extends ListenerService<Coins[]> {
   protected serviceKey = 'coins';
-  private labels: DynamicDataField = {};
-  private difficultyData: DynamicDataField = {};
-  private hashrateData: DynamicDataField = {};
-  private priceData: DynamicDataField = {};
+  private coinDynamicData: CoinsDynamicData = {};
   constructor(
     @Inject(MINERSTAT_REST_TIMER_UPDATE) protected readonly timer: number,
     @Inject(MINERSTAT_REST_CONNECTION_URL) protected readonly uri: string,
@@ -45,23 +51,37 @@ export class CoinsService extends ListenerService<Coins[]> {
         this.data = data;
         const pubList: Promise<unknown>[] = [];
         data.forEach((value) => {
-          this.labels[value.coin] = !this.labels[value.coin] ? [value.updated * 1000]: [...this.labels[value.coin], value.updated * 1000];
-          if (this.labels[value.coin].length > 1000) this.labels[value.coin].shift();
-          this.difficultyData[value.coin] = !this.difficultyData[value.coin] ? [value.difficulty]: [...this.difficultyData[value.coin], value.difficulty]
-          if (this.difficultyData[value.coin].length > 1000) this.difficultyData[value.coin].shift();
-          this.hashrateData[value.coin] = !this.hashrateData[value.coin] ? [value.network_hashrate]: [...this.hashrateData[value.coin], value.network_hashrate]
-          if (this.hashrateData[value.coin].length > 1000) this.hashrateData[value.coin].shift();
-          this.priceData[value.coin] = !this.priceData[value.coin] ? [value.price]: [...this.priceData[value.coin], value.price]
-          if (this.priceData[value.coin].length > 1000) this.priceData[value.coin].shift();
-          const coinDynamicData =  {
-            labels: this.labels[value.coin],
-            difficultyData: this.difficultyData[value.coin],
-            hashrateData: this.hashrateData[value.coin],
-            priceData: this.priceData[value.coin],
-          };
-          pubList.push(
-            this.pubsub.publish(value.coin + 'DynamicData' , { coinDynamicData })
-          )
+          const timestamp = value.updated * 1000;
+          this.coinDynamicData[value.coin] = {
+            ...(this.coinDynamicData[value.coin] || {}),
+          }
+          if (!this.coinDynamicData[value.coin][timestamp]) {
+            const timestamps = Object.keys(this.coinDynamicData[value.coin]);
+            if (timestamps.length > 99) {
+              delete this.coinDynamicData[value.coin][timestamps[0]];
+            }
+            this.coinDynamicData[value.coin][timestamp] = {
+              difficultyData: value.difficulty,
+              hashrateData: value.network_hashrate,
+              priceData: value.price,
+            }
+            const coinDynamicData = Object.entries(this.coinDynamicData[value.coin])
+              .reduce<CoinDynamicData>((accum, [label, data]) => {
+                accum.labels.push(parseInt(label));
+                accum.difficultyData.push(data.difficultyData);
+                accum.hashrateData.push(data.hashrateData);
+                accum.priceData.push(data.priceData);
+                return accum;
+              }, {
+                labels: [],
+                difficultyData: [],
+                hashrateData: [],
+                priceData: []
+              });
+            pubList.push(
+              this.pubsub.publish(value.coin + 'DynamicData' , { coinDynamicData })
+            )
+          }
         });
         await Promise.all(pubList);
         await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: data })
@@ -72,12 +92,19 @@ export class CoinsService extends ListenerService<Coins[]> {
   }
 
   public getDynamicData(coin: string): CoinDynamicData {
-    return {
-      labels: this.labels[coin],
-      difficultyData: this.difficultyData[coin],
-      hashrateData: this.hashrateData[coin],
-      priceData: this.priceData[coin],
-    }
+    return  Object.entries(this.coinDynamicData[coin])
+      .reduce<CoinDynamicData>((accum, [label, data]) => {
+        accum.labels.push(parseInt(label));
+        accum.difficultyData.push(data.difficultyData);
+        accum.hashrateData.push(data.hashrateData);
+        accum.priceData.push(data.priceData);
+        return accum;
+      }, {
+        labels: [],
+        difficultyData: [],
+        hashrateData: [],
+        priceData: []
+      });
   }
 
   public subscribeDynamicData(coin: string): AsyncIterator<CoinDynamicData> {

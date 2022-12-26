@@ -37,7 +37,7 @@ export class InitializationService {
       this.user.checkUser().pipe(
         switchMap(() => {
           this.iconService.fetchFromIconfont({
-            scriptUrl: '//at.alicdn.com/t/c/font_3838451_2p59wcyvae3.js'
+            scriptUrl: '//at.alicdn.com/t/c/font_3838451_2oj3ia67d2t.js'
           });
           console.info('Fetch icons: complete');
           return of(true);

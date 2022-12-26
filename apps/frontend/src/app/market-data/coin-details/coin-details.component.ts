@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import { ApolloAngularSDK, IAssetsQuery, IListenAssetsSubscription } from "@blockchain_client/graph-ql-client";
+import { ColDef, ICellRendererParams, RowClickedEvent } from "ag-grid-community";
+import { CoinRenderComponent } from "../../shared/grid/coin-render/coin-render.component";
 
 type Assets = IAssetsQuery["assets"] | IListenAssetsSubscription["assets"];
 type Asset = Assets["data"][number];
@@ -28,11 +30,13 @@ export class CoinDetailsComponent {
   public rank: number | string = 0;
   public pairs: Pairs[] = [];
   public update: number = 0;
+  public columns: ColDef[] = []
 
-  private data$: Observable<undefined | Assets | boolean> = this.activeRouter.params.pipe(
+  private data$: Observable<undefined | Assets | boolean> = this.activeRoute.params.pipe(
     tap(params => this.symbol = params['id']),
     switchMap(params => {
       const coinSymbol = params['id'];
+      this.updateColumns(coinSymbol);
       return this.gql.assets().pipe(
         map(response => response.data?.assets),
         map((data) => this.parseData(data, coinSymbol)),
@@ -43,7 +47,7 @@ export class CoinDetailsComponent {
                 this.parseData(data, coinSymbol)
               }),
             ) :
-            this.router.navigate(['..'], { relativeTo: this.activeRouter })
+            this.router.navigate(['.'], { relativeTo: this.activeRoute.parent })
         })
       );
     })
@@ -56,7 +60,7 @@ export class CoinDetailsComponent {
   constructor(
     private gql: ApolloAngularSDK,
     private router: Router,
-    public activeRouter: ActivatedRoute
+    private activeRoute: ActivatedRoute
   ) {
   }
   private setData(currentCoin: Asset | null | undefined): void {
@@ -82,10 +86,46 @@ export class CoinDetailsComponent {
   private makePairs(currentCoin: undefined | Asset, coins: Assets | undefined) {
     if (currentCoin && coins) {
       this.pairs = coins.data.map(v => ({
+        id: v.symbol,
         symbol: v.symbol,
+        name: v.name,
         forward: parseFloat(currentCoin.priceUsd) / parseFloat(v.priceUsd),
         backward: parseFloat(v.priceUsd) / parseFloat(currentCoin.priceUsd)
       })).filter(v => v.symbol !== this.symbol)
     }
+  }
+
+  updateColumns(symbol:string) {
+    this.columns = [
+      { field: 'id', hide: true },
+      {
+        field: 'name',
+        filter: false,
+        width: 170,
+        minWidth: 170,
+        cellRendererSelector:  (_: ICellRendererParams) =>  ({
+          params: {
+            value: ['symbol', 'name']
+          },
+          component: CoinRenderComponent,
+        })
+      },
+      {
+        field: 'forward',
+        type: 'ChangeDetection',
+        headerName: symbol + ' / Coin*',
+        valueFormatter: (params) => params.value.toFixed(8),
+      },
+      {
+        field: 'backward',
+        type: 'ChangeDetection',
+        headerName: 'Coin* / ' + symbol,
+        valueFormatter: (params) => params.value.toFixed(8),
+      }
+    ];
+  }
+
+  onRowClick($event: RowClickedEvent<Assets["data"][number]>) {
+    return this.router.navigate([$event.data?.symbol], {relativeTo: this.activeRoute.parent})
   }
 }

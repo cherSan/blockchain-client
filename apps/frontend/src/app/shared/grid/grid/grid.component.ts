@@ -14,10 +14,10 @@ export class GridComponent {
   resize = () => {}
 
   @Input()
-  title?: string = undefined;
+  title?: string | null = undefined;
 
   @Input()
-  extra?: string = undefined;
+  extra?: string | null = undefined;
 
   @Input()
   error?: string = undefined;

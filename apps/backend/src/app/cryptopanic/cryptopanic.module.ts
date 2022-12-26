@@ -24,7 +24,7 @@ import { CryptonewsResolver } from "./news/cryptonews.resolver";
     },
     {
       provide: CRYPTOPANIC_REST_TIMER_UPDATE,
-      useValue: 120000
+      useValue: 3600000
     },
     CryptonewsService,
     CryptonewsResolver,

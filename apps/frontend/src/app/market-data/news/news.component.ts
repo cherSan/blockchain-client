@@ -1,27 +1,32 @@
 import { Component } from '@angular/core';
 import {
   ApolloAngularSDK,
-  ICryptoNewsQuery,
-  IListenCryptoNewsSubscription,
+  IListenNewsDataSubscription,
+  INewsDataQuery
 } from "@blockchain_client/graph-ql-client";
 import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 
-type CryptoNews = ICryptoNewsQuery['hotNews'] | IListenCryptoNewsSubscription['hotNews'];
+type News = INewsDataQuery['newsData'] | IListenNewsDataSubscription['newsData'];
 @Component({
   selector: 'news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
 export class NewsComponent {
-  data: undefined | CryptoNews;
-  page = 1;
-  records = 2;
-  data$: Observable<undefined | CryptoNews> = this.gql.cryptoNews().pipe(
-    map(response => response.data?.hotNews),
-    tap(data => this.data = data),
-    switchMap(() => this.gql.listenCryptoNews()),
-    map(response => response.data?.hotNews),
-    tap(data => this.data = data),
+  data: undefined | News["data"];
+  update_at: undefined | News["update_at"]
+  data$: Observable<undefined | News> = this.gql.newsData().pipe(
+    map(response => response.data?.newsData),
+    tap(data => {
+      this.data = data?.data;
+      this.update_at = data?.update_at
+    }),
+    switchMap(() => this.gql.listenNewsData()),
+    map(response => response.data?.newsData),
+    tap(data => {
+      this.data = data?.data;
+      this.update_at = data?.update_at
+    }),
   );
 
   error$ = this.data$.pipe(
@@ -29,17 +34,7 @@ export class NewsComponent {
     catchError((err) => of(err))
   )
 
-  get pagedData(): CryptoNews["results"] {
-    const from = (this.page - 1) * this.records;
-    const to = from + this.records;
-    return (this.data?.results || []).slice(from, to);
-  }
-
   constructor(
     private gql: ApolloAngularSDK
   ) { }
-
-  onPageIndexChange(page: number) {
-    this.page = page;
-  }
 }

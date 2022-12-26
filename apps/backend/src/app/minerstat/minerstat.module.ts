@@ -14,7 +14,7 @@ import { CoinsResolver } from "./coins/coins.resolver";
     },
     {
       provide: MINERSTAT_REST_TIMER_UPDATE,
-      useValue: 5000
+      useValue: 30000
     },
     CoinsService,
     CoinsResolver,

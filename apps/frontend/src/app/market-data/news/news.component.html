@@ -1,38 +1,83 @@
 <nz-alert *ngIf="error$ | async" nzType="error" [nzMessage]="error$ | async"></nz-alert>
-<nz-list nzItemLayout="vertical" class="news-list">
-  <nz-list-item *ngFor="let item of pagedData">
-    <nz-list-item-meta>
-      <nz-list-item-meta-title>
-        <a *ngIf="item.slug" [href]="'http://' + (item?.source?.domain || item.domain) + '/' + item.slug" target="_blank">{{ item.title }}</a>
-        <span *ngIf="!item.slug">{{ item.title }}</span>
-      </nz-list-item-meta-title>
-      <nz-list-item-meta-description>
-        {{ item.published_at | date: 'yyyy-MM-dd HH:mm:ss' }} at
-        <a [href]="'http://' + item?.source?.domain || item.domain" target="_blank">{{item?.source?.title || item?.source?.domain || item.domain}}</a>
-      </nz-list-item-meta-description>
-    </nz-list-item-meta>
-    <ul nz-list-item-actions>
-      <nz-list-item-action>
-        <a [href]="'http://' + item?.source?.domain || item.domain" target="_blank">{{item?.source?.title || item?.source?.domain || item.domain}}</a>
-      </nz-list-item-action>
-      <nz-list-item-action *ngIf="item?.currencies">
-        <nz-tag *ngFor="let curr of item?.currencies" nzColor="default">{{ curr.title }}</nz-tag>
-      </nz-list-item-action>
-    </ul>
-    <nz-list-item-extra>
-
-    </nz-list-item-extra>
-  </nz-list-item>
-  <nz-list-header>
-    <h4 nz-typography>Hot Crypto News</h4>
-  </nz-list-header>
-  <nz-list-pagination>
-    <nz-pagination
-      [nzTotal]="data?.results?.length"
+<nz-carousel
+  [nzAutoPlay]="true"
+  [nzEffect]="'scrollx'"
+  [nzDotPosition]="'left'"
+  [nzLoop]="true"
+  [nzEnableSwipe]="true"
+  [nzTransitionSpeed]="3000"
+  [nzDotRender]="dotTpl"
+>
+  <ng-template #dotTpl let-index>
+    <div class="dot-tpl">
+      {{index}}
+    </div>
+  </ng-template>
+  <div nz-carousel-content *ngFor="let news of data">
+    <nz-card
+      [nzTitle]="newsTitleTpl"
+      [nzExtra]="news.pubDate || ''"
       [nzSize]="'small'"
-      [nzPageIndex]="page"
-      [nzPageSize]="2"
-      (nzPageIndexChange)="onPageIndexChange($event)"
-    ></nz-pagination>
-  </nz-list-pagination>
-</nz-list>
+      [nzActions]="[
+        sourceTpl,
+        videoTpl
+      ]"
+    >
+      <ng-template #newsTitleTpl>
+        <div class="title">
+          <a *ngIf="news.link" [href]="news.link" [target]="'_blank'">
+            {{news.title | titlecase}}
+          </a>
+        </div>
+      </ng-template>
+      <ng-template #sourceTpl>
+        <div class="action">
+          <a *ngIf="news.link" [href]="news.link" [target]="'_blank'">
+            <span nz-icon [nzIconfont]="'icon-link'"></span>
+            {{news?.source_id | titlecase}}
+          </a>
+          <span *ngIf="!news.link">
+            <span nz-icon [nzIconfont]="'icon-newspaper'"></span>
+            {{(news?.source_id | titlecase) || 'Anon'}}
+          </span>
+        </div>
+      </ng-template>
+      <ng-template #videoTpl>
+        <div class="action">
+          <a *ngIf="news.video_url" [href]="news.video_url" [target]="'_blank'">
+            <span nz-icon [nzIconfont]="'icon-video'"></span>
+          </a>
+          <span *ngIf="!news.video_url" nz-icon [nzIconfont]="'icon-video-slash'"></span>
+        </div>
+      </ng-template>
+      <nz-card-meta
+        [nzTitle]="titleTpl"
+        [nzDescription]="descriptionTpl"
+        [nzAvatar]="avatarTpl"
+      >
+        <ng-template #titleTpl>
+          <marquee>
+            <nz-tag *ngFor="let category of (news.category || [])" [nzColor]="'warning'">{{category | titlecase}}</nz-tag>
+            <nz-tag *ngFor="let kw of (news.keywords || [])" [nzColor]="'processing'">{{kw | titlecase}}</nz-tag>
+            <nz-tag *ngFor="let country of (news.country || [])" [nzColor]="'danger'">{{country | titlecase}}</nz-tag>
+            <nz-tag *ngIf="news.language" [nzColor]="'danger'">{{news.language | titlecase}}</nz-tag>
+          </marquee>
+        </ng-template>
+        <ng-template #avatarTpl>
+          <img width="100px" *ngIf="news?.image_url" [alt]="news.title" nz-image [nzSrc]="news.image_url!" [nzFallback]="'/assets/no-image.jpg'" />
+        </ng-template>
+        <ng-template #descriptionTpl>
+          By:
+          <a *ngFor="let creator of news?.creator" [href]="'https://google.com/search?q=' + creator" [target]="'_blank'">
+            <span nz-icon [nzIconfont]="'icon-pen-nib'"></span>
+            {{creator | titlecase}}
+          </a>
+        </ng-template>
+      </nz-card-meta>
+      <div
+        class="content"
+        [innerHTML]="news.content || news.description"
+      ></div>
+    </nz-card>
+  </div>
+</nz-carousel>
