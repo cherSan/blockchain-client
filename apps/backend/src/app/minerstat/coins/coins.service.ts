@@ -92,7 +92,7 @@ export class CoinsService extends ListenerService<Coins[]> {
   }
 
   public getDynamicData(coin: string): CoinDynamicData {
-    return  Object.entries(this.coinDynamicData[coin])
+    return  Object.entries(this.coinDynamicData[coin] || {})
       .reduce<CoinDynamicData>((accum, [label, data]) => {
         accum.labels.push(parseInt(label));
         accum.difficultyData.push(data.difficultyData);
