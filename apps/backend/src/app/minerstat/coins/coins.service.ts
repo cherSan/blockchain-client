@@ -1,32 +1,24 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
+import { BehaviorSubject, catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
+import { GraphQLError } from "graphql/error";
+
 import { Coins } from "./coins.model";
 import {
   MINERSTAT_REST_CONNECTION_URL, MINERSTAT_REST_TIMER_UPDATE
 } from "../constants/connection.constants";
 import { ListenerService } from "../../utils/listener.service";
 import { PubSubService } from "../../utils/pubsub.service";
-import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
-import { GraphQLError } from "graphql/error";
-import { CoinDynamicData } from "./dynamic-data.model";
 
-interface DynamicData {
-  difficultyData: number;
-  hashrateData: number;
-  priceData: number;
-}
-interface UpdateList {
-  [updateTimestamp: number]: DynamicData
-}
-
-interface CoinsDynamicData {
-  [coinSymbol: string]: UpdateList
+type CoinKeys = {
+  coin: string,
+  algo: string
 }
 
 @Injectable()
 export class CoinsService extends ListenerService<Coins[]> {
   protected serviceKey = 'coins';
-  private coinDynamicData: CoinsDynamicData = {};
+  public coinKeys: BehaviorSubject<CoinKeys[]> = new BehaviorSubject<CoinKeys[]>([]);
   constructor(
     @Inject(MINERSTAT_REST_TIMER_UPDATE) protected readonly timer: number,
     @Inject(MINERSTAT_REST_CONNECTION_URL) protected readonly uri: string,
@@ -48,66 +40,26 @@ export class CoinsService extends ListenerService<Coins[]> {
       }),
       retry(),
       tap(async (data) => {
-        this.data = data;
-        const pubList: Promise<unknown>[] = [];
-        data.forEach((value) => {
-          const timestamp = value.updated * 1000;
-          this.coinDynamicData[value.coin] = {
-            ...(this.coinDynamicData[value.coin] || {}),
-          }
-          if (!this.coinDynamicData[value.coin][timestamp]) {
-            const timestamps = Object.keys(this.coinDynamicData[value.coin]);
-            if (timestamps.length > 99) {
-              delete this.coinDynamicData[value.coin][timestamps[0]];
-            }
-            this.coinDynamicData[value.coin][timestamp] = {
-              difficultyData: value.difficulty,
-              hashrateData: value.network_hashrate,
-              priceData: value.price,
-            }
-            const coinDynamicData = Object.entries(this.coinDynamicData[value.coin])
-              .reduce<CoinDynamicData>((accum, [label, data]) => {
-                accum.labels.push(parseInt(label));
-                accum.difficultyData.push(data.difficultyData);
-                accum.hashrateData.push(data.hashrateData);
-                accum.priceData.push(data.priceData);
-                return accum;
-              }, {
-                labels: [],
-                difficultyData: [],
-                hashrateData: [],
-                priceData: []
-              });
-            pubList.push(
-              this.pubsub.publish(value.coin + 'DynamicData' , { coinDynamicData })
-            )
-          }
-        });
-        await Promise.all(pubList);
-        await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: data })
+        this.data = data.filter((v) =>
+          v.network_hashrate !== -1 &&
+          v.network_hashrate !== Infinity &&
+          v.difficulty !== -1 &&
+          v.difficulty !== Infinity &&
+          v.price !== -1 &&
+          v.price !== 0 &&
+          v.price !== Infinity
+        );
+        const coinKeys = this.data.map(v => ({
+          coin: v.coin,
+          algo: v.algorithm
+        }));
+        if (JSON.stringify(coinKeys) !== JSON.stringify(this.coinKeys.getValue())) {
+          this.coinKeys.next(coinKeys);
+        }
+        await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: this.data })
       }),
       delay(timer),
       repeat()
     );
-  }
-
-  public getDynamicData(coin: string): CoinDynamicData {
-    return  Object.entries(this.coinDynamicData[coin] || {})
-      .reduce<CoinDynamicData>((accum, [label, data]) => {
-        accum.labels.push(parseInt(label));
-        accum.difficultyData.push(data.difficultyData);
-        accum.hashrateData.push(data.hashrateData);
-        accum.priceData.push(data.priceData);
-        return accum;
-      }, {
-        labels: [],
-        difficultyData: [],
-        hashrateData: [],
-        priceData: []
-      });
-  }
-
-  public subscribeDynamicData(coin: string): AsyncIterator<CoinDynamicData> {
-    return this.pubsub.subscribe(coin + 'DynamicData')
   }
 }

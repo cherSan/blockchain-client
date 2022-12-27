@@ -7,10 +7,10 @@
     [error]="stateError$ | async"
     [coin]="coinStats"
   >
-    <main-stats></main-stats>
   </pool-header-content-layout>
   <div nz-row [nzGutter]="[20, 20]">
     <div nz-col [nzXs]="24">
+      <main-stats></main-stats>
       <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 3, 'xxl': 3}">
         <nz-descriptions-item nzTitle="Algorithm">{{coinStats.algorithm}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Difficulty">{{coinStats.difficulty | siSymbol}}</nz-descriptions-item>
@@ -20,11 +20,11 @@
         <nz-descriptions-item nzTitle="Reward Block">{{coinStats.reward_block}}</nz-descriptions-item>
       </nz-descriptions>
     </div>
-    <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
-      <difficulty-graph></difficulty-graph>
-    </div>
-    <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
-      <eth-history-graph></eth-history-graph>
+    <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
+      <coin-history-chart
+        [coin]="coinStats!.coin"
+        [algo]="coinStats!.algorithm"
+      ></coin-history-chart>
     </div>
   </div>
 

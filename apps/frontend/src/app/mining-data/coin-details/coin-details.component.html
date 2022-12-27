@@ -25,7 +25,7 @@
       {{data?.price}} $
     </nz-tag>
     <nz-tag>
-      {{(data!.updated! * 1000) | date: 'yyyy-MM-dd hh:mm:ss'}}
+      {{((data?.updated || 0) * 1000) | date: 'yyyy-MM-dd hh:mm:ss'}}
     </nz-tag>
   </nz-page-header-tags>
   <nz-page-header-content *ngIf="data">
@@ -70,12 +70,9 @@
   </nz-page-header-content>
 </nz-page-header>
 <div class="content">
-  <div *ngIf="data?.coin !== undefined" nz-row [nzGutter]="[20, 20]">
-    <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-      <coin-graph [coin]="data!.coin!"></coin-graph>
-    </div>
-    <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-
+  <div *ngIf="data?.coin && data?.algorithm" nz-row [nzGutter]="[20, 20]">
+    <div nz-col [nzXs]="24">
+      <coin-history-chart [coin]="data!.coin!" [algo]="data!.algorithm!"></coin-history-chart>
     </div>
   </div>
 </div>

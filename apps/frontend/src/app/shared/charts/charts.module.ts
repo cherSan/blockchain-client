@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
-import { NgChartsModule } from "ng2-charts";
+import { AgChartsAngularModule } from "ag-charts-angular";
+import { AsyncPipe, NgIf } from "@angular/common";
 
-import { LineAreaChartComponent } from './line-area-chart/line-area-chart.component';
-import { LineChartFormatPipe } from "./line-chart-format.pipe";
+import { NzAlertModule } from "ng-zorro-antd/alert";
 
+import { ChartComponent } from './chart/chart.component';
+import { CoinHistoryChartComponent } from './coin-history-chart/coin-history-chart.component';
 
 @NgModule({
   declarations: [
-    LineAreaChartComponent,
-    LineChartFormatPipe
+    ChartComponent,
+    CoinHistoryChartComponent,
   ],
   imports: [
-    NgChartsModule
+    AgChartsAngularModule,
+    NzAlertModule,
+    NgIf,
+    AsyncPipe
   ],
   exports: [
-    LineAreaChartComponent,
-    LineChartFormatPipe
+    ChartComponent,
+    CoinHistoryChartComponent
   ]
 })
 export class ChartsModule { }

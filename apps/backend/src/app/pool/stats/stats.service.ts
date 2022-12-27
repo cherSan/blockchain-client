@@ -17,6 +17,6 @@ export class StatsService extends ListenerService<Stats> {
     protected readonly pubsub: PubSubService
   ) {
     super(httpService, pubsub);
-    this.observer$(uri, timer).subscribe()
+    this.observer$(`${uri}/stats`, timer).subscribe()
   }
 }

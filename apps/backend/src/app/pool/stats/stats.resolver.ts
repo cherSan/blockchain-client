@@ -15,6 +15,7 @@ export class StatsResolver {
   async getStats(): Promise<Stats> {
     try {
       const recipe = await this.statsService.get()
+      console.log(123213, recipe);
       if (!recipe) {
         throw new NotFoundException();
       }

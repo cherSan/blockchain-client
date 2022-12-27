@@ -14,11 +14,7 @@ import { PipesModule } from "../pipes/pipes.module";
 
 import { PoolComponent } from './pool/pool.component';
 import { BlocksComponent } from './blocks/blocks.component';
-import { EthHistoryGraphComponent } from "./eth-history-graph/eth-history-graph.component";
 import { MainStatsComponent } from "./main-stats/main-stats.component";
-import { PoolHashrateGraphComponent } from "./pool-hashrate-graph/pool-hashrate-graph.component";
-import { DifficultyGraphComponent } from './difficulty-graph/difficulty-graph.component';
-import { AgChartsAngularModule } from "ag-charts-angular";
 
 const routes: Routes = [
   {
@@ -40,10 +36,7 @@ const routes: Routes = [
   declarations: [
     PoolComponent,
     BlocksComponent,
-    EthHistoryGraphComponent,
     MainStatsComponent,
-    PoolHashrateGraphComponent,
-    DifficultyGraphComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -56,8 +49,7 @@ const routes: Routes = [
     PipesModule,
     NgIf,
     NzGridModule,
-    CurrencyPipe,
-    AgChartsAngularModule
+    CurrencyPipe
   ]
 })
 export class EthereumClassicModule { }

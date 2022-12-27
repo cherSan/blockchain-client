@@ -4,6 +4,8 @@ import { PubSubService } from "../utils/pubsub.service";
 import { MINERSTAT_REST_CONNECTION_URL, MINERSTAT_REST_TIMER_UPDATE } from "./constants/connection.constants";
 import { CoinsService } from "./coins/coins.service";
 import { CoinsResolver } from "./coins/coins.resolver";
+import { CoinHistoryService } from "./coin-history/coin-history.service";
+import { CoinHistoryResolver } from "./coin-history/coin-history.resolver";
 
 @Module({
   imports: [HttpModule],
@@ -14,11 +16,13 @@ import { CoinsResolver } from "./coins/coins.resolver";
     },
     {
       provide: MINERSTAT_REST_TIMER_UPDATE,
-      useValue: 30000
+      useValue: 60000
     },
     CoinsService,
     CoinsResolver,
-    PubSubService
+    CoinHistoryService,
+    CoinHistoryResolver,
+    PubSubService,
   ]
 })
 export class MinerstatModule {}

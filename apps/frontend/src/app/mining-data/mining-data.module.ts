@@ -16,8 +16,6 @@ import { NzImageModule } from "ng-zorro-antd/image";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzStatisticModule } from "ng-zorro-antd/statistic";
 
-import { CoinGraphComponent } from './coin-graph/coin-graph.component';
-
 import { GridModule } from "../shared/grid/grid.module";
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
@@ -28,7 +26,7 @@ const routes: Routes = [
     component: MiningDataComponent,
   },
   {
-    path: ':id',
+    path: ':coin/:algo',
     component: CoinDetailsComponent
   }
 ]
@@ -37,8 +35,7 @@ const routes: Routes = [
   declarations: [
     MiningDataComponent,
     CoinDetailsComponent,
-    StatisticGridComponent,
-    CoinGraphComponent
+    StatisticGridComponent
   ],
   imports: [
     RouterModule.forChild(routes),
