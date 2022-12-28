@@ -5,6 +5,7 @@ import {
   IEtcPoolStatsQuery,
   IListenEtcPoolStatsSubscription
 } from "@blockchain_client/graph-ql-client";
+import * as moment from "moment";
 type PoolData = IEtcPoolStatsQuery["etcPoolStats"] | IListenEtcPoolStatsSubscription["etcPoolStats"];
 @Component({
   selector: 'pool-information',
@@ -15,6 +16,7 @@ export class PoolInformationComponent {
   public data: PoolData | undefined;
   public bestHeight?: number;
   public bestDifficulty?: number;
+  public updateDate?: string;
   @Input()
   difficulty?: number
   @Input()
@@ -24,6 +26,7 @@ export class PoolInformationComponent {
       map((response) => response.data.etcPoolStats),
       tap(data => {
         this.data = data;
+        this.updateDate = moment(data?.now).format('L LTS');
         this.bestHeight = data.nodes
           .reduce((accum, value) => accum < parseFloat(value.height) ? parseFloat(value.height) : accum, 0);
         this.bestDifficulty = data.nodes
@@ -33,6 +36,7 @@ export class PoolInformationComponent {
       map((response) => response.data?.etcPoolStats),
       tap(data => {
         this.data = data;
+        this.updateDate = moment((data?.now || 0) ).format('L LTS');
         this.bestHeight = data?.nodes
           .reduce((accum, value) => accum < parseFloat(value.height) ? parseFloat(value.height) : accum, 0);
         this.bestDifficulty = data?.nodes

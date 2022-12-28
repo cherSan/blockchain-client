@@ -23,6 +23,7 @@
     </div>
     <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
       <coin-history-chart
+        [title]="'Difficulty / Price'"
         [coin]="coinStats!.coin!"
         [algo]="coinStats!.algorithm!"
         [fields]="{

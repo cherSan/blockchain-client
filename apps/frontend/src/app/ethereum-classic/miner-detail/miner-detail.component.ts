@@ -1,24 +1,288 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { map, tap } from "rxjs";
-
+import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
+import {
+  ApolloAngularSDK,
+  IEtcMinerStatQuery, IEtcPoolStatsQuery,
+  IListenEtcMinerStatSubscription, IListenEtcPoolStatsSubscription, IListenMinerstatsCoinsQuery, IMinerstatsCoinsQuery
+} from "@blockchain_client/graph-ql-client";
+import { AgChartOptions, time } from "ag-charts-community";
+import { siSymbol } from "../../utils/si-symbol";
+import { ColDef } from "ag-grid-community";
+const moment = require("moment");
+type MinerStat = IEtcMinerStatQuery["etcMinerData"] | IListenEtcMinerStatSubscription['etcMinerData'];
+type PoolData = IEtcPoolStatsQuery["etcPoolStats"] | IListenEtcPoolStatsSubscription["etcPoolStats"];
+type Coins = IMinerstatsCoinsQuery["coins"] | IListenMinerstatsCoinsQuery["coins"];
 @Component({
   selector: 'miner-detail',
   templateUrl: './miner-detail.component.html',
   styleUrls: ['./miner-detail.component.css']
 })
-export class MinerDetailComponent implements OnInit {
+export class MinerDetailComponent {
+  data: undefined | MinerStat;
+  poolData: undefined | PoolData;
+  blocktime?: number;
+  coinStats?: Coins[number];
+  workerChartOptions: AgChartOptions = {};
+  shareChartOptions: AgChartOptions = {};
+  columnDefs: ColDef[] = [
+    {
+      field: 'id'
+    },
+    {
+      field: 'hr',
+      headerName: 'Hashrate (rough, short average)',
+      type: 'ChangeDetection',
+    },
+    {
+      field: 'hr2',
+      headerName: 'Hashrate (accurate, long average)',
+      type: 'ChangeDetection',
+    },
+    {
+      field: 'blocks',
+      type: 'ChangeDetection',
+      maxWidth: 60
+    },
+    {
+      field: 'valid',
+      headerName: 'Valid / Stale / Invalid 24h',
+      type: 'ChangeDetection',
+      maxWidth: 140,
+      valueFormatter: params => {
+        return `${params.data.valid} / ${params.data.stale} / ${params.data.invalid}`
+      }
+    },
+    {
+      field: 'lastBeat',
+      headerName: 'Last Share',
+      valueFormatter: params => moment(params.value * 1000).fromNow()
+    }
+  ]
   userId$ = this.activeRouter.params.pipe(
-    tap((data) => console.log(5, data)),
     map((data) => data["id"])
   )
+  stats$: Observable<undefined | MinerStat> = this.userId$.pipe(
+    switchMap((id) => {
+      if (!id) {
+        return of(undefined);
+      }
+      return this.gql.etcMinerStat({ id }).pipe(
+        map(response => response.data?.etcMinerData),
+        tap(data => {
+          this.data = data;
+          this.workerChart(data);
+          this.shareChart(data);
+        }),
+        switchMap(() => this.gql.listenEtcMinerStat({ id })),
+        map(response => response.data?.etcMinerData),
+        tap(data => {
+          this.data = data;
+          this.workerChart(data);
+          this.shareChart(data);
+        }),
+      );
+    })
+  )
+  stateError$ = this.stats$.pipe(
+    ignoreElements(),
+    catchError((err) => of(err))
+  )
+
+  private data$: Observable<PoolData |  undefined> = this.gql.etcPoolStats()
+    .pipe(
+      map((response) => response.data.etcPoolStats),
+      tap(data => {
+        this.poolData = data;
+        this.blocktime = data.nodes.reduce((a, node) => a < parseFloat(node.blocktime) ? parseFloat(node.blocktime) : a, 0)
+      }),
+      switchMap(() =>  this.gql.listenEtcPoolStats()),
+      map((response) => response.data?.etcPoolStats),
+      tap(data => {
+        this.poolData = data;
+        this.blocktime = data?.nodes.reduce((a, node) => a < parseFloat(node.blocktime) ? parseFloat(node.blocktime) : a, 0)
+      }),
+    )
+  error$ = this.data$.pipe(
+    ignoreElements(),
+    catchError((err) => {
+      return of(err);
+    })
+  )
+
+  coinStats$: Observable<undefined | Coins> = this.gql.minerstatsCoins().pipe(
+    map(response => response.data?.coins),
+    tap(data => {
+      this.coinStats = data.find(v => v.coin === 'ETC')
+    }),
+    switchMap(() => this.gql.listenMinerstatsCoins()),
+    map(response => response.data?.coins),
+    tap(data => {
+      this.coinStats = data.find(v => v.coin === 'ETC')
+    }),
+  );
+
+  coinStateError$ = this.stats$.pipe(
+    ignoreElements(),
+    catchError((err) => of(err))
+  )
+
   constructor(
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private gql: ApolloAngularSDK
   ) {
 
   }
-
-  ngOnInit(): void {
+  workerChart(data?: MinerStat) {
+    if (!data) {
+      this.workerChartOptions = {};
+    }
+    const minerCharts = data?.minerCharts.map(v => ({
+      ...v,
+      timestamp: v.x * 1000
+    }));
+    this.workerChartOptions = {
+      title: {
+        text: `Workers Hashrate`
+      },
+      subtitle: {
+        text: moment().format('L LTS')
+      },
+      data: minerCharts,
+      series: [
+        {
+          xKey: 'timestamp',
+          yKey: 'minerHash',
+          xName: 'Date-Time',
+          yName: 'Miner Hashrate',
+        },
+        {
+          xKey: 'timestamp',
+          yKey: 'minerLargeHash',
+          xName: 'Date-Time',
+          yName: 'Lage Hashrate',
+        },
+        {
+          xKey: 'timestamp',
+          yKey: 'workerOnline',
+          xName: 'Date-Time',
+          yName: 'Workers',
+        }
+      ],
+      axes: [
+        {
+          type: 'number',
+          position: 'left',
+          keys: ['minerHash', 'minerLargeHash'],
+          title: {
+            enabled: true,
+            text: 'Workers Hashrate'
+          },
+          label: {
+            formatter: (params) => {
+              return siSymbol(params.value, 'H/s');
+            },
+          },
+        },
+        {
+          type: 'number',
+          position: 'right',
+          keys: ['workerOnline'],
+          title: {
+            enabled: true,
+            text: 'Workers Online',
+          }
+        },
+        {
+          type: 'time',
+          position: 'bottom',
+          keys: ['timestamp'],
+          title: {
+            enabled: true,
+            text: 'Date-Time',
+          },
+          tick: {
+            count: time.minute.every(2)
+          }
+        }
+      ]
+    };
   }
-
+  shareChart(data?: MinerStat) {
+    if (!data) {
+      this.shareChartOptions = {};
+    }
+    const shareChart = data?.shareCharts.map(v => ({
+      ...v,
+      timestamp: v.x * 1000
+    }));
+    this.shareChartOptions = {
+      title: {
+        text: `Share`
+      },
+      subtitle: {
+        text: moment().format('L LTS')
+      },
+      data: shareChart,
+      series: [
+        {
+          type: 'column',
+          xKey: 'timestamp',
+          yKey: 'valid',
+          xName: 'Date-Time',
+          yName: 'Valid Share',
+          stacked: true
+        },
+        {
+          type: 'column',
+          xKey: 'timestamp',
+          yKey: 'stale',
+          xName: 'Date-Time',
+          yName: 'Stacked',
+          stacked: true,
+        },
+        {
+          xKey: 'timestamp',
+          yKey: 'workerOnline',
+          xName: 'Date-Time',
+          yName: 'Workers',
+          marker: {
+            enabled: false
+          }
+        }
+      ],
+      axes: [
+        {
+          type: 'number',
+          position: 'left',
+          keys: ['valid', 'stale'],
+          title: {
+            enabled: true,
+            text: 'Valid Share'
+          }
+        },
+        {
+          type: 'number',
+          position: 'right',
+          keys: ['workerOnline'],
+          title: {
+            enabled: true,
+            text: 'Workers Online / Stale',
+          }
+        },
+        {
+          type: 'time',
+          position: 'bottom',
+          keys: ['timestamp'],
+          title: {
+            enabled: true,
+            text: 'Date-Time',
+          },
+          tick: {
+            count: time.minute.every(2)
+          }
+        }
+      ]
+    };
+  }
 }

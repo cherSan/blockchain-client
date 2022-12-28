@@ -46,7 +46,7 @@ export class MinerStatisticResolver {
   workers(@Parent() data: MinerStat & {workers: Object}) {
     return Object.entries(data.workers).map(([id, data]) => ({
       ...data,
-      id
+      id: `${id}`
     }));
   }
 }

@@ -7,6 +7,7 @@ import {
   IListenCoinHistorySubscription
 } from "@blockchain_client/graph-ql-client";
 import { siSymbol } from "../../../utils/si-symbol";
+import * as moment from "moment";
 type CoinHistory = ICoinHistoryQuery["coinHistory"] | IListenCoinHistorySubscription["coinHistory"];
 @Component({
   selector: 'coin-history-chart',
@@ -15,6 +16,8 @@ type CoinHistory = ICoinHistoryQuery["coinHistory"] | IListenCoinHistorySubscrip
 })
 export class CoinHistoryChartComponent {
   public options: AgChartOptions = {};
+  @Input()
+  title?: string;
   @Input()
   fields = {
     network_hashrate: true,
@@ -87,10 +90,10 @@ export class CoinHistoryChartComponent {
     }
     this.options = {
       title: {
-        text: `${coin} / ${algo} History`
+        text: this.title || `${coin} / ${algo} History`
       },
       subtitle: {
-        text: new Date(data.update_at).toUTCString()
+        text: moment().format('L LTS')
       },
       data: data?.data,
       series,

@@ -4,6 +4,7 @@ import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from 
 import { ApolloAngularSDK, IEtcMinersQuery, IListenEtcMinersSubscription } from "@blockchain_client/graph-ql-client";
 import { ActivatedRoute, Router } from "@angular/router";
 import { siSymbol } from "../../utils/si-symbol";
+import * as moment from "moment";
 type Miners = IEtcMinersQuery['etcMinersList'] | IListenEtcMinersSubscription['etcMinersList'];
 @Component({
   selector: 'miners',
@@ -38,10 +39,7 @@ export class MinersComponent {
       minWidth: 180,
       field: 'lastBeat',
       headerName: 'Last Beat',
-      valueFormatter: (node) => {
-        const date = new Date(node.data.lastBeat * 1000)
-        return date.toUTCString()
-      }
+      valueFormatter: (node) => moment(node.data.lastBeat * 1000).fromNow()
     }
   ]
 

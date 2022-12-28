@@ -5,8 +5,9 @@ import {
   ICoinHistoryQuery, IEtcPoolStatsQuery,
   IListenCoinHistorySubscription, IListenEtcPoolStatsSubscription
 } from "@blockchain_client/graph-ql-client";
-import { AgChartOptions } from "ag-charts-community";
+import { AgChartOptions, time } from "ag-charts-community";
 import { siSymbol } from "../../utils/si-symbol";
+import * as moment from "moment/moment";
 
 type CoinHistory = ICoinHistoryQuery["coinHistory"] | IListenCoinHistorySubscription["coinHistory"];
 type PoolData = IEtcPoolStatsQuery["etcPoolStats"] | IListenEtcPoolStatsSubscription["etcPoolStats"];
@@ -56,8 +57,8 @@ export class PoolChartComponent {
     history?: CoinHistory,
     poolStat?: PoolData
   }): void {
-    const time = (coinHistoryData.poolStat?.poolCharts[0]["x"] || 0) * 1000;
-    const nhr = coinHistoryData.history?.data.filter((v) => v.timestamp >= time)
+    const poolChartsTime = (coinHistoryData.poolStat?.poolCharts[0]["x"] || 0) * 1000;
+    const nhr = coinHistoryData.history?.data.filter((v) => v.timestamp >= poolChartsTime)
     const phr = coinHistoryData.poolStat?.poolCharts.map((v) => ({
       ...v,
       x: v.x * 1000
@@ -68,10 +69,11 @@ export class PoolChartComponent {
         text: `Network / Pool Hashrate`
       },
       subtitle: {
-        text: new Date().toLocaleDateString()
+        text: moment().format('L LTS')
       },
       series: [
         {
+          type: 'line',
           xKey: 'timestamp',
           yKey: 'network_hashrate',
           xName: 'Date',
@@ -79,6 +81,7 @@ export class PoolChartComponent {
           data: nhr
         },
         {
+          type: 'area',
           xKey: 'x',
           yKey: 'y',
           xName: 'Date',
@@ -122,6 +125,9 @@ export class PoolChartComponent {
           title: {
             enabled: true,
             text: 'Date-Time',
+          },
+          tick: {
+            count: time.minute.every(20)
           }
         }
       ]
