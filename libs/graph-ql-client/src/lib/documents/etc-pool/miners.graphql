@@ -1,0 +1,29 @@
+query EtcMiners {
+  etcMinersList {
+    now
+    hashrate
+    minersTotal
+    miners {
+      id
+      offline
+      blocks
+      lastBeat
+      hr
+    }
+  }
+}
+
+subscription ListenEtcMiners {
+  etcMinersList {
+    now
+    hashrate
+    minersTotal
+    miners {
+      id
+      offline
+      blocks
+      lastBeat
+      hr
+    }
+  }
+}
