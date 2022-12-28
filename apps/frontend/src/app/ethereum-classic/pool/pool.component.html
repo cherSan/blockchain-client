@@ -10,9 +10,10 @@
   </pool-header-content-layout>
   <div nz-row [nzGutter]="[20, 20]">
     <div nz-col [nzXs]="24">
-      <main-stats></main-stats>
       <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 3, 'xxl': 3}">
-        <nz-descriptions-item nzTitle="Algorithm">{{coinStats.algorithm}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Algorithm">
+          {{coinStats.algorithm}}
+        </nz-descriptions-item>
         <nz-descriptions-item nzTitle="Difficulty">{{coinStats.difficulty | siSymbol}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Network Hashrate">{{coinStats.network_hashrate | siSymbol}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Price">{{coinStats.price | currency: "$"}}</nz-descriptions-item>

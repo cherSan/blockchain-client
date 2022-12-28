@@ -6,6 +6,7 @@ import {
   ICoinHistoryQuery,
   IListenCoinHistorySubscription
 } from "@blockchain_client/graph-ql-client";
+import { siSymbol } from "../../../utils/si-symbol";
 type CoinHistory = ICoinHistoryQuery["coinHistory"] | IListenCoinHistorySubscription["coinHistory"];
 @Component({
   selector: 'coin-history-chart',
@@ -91,6 +92,11 @@ export class CoinHistoryChartComponent {
           ],
           title: {
             enabled: false
+          },
+          label: {
+            formatter: (params) => {
+              return siSymbol(params.value);
+            }
           }
         },
         {
@@ -100,6 +106,11 @@ export class CoinHistoryChartComponent {
           title: {
             enabled: true,
             text: 'USD',
+          },
+          label: {
+            formatter: (params) => {
+              return '$' + params.value;
+            }
           }
         },
         {

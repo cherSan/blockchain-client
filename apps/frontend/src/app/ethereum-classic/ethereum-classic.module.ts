@@ -14,7 +14,6 @@ import { PipesModule } from "../pipes/pipes.module";
 
 import { PoolComponent } from './pool/pool.component';
 import { BlocksComponent } from './blocks/blocks.component';
-import { MainStatsComponent } from "./main-stats/main-stats.component";
 import { PoolChartComponent } from './pool-chart/pool-chart.component';
 import { PoolInformationComponent } from './pool-information/pool-information.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
@@ -39,7 +38,6 @@ const routes: Routes = [
   declarations: [
     PoolComponent,
     BlocksComponent,
-    MainStatsComponent,
     PoolChartComponent,
     PoolInformationComponent,
   ],
