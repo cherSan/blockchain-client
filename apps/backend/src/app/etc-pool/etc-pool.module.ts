@@ -7,12 +7,16 @@ import { StatsResolver } from "./stats/stats.resolver";
 import { StatsService } from "./stats/stats.service";
 
 import { PubSubService } from "../utils/pubsub.service";
+import { MinerListResolver } from "./miners/miner-list.resolver";
+import { MinerListService } from "./miners/miner-list.service";
 
 @Module({
   imports: [HttpModule],
   providers: [
     StatsResolver,
     StatsService,
+    MinerListResolver,
+    MinerListService,
     {
       provide: POOL_REST_TIMER_UPDATE,
       useValue: 3000

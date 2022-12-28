@@ -15,16 +15,16 @@
   <nz-page-header-footer>
     <nz-tabset nzLinkRouter>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">POOL</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'pool']" [relativeTo]="activeRoute.parent">Pool</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'blocks']">BLOCKS</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'blocks']" [relativeTo]="activeRoute.parent">Blocks</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">MINERS</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'miners']" [relativeTo]="activeRoute.parent">Miners</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">REWARD</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'pool']" [relativeTo]="activeRoute.parent">Rewards</a>
       </nz-tab>
     </nz-tabset>
   </nz-page-header-footer>

@@ -18,6 +18,9 @@ import { PoolChartComponent } from './pool-chart/pool-chart.component';
 import { PoolInformationComponent } from './pool-information/pool-information.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
 import { NzCollapseModule } from "ng-zorro-antd/collapse";
+import { MinersComponent } from './miners/miners.component';
+import { GridModule } from "../shared/grid/grid.module";
+import { MinerDetailComponent } from './miner-detail/miner-detail.component';
 
 const routes: Routes = [
   {
@@ -32,6 +35,14 @@ const routes: Routes = [
   {
     path: 'blocks',
     component: BlocksComponent
+  },
+  {
+    path: 'miners',
+    component: MinersComponent
+  },
+  {
+    path: 'miners/:id',
+    component: MinerDetailComponent
   }
 ]
 
@@ -41,6 +52,8 @@ const routes: Routes = [
     BlocksComponent,
     PoolChartComponent,
     PoolInformationComponent,
+    MinersComponent,
+    MinerDetailComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -57,7 +70,8 @@ const routes: Routes = [
     NzEmptyModule,
     DatePipe,
     NzCollapseModule,
-    NgForOf
+    NgForOf,
+    GridModule
   ]
 })
 export class EthereumClassicModule { }

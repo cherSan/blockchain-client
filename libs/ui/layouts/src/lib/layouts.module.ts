@@ -15,9 +15,7 @@ import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzButtonModule } from "ng-zorro-antd/button";
-import { PoolHeaderContentLayoutComponent } from './pool-header-content-layout/pool-header-content-layout.component';
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
-import { PipesModule } from "../../../../../apps/frontend/src/app/pipes/pipes.module";
 
 @NgModule({
   imports: [
@@ -37,17 +35,14 @@ import { PipesModule } from "../../../../../apps/frontend/src/app/pipes/pipes.mo
     NzInputModule,
     NzButtonModule,
     NzDescriptionsModule,
-    PipesModule
   ],
   declarations: [
     MainLayoutComponent,
     PoolLayoutComponent,
-    PoolHeaderContentLayoutComponent
   ],
   exports: [
     MainLayoutComponent,
     PoolLayoutComponent,
-    PoolHeaderContentLayoutComponent
   ]
 })
 export class LayoutsModule {}
