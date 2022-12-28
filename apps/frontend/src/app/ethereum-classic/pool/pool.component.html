@@ -5,17 +5,18 @@
 >
   <div nz-row [nzGutter]="[20, 20]">
     <div nz-col [nzXs]="24">
-      <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 3, 'xxl': 3}">
+      <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 4, 'xl': 4, 'xxl': 4}">
         <nz-descriptions-item nzTitle="Algorithm">{{coinStats.algorithm}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Difficulty">{{coinStats.difficulty | siSymbol}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Network Hashrate">{{coinStats.network_hashrate | siSymbol}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Price">{{coinStats.price | currency: "$"}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Reward">{{coinStats.reward | siSymbol}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Reward Block">{{coinStats.reward_block}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Reward">{{coinStats.reward | siSymbol}} {{coinStats.reward_unit}}</nz-descriptions-item>
       </nz-descriptions>
     </div>
   </div>
-    <pool-information></pool-information>
+  <pool-information
+    [difficulty]="coinStats?.difficulty"
+    [rewardBlock]="coinStats?.reward_block"
+  ></pool-information>
   <div nz-row [nzGutter]="[20, 20]">
     <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
       <pool-chart></pool-chart>

@@ -43,7 +43,7 @@ export function siSymbol(value?: number | string | null, suffix: string = ''): s
 
   const signPrefix = num < 0 ? '-' : '';
   if (sig > 1000) {
-    return signPrefix + sig.toFixed(0) + (prefixes[exponent as keyof Prefixes]) + suffix;
+    return signPrefix + sig.toFixed(3) + (prefixes[exponent as keyof Prefixes]) + suffix;
   }
   return signPrefix + parseFloat(sig.toPrecision(3)) + (prefixes[exponent as keyof Prefixes] || '') + suffix;
 

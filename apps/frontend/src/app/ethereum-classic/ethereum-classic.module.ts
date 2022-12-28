@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf } from "@angular/common";
+import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf, TitleCasePipe } from "@angular/common";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -21,6 +21,8 @@ import { NzCollapseModule } from "ng-zorro-antd/collapse";
 import { MinersComponent } from './miners/miners.component';
 import { GridModule } from "../shared/grid/grid.module";
 import { MinerDetailComponent } from './miner-detail/miner-detail.component';
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzIconModule } from "ng-zorro-antd/icon";
 
 const routes: Routes = [
   {
@@ -71,7 +73,11 @@ const routes: Routes = [
     DatePipe,
     NzCollapseModule,
     NgForOf,
-    GridModule
+    GridModule,
+    DecimalPipe,
+    TitleCasePipe,
+    NzPageHeaderModule,
+    NzIconModule
   ]
 })
 export class EthereumClassicModule { }

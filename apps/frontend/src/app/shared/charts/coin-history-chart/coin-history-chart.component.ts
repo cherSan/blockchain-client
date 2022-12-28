@@ -90,7 +90,7 @@ export class CoinHistoryChartComponent {
         text: `${coin} / ${algo} History`
       },
       subtitle: {
-        text: new Date(data.update_at).toLocaleDateString()
+        text: new Date(data.update_at).toUTCString()
       },
       data: data?.data,
       series,

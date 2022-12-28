@@ -9,6 +9,8 @@ import { StatsService } from "./stats/stats.service";
 import { PubSubService } from "../utils/pubsub.service";
 import { MinerListResolver } from "./miners/miner-list.resolver";
 import { MinerListService } from "./miners/miner-list.service";
+import { MinerStatisticResolver } from "./miner-statistic/miner-statistic.resolver";
+import { MinerStatisticService } from "./miner-statistic/miner-statistic.service";
 
 @Module({
   imports: [HttpModule],
@@ -17,9 +19,11 @@ import { MinerListService } from "./miners/miner-list.service";
     StatsService,
     MinerListResolver,
     MinerListService,
+    MinerStatisticResolver,
+    MinerStatisticService,
     {
       provide: POOL_REST_TIMER_UPDATE,
-      useValue: 3000
+      useValue: 10000
     },
     {
       provide: POOL_REST_CONNECTION_URL,

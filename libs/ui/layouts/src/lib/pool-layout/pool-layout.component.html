@@ -3,9 +3,12 @@
   <nz-page-header-subtitle>{{code}}</nz-page-header-subtitle>
   <nz-page-header-extra>
     <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-      <input nz-input name="wallet" type="text" id="wallet">
+      <input nz-input #val name="wallet" type="text" id="wallet" placeholder="ETC Address">
       <ng-template #suffixButton>
-        <button nz-button nzType="primary" nzSize="large" nzSearch>Join pool</button>
+        <button nz-button nzType="primary" nzSize="large" nzSearch [routerLink]="['miners', val.value]" [relativeTo]="activeRoute.parent">
+          <span nz-icon [nzIconfont]="'icon-search'"></span>
+          Lookup
+        </button>
       </ng-template>
     </nz-input-group>
   </nz-page-header-extra>

@@ -25,11 +25,6 @@ type ServerAnswer = {
   [coin: string]: CoinServerHistory;
 }
 
-type ParsedData = {
-  algo: string,
-
-}
-
 @Injectable()
 export class CoinHistoryService extends ListenerService<CoinsHistory> {
   protected serviceKey = 'coinHistory';

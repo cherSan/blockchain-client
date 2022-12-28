@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { catchError, forkJoin, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
+import { Component, Input } from "@angular/core";
+import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from "rxjs";
 import {
   ApolloAngularSDK,
   IEtcPoolStatsQuery,
@@ -12,22 +12,31 @@ type PoolData = IEtcPoolStatsQuery["etcPoolStats"] | IListenEtcPoolStatsSubscrip
   styleUrls: ['./pool-information.component.css']
 })
 export class PoolInformationComponent {
-  data: PoolData | undefined;
-
+  public data: PoolData | undefined;
+  public bestHeight?: number;
+  public bestDifficulty?: number;
+  @Input()
+  difficulty?: number
+  @Input()
+  rewardBlock?: number
   private data$: Observable<PoolData |  undefined> = this.gql.etcPoolStats()
     .pipe(
-      map((response) => {
-        return response.data.etcPoolStats
-      }),
+      map((response) => response.data.etcPoolStats),
       tap(data => {
         this.data = data;
+        this.bestHeight = data.nodes
+          .reduce((accum, value) => accum < parseFloat(value.height) ? parseFloat(value.height) : accum, 0);
+        this.bestDifficulty = data.nodes
+          .reduce((accum, value) => accum < parseFloat(value.difficulty) ? parseFloat(value.difficulty) : accum, 0);
       }),
       switchMap(() =>  this.gql.listenEtcPoolStats()),
-      map((response) => {
-        return response.data?.etcPoolStats
-      }),
+      map((response) => response.data?.etcPoolStats),
       tap(data => {
         this.data = data;
+        this.bestHeight = data?.nodes
+          .reduce((accum, value) => accum < parseFloat(value.height) ? parseFloat(value.height) : accum, 0);
+        this.bestDifficulty = data?.nodes
+          .reduce((accum, value) => accum < parseFloat(value.difficulty) ? parseFloat(value.difficulty) : accum, 0);
       }),
     )
   error$ = this.data$.pipe(
