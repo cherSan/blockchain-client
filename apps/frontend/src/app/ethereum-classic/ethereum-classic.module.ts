@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { AsyncPipe, CurrencyPipe, DatePipe, NgIf } from "@angular/common";
+import { AsyncPipe, CurrencyPipe, DatePipe, NgForOf, NgIf } from "@angular/common";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -17,6 +17,7 @@ import { BlocksComponent } from './blocks/blocks.component';
 import { PoolChartComponent } from './pool-chart/pool-chart.component';
 import { PoolInformationComponent } from './pool-information/pool-information.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
 
 const routes: Routes = [
   {
@@ -54,7 +55,9 @@ const routes: Routes = [
     NzGridModule,
     CurrencyPipe,
     NzEmptyModule,
-    DatePipe
+    DatePipe,
+    NzCollapseModule,
+    NgForOf
   ]
 })
 export class EthereumClassicModule { }

@@ -39,4 +39,8 @@ export class PoolInformationComponent {
   constructor(
     private gql: ApolloAngularSDK
   ) { }
+
+  tracker(index: number, node: any) {
+    return node.name
+  }
 }

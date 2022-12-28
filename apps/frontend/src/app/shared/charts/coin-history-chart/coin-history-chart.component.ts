@@ -16,6 +16,12 @@ type CoinHistory = ICoinHistoryQuery["coinHistory"] | IListenCoinHistorySubscrip
 export class CoinHistoryChartComponent {
   public options: AgChartOptions = {};
   @Input()
+  fields = {
+    network_hashrate: true,
+    difficulty: true,
+    price: true
+  }
+  @Input()
   set coin(coin: string) {
     this.coin$.next(coin);
   }
@@ -54,6 +60,31 @@ export class CoinHistoryChartComponent {
     if (!data) {
       return;
     }
+    const series = [];
+    if (this.fields.difficulty) {
+      series.push({
+        xKey: 'timestamp',
+        yKey: 'difficulty',
+        xName: 'Date',
+        yName: 'Difficulty',
+      })
+    }
+    if (this.fields.network_hashrate) {
+      series.push({
+        xKey: 'timestamp',
+        yKey: 'network_hashrate',
+        xName: 'Date',
+        yName: 'Network Hashrate',
+      })
+    }
+    if (this.fields.price) {
+      series.push({
+        xKey: 'timestamp',
+        yKey: 'price',
+        xName: 'Date',
+        yName: 'Price',
+      })
+    }
     this.options = {
       title: {
         text: `${coin} / ${algo} History`
@@ -62,26 +93,7 @@ export class CoinHistoryChartComponent {
         text: new Date(data.update_at).toLocaleDateString()
       },
       data: data?.data,
-      series: [
-        {
-          xKey: 'timestamp',
-          yKey: 'difficulty',
-          xName: 'Date',
-          yName: 'Difficulty',
-        },
-        {
-          xKey: 'timestamp',
-          yKey: 'network_hashrate',
-          xName: 'Date',
-          yName: 'Network Hashrate',
-        },
-        {
-          xKey: 'timestamp',
-          yKey: 'price',
-          xName: 'Date',
-          yName: 'Price',
-        }
-      ],
+      series,
       axes: [
         {
           type: 'number',
@@ -91,7 +103,8 @@ export class CoinHistoryChartComponent {
             'difficulty'
           ],
           title: {
-            enabled: false
+            enabled: true,
+            text: 'Hashrate / Difficulty'
           },
           label: {
             formatter: (params) => {
@@ -109,7 +122,7 @@ export class CoinHistoryChartComponent {
           },
           label: {
             formatter: (params) => {
-              return '$' + params.value;
+              return '$' + params.value.toLocaleString();
             }
           }
         },

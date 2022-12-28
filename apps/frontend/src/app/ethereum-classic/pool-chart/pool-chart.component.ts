@@ -29,7 +29,6 @@ export class PoolChartComponent {
         }
       }),
       tap(data => {
-        console.log(111,data);
         this.createOptions(data)
       }),
       switchMap(() => forkJoin([
@@ -53,17 +52,17 @@ export class PoolChartComponent {
   constructor(
     private gql: ApolloAngularSDK
   ) { }
-  private createOptions(coinHistoryData: any): void {
-    const time = coinHistoryData.poolStat.poolCharts[0]["x"]*1000;
-    const nhr = (coinHistoryData.history as CoinHistory)?.data.filter((v) => v.timestamp >= time)
-    const phr = (coinHistoryData.poolStat.poolCharts as PoolData["poolCharts"]).map((v) => {
-      return {
-        ...v,
-        x: v.x*1000
-      }
-    })
+  private createOptions(coinHistoryData: {
+    history?: CoinHistory,
+    poolStat?: PoolData
+  }): void {
+    const time = (coinHistoryData.poolStat?.poolCharts[0]["x"] || 0) * 1000;
+    const nhr = coinHistoryData.history?.data.filter((v) => v.timestamp >= time)
+    const phr = coinHistoryData.poolStat?.poolCharts.map((v) => ({
+      ...v,
+      x: v.x * 1000
+    }))
 
-    console.log(nhr, phr);
     this.options = {
       title: {
         text: `Network / Pool Hashrate`
@@ -91,18 +90,30 @@ export class PoolChartComponent {
         {
           type: 'number',
           position: 'left',
-          keys: [
-            'network_hashrate',
-            'y'
-          ],
+          keys: ['network_hashrate'],
           title: {
-            enabled: false
+            enabled: true,
+            text: 'Network Hashrate'
           },
           label: {
             formatter: (params) => {
               return siSymbol(params.value, 'H/s');
             },
           },
+        },
+        {
+          type: 'number',
+          position: 'right',
+          keys: ['y'],
+          title: {
+            enabled: true,
+            text: 'Pool Hashrate',
+          },
+          label: {
+            formatter: (params) => {
+              return siSymbol(params.value, 'H/s');
+            },
+          }
         },
         {
           type: 'time',
