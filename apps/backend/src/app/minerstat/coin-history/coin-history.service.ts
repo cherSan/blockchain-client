@@ -78,7 +78,8 @@ export class CoinHistoryService extends ListenerService<CoinsHistory> {
                 }
               }
             }),
-            catchError(e => {
+            catchError((e) => {
+              console.error(JSON.stringify(e.error));
               this.error = new GraphQLError('Problem with connection to API: ' + `${key.coin} // ${key.algo}`);
               throw this.error;
             })
@@ -94,7 +95,8 @@ export class CoinHistoryService extends ListenerService<CoinsHistory> {
               }
             }, {})
           }),
-          catchError(async (_) => {
+          catchError(async (e) => {
+            console.error(JSON.stringify(e.error));
             this.error = new GraphQLError('Problem with connection to API');
             await this.pubsub.publish(this.serviceKey, { error: this.error });
             throw this.error;
@@ -110,6 +112,7 @@ export class CoinHistoryService extends ListenerService<CoinsHistory> {
 
   async getCoinHistory(coin: string, algo: string): Promise<CoinHistory> {
     if (this.error) {
+      console.error(JSON.stringify(this.error.toJSON()));
       throw this.error;
     }
     return this.data && this.data[coin] ? this.data[coin][algo] : undefined;

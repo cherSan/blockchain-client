@@ -24,4 +24,4 @@ import { PubSubService } from "../utils/pubsub.service";
     PubSubService
   ]
 })
-export class PoolModule {}
+export class EtcPoolModule {}

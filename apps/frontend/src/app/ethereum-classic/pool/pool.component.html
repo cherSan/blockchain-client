@@ -21,10 +21,10 @@
       </nz-descriptions>
     </div>
     <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
-      <coin-history-chart
-        [coin]="coinStats!.coin"
-        [algo]="coinStats!.algorithm"
-      ></coin-history-chart>
+      <pool-chart></pool-chart>
+    </div>
+    <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
+      <pool-information></pool-information>
     </div>
   </div>
 

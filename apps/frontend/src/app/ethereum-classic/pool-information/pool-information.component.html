@@ -1,0 +1,16 @@
+<nz-empty *ngIf="error$ | async"></nz-empty>
+<nz-card
+  *ngIf="!(error$ | async) && data"
+  [nzTitle]="'Pool statistic'"
+  [nzExtra]="(data.now | date: 'yyyy-MM-dd HH:mm:ss') || ''"
+>
+  <nz-descriptions [nzColumn]="1">
+    <nz-descriptions-item nzTitle="Miners Online">{{data.minersTotal}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Pool Hash Rate">{{data.hashrate | siSymbol: 'H/s' }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Live">Hangzhou, Zhejiang</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Remark">Empty</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Address">
+      No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+    </nz-descriptions-item>
+  </nz-descriptions>
+</nz-card>

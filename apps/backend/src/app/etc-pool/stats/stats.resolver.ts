@@ -11,11 +11,10 @@ export class StatsResolver {
   ) {
   }
 
-  @Query(() => Stats, { name: 'stats' })
+  @Query(() => Stats, { name: 'etcPoolStats' })
   async getStats(): Promise<Stats> {
     try {
       const recipe = await this.statsService.get()
-      console.log(123213, recipe);
       if (!recipe) {
         throw new NotFoundException();
       }
@@ -26,7 +25,7 @@ export class StatsResolver {
   }
 
   @Subscription(() => Stats)
-  async stats() {
+  async etcPoolStats() {
     try {
       return this.statsService.subscribe();
     } catch (e) {

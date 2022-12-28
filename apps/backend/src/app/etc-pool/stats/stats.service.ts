@@ -8,7 +8,7 @@ import { POOL_REST_CONNECTION_URL, POOL_REST_TIMER_UPDATE } from "../contants/co
 
 @Injectable()
 export class StatsService extends ListenerService<Stats> {
-  protected serviceKey = 'stats';
+  protected serviceKey = 'etcPoolStats';
 
   constructor(
     @Inject(POOL_REST_TIMER_UPDATE) protected readonly timer: number,

@@ -1,6 +1,6 @@
 <grid
   [title]="'Assets'"
-  [extra]="(data?.timestamp | date: 'yyyy-mm-dd HH:mm:ss') || undefined"
+  [extra]="(data?.timestamp | date: 'yyyy-MM-dd HH:mm:ss') || undefined"
   [error]="error$ | async"
   [rowData]="data?.data"
   [columnDefs]="columnDefs"
