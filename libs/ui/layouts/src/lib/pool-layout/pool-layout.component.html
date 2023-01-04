@@ -3,9 +3,12 @@
   <nz-page-header-subtitle>{{code}}</nz-page-header-subtitle>
   <nz-page-header-extra>
     <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-      <input nz-input name="wallet" type="text" id="wallet">
+      <input nz-input #val name="wallet" type="text" id="wallet" placeholder="ETC Address">
       <ng-template #suffixButton>
-        <button nz-button nzType="primary" nzSize="large" nzSearch>Join pool</button>
+        <button nz-button nzType="primary" nzSize="large" nzSearch [routerLink]="['miners', val.value]" [relativeTo]="activeRoute.parent">
+          <span nz-icon [nzIconfont]="'icon-search'"></span>
+          Lookup
+        </button>
       </ng-template>
     </nz-input-group>
   </nz-page-header-extra>
@@ -15,16 +18,16 @@
   <nz-page-header-footer>
     <nz-tabset nzLinkRouter>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">POOL</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'pool']" [relativeTo]="activeRoute.parent">Pool</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'blocks']">BLOCKS</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'blocks']" [relativeTo]="activeRoute.parent">Blocks</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">MINERS</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'miners']" [relativeTo]="activeRoute.parent">Miners</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['..', 'pool']">REWARD</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'pool']" [relativeTo]="activeRoute.parent">Rewards</a>
       </nz-tab>
     </nz-tabset>
   </nz-page-header-footer>

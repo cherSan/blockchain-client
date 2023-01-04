@@ -15,21 +15,16 @@ type Coin = Coins[number]
   styleUrls: ['./coin-details.component.scss']
 })
 export class CoinDetailsComponent implements OnInit {
-  public coin$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   data: undefined | Coin;
   private data$: Observable<undefined | Coins> =this. activeRoute.params.pipe(
     switchMap((params) => {
-      const coin = params['id'];
-      if (!coin) {
+      const coin = params['coin'];
+      const algo = params['algo'];
+      if (!coin || !algo) {
         return of(undefined);
       }
       return this.gql.minerstatsCoins().pipe(
         map(response => response.data?.coins),
-        tap(data => {
-          console.log(data);
-          console.log(coin);
-          console.log(data.find(v => v.coin === coin));
-        }),
         tap(data => this.data = data.find(v => v.coin === coin)),
         switchMap(() => this.gql.listenMinerstatsCoins()),
         map(response => response.data?.coins),

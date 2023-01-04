@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { AsyncPipe, CurrencyPipe, NgIf } from "@angular/common";
+import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf, TitleCasePipe } from "@angular/common";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -14,10 +14,15 @@ import { PipesModule } from "../pipes/pipes.module";
 
 import { PoolComponent } from './pool/pool.component';
 import { BlocksComponent } from './blocks/blocks.component';
-import { EthHistoryGraphComponent } from "./eth-history-graph/eth-history-graph.component";
-import { MainStatsComponent } from "./main-stats/main-stats.component";
-import { PoolHashrateGraphComponent } from "./pool-hashrate-graph/pool-hashrate-graph.component";
-import { DifficultyGraphComponent } from './difficulty-graph/difficulty-graph.component';
+import { PoolChartComponent } from './pool-chart/pool-chart.component';
+import { PoolInformationComponent } from './pool-information/pool-information.component';
+import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
+import { MinersComponent } from './miners/miners.component';
+import { GridModule } from "../shared/grid/grid.module";
+import { MinerDetailComponent } from './miner-detail/miner-detail.component';
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzIconModule } from "ng-zorro-antd/icon";
 
 const routes: Routes = [
   {
@@ -32,6 +37,14 @@ const routes: Routes = [
   {
     path: 'blocks',
     component: BlocksComponent
+  },
+  {
+    path: 'miners',
+    component: MinersComponent
+  },
+  {
+    path: 'miners/:id',
+    component: MinerDetailComponent
   }
 ]
 
@@ -39,10 +52,10 @@ const routes: Routes = [
   declarations: [
     PoolComponent,
     BlocksComponent,
-    EthHistoryGraphComponent,
-    MainStatsComponent,
-    PoolHashrateGraphComponent,
-    DifficultyGraphComponent,
+    PoolChartComponent,
+    PoolInformationComponent,
+    MinersComponent,
+    MinerDetailComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -55,7 +68,16 @@ const routes: Routes = [
     PipesModule,
     NgIf,
     NzGridModule,
-    CurrencyPipe
+    CurrencyPipe,
+    NzEmptyModule,
+    DatePipe,
+    NzCollapseModule,
+    NgForOf,
+    GridModule,
+    DecimalPipe,
+    TitleCasePipe,
+    NzPageHeaderModule,
+    NzIconModule
   ]
 })
 export class EthereumClassicModule { }

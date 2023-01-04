@@ -19,7 +19,7 @@ export const prefixes: Prefixes = {
   '-21': 'z',
   '-24': 'y'
 };
-export function transform(value?: number | string | null): string {
+export function siSymbol(value?: number | string | null, suffix: string = ''): string {
   if (value === null || typeof value !== 'number' && typeof value !== 'string') {
     return 'N/A'
   }
@@ -27,7 +27,7 @@ export function transform(value?: number | string | null): string {
   const num =  parseFloat(`${value}`);
 
   if (num === 0) {
-    return '0';
+    return '0' + suffix;
   }
   let sig = Math.abs(num);
   let exponent: Exponent = 0;
@@ -43,8 +43,8 @@ export function transform(value?: number | string | null): string {
 
   const signPrefix = num < 0 ? '-' : '';
   if (sig > 1000) {
-    return signPrefix + sig.toFixed(0) + (prefixes[exponent as keyof Prefixes]);
+    return signPrefix + sig.toFixed(3) + (prefixes[exponent as keyof Prefixes]) + suffix;
   }
-  return signPrefix + parseFloat(sig.toPrecision(3)) + (prefixes[exponent as keyof Prefixes] || '');
+  return signPrefix + parseFloat(sig.toPrecision(3)) + (prefixes[exponent as keyof Prefixes] || '') + suffix;
 
 }

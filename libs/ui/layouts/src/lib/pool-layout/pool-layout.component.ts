@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'lo-pool',
@@ -11,4 +12,9 @@ export class PoolLayoutComponent {
 
   @Input()
   public code: string = '';
+
+  constructor(
+    public activeRoute: ActivatedRoute
+  ) {
+  }
 }

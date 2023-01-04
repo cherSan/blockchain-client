@@ -1,0 +1,25 @@
+query CoinHistory($coin: String!, $algo: String!) {
+  coinHistory(coin: $coin, algorithm: $algo) {
+    update_at
+    data {
+      difficulty
+      price
+      network_hashrate
+      unknown_field
+      timestamp
+    }
+  }
+}
+
+subscription ListenCoinHistory($coin: String!, $algo: String!) {
+  coinHistory(coin: $coin, algorithm: $algo) {
+    update_at
+    data {
+      difficulty
+      price
+      network_hashrate
+      unknown_field
+      timestamp
+    }
+  }
+}

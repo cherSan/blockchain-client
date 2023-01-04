@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
 import { ColDef, GetRowIdParams, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
-import { transform } from "../../../utils/si-symbol";
+import { siSymbol } from "../../../utils/si-symbol";
 
 @Component({
   selector: 'grid',
@@ -50,7 +50,7 @@ export class GridComponent {
       cellRenderer: 'agAnimateShowChangeCellRenderer',
       cellStyle: { textAlign: 'right' },
       filter: 'agNumberColumnFilter',
-      valueFormatter: (params) => transform(params.value),
+      valueFormatter: (params) => siSymbol(params.value),
     },
     Price: {
       editable: false,

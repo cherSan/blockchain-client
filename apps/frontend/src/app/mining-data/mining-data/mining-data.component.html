@@ -1,21 +1,9 @@
 <div nz-row [nzGutter]="[20, 20]">
   <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'BTC'"></coin-graph>
+    <coin-history-chart [coin]="'BTC'" [algo]="'SHA-256'"></coin-history-chart>
   </div>
   <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'ETC'"></coin-graph>
-  </div>
-  <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'ETHW'"></coin-graph>
-  </div>
-  <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'DOGE'"></coin-graph>
-  </div>
-  <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'ELA'"></coin-graph>
-  </div>
-  <div nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="8">
-    <coin-graph [coin]="'NMC'"></coin-graph>
+    <coin-history-chart [coin]="'ETC'" [algo]="'Etchash'"></coin-history-chart>
   </div>
   <div nz-col [nzXs]="24">
     <statistic-grid></statistic-grid>

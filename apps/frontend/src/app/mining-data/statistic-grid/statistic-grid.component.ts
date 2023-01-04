@@ -92,6 +92,6 @@ export class StatisticGridComponent {
   }
 
   onRowClick($event: RowClickedEvent<Coins[number]>) {
-    return this.router.navigate([$event.data?.coin], {relativeTo: this.activeRoute})
+    return this.router.navigate([$event.data?.coin, $event.data?.algorithm], {relativeTo: this.activeRoute})
   }
 }

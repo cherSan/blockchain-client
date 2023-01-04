@@ -6,7 +6,7 @@ import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 import { UserModule } from "./user/user.module";
 import { EthersModule } from "./ethers/ethers.module";
 import { CoincapModule } from "./coincap/coincap.module";
-import { PoolModule } from "./pool/pool.module";
+import { EtcPoolModule } from "./etc-pool/etc-pool.module";
 import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
 import { MinerstatModule } from "./minerstat/minerstat.module";
 import { NewsdataModule } from "./newsdata/newsdata.module";
@@ -14,7 +14,7 @@ import { NewsdataModule } from "./newsdata/newsdata.module";
 @Module({
   imports: [
     UserModule,
-    PoolModule,
+    EtcPoolModule,
     EthersModule,
     CoincapModule,
     CryptopanicModule,

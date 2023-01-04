@@ -25,6 +25,7 @@ export class AssetsComponent {
       type: 'Number',
       sort: 'asc',
       sortIndex: 1,
+      maxWidth: 80,
       comparator: (valueA, valueB) => {
         return parseFloat(valueA) - parseFloat(valueB)
       }

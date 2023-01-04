@@ -1,0 +1,43 @@
+<nz-page-header [nzBackIcon]="back">
+  <ng-template #back>
+    <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
+  </ng-template>
+  <nz-page-header-title>Miner Statistic</nz-page-header-title>
+  <nz-page-header-subtitle>{{userId$ | async}}</nz-page-header-subtitle>
+</nz-page-header>
+<div class="content">
+<nz-empty *ngIf="(stateError$ | async) || (coinStateError$ | async) || (error$ | async)" [nzNotFoundContent]="'Unknown ETC Account or Information Unavailable'"></nz-empty>
+  <div nz-row [nzGutter]="[20, 20]">
+    <div nz-col [nzXs]="24">
+      <nz-descriptions *ngIf="data" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 4, 'xl': 4, 'xxl': 4}">
+        <nz-descriptions-item nzTitle="Immature Total">{{poolData?.immatureTotal}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Workers">{{data?.workersOnline}} / {{data?.workersTotal}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Round Shares">{{data?.stats?.roundShares}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Last Shares">{{data?.stats?.lastShare}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Last 24h Reward">{{data?.reward24h}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Share Found">{{data.stats.lastShareDiff | siSymbol: 'H/s'}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Hashrate (30m)">{{data?.currentHashrate | siSymbol: 'H/s'}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Hashrate (3h)">{{data?.hashrate | siSymbol: 'H/s'}}</nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+    <div nz-col [nzXs]="24">
+      <chart
+        [error]="stateError$ | async"
+        [options]="workerChartOptions"
+      ></chart>
+    </div>
+    <div nz-col [nzXs]="24">
+      <chart
+        [error]="stateError$ | async"
+        [options]="shareChartOptions"
+      ></chart>
+    </div>
+    <div nz-col [nzXs]="24">
+      <grid
+        [error]="stateError$ | async"
+        [columnDefs]="columnDefs"
+        [rowData]="data?.workers"
+      ></grid>
+    </div>
+  </div>
+</div>
