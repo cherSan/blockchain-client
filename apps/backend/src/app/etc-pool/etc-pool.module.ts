@@ -11,6 +11,11 @@ import { MinerListResolver } from "./miners/miner-list.resolver";
 import { MinerListService } from "./miners/miner-list.service";
 import { MinerStatisticResolver } from "./miner-statistic/miner-statistic.resolver";
 import { MinerStatisticService } from "./miner-statistic/miner-statistic.service";
+import { MinerStatisticRewardResolver } from "./miner-statistic/miner-stat-reward.resolver";
+import { MinerStatisticsPaymentChartResolver } from "./miner-statistic/miner-stat-payment-chart.resolver";
+import { MinerStatisticPaymentsResolver } from "./miner-statistic/miner-stat-payments.resolver";
+import { MinerStatisticShareChartResolver } from "./miner-statistic/miner-stat-share-chart.resolver";
+import { MinerStatisticMinerChartResolver } from "./miner-statistic/miner-stat-miner-chart.resolver";
 
 @Module({
   imports: [HttpModule],
@@ -21,6 +26,11 @@ import { MinerStatisticService } from "./miner-statistic/miner-statistic.service
     MinerListService,
     MinerStatisticResolver,
     MinerStatisticService,
+    MinerStatisticRewardResolver,
+    MinerStatisticsPaymentChartResolver,
+    MinerStatisticPaymentsResolver,
+    MinerStatisticShareChartResolver,
+    MinerStatisticMinerChartResolver,
     {
       provide: POOL_REST_TIMER_UPDATE,
       useValue: 10000

@@ -77,6 +77,23 @@ query EtcMinerStat($id: String!) {
     workersOffline
     workersOnline
     workersTotal
+    payments {
+      amount
+      timestamp
+      tx
+    }
+    paymentCharts {
+      amount
+      x
+    }
+    rewards {
+      blockhash
+      blockheight
+      immature
+      percent
+      reward
+      timestamp
+    }
   }
 }
 subscription ListenEtcMinerStat($id: String!) {
@@ -158,5 +175,22 @@ subscription ListenEtcMinerStat($id: String!) {
     workersOffline
     workersOnline
     workersTotal
+    payments {
+      amount
+      timestamp
+      tx
+    }
+    paymentCharts {
+      amount
+      x
+    }
+    rewards {
+      blockhash
+      blockheight
+      immature
+      percent
+      reward
+      timestamp
+    }
   }
 }
