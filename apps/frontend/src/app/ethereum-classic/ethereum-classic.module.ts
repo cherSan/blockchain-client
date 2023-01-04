@@ -1,6 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { AsyncPipe, CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf, TitleCasePipe } from "@angular/common";
+import {
+  AsyncPipe,
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  NgForOf,
+  NgIf,
+  PercentPipe,
+  TitleCasePipe
+} from "@angular/common";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -23,6 +32,10 @@ import { GridModule } from "../shared/grid/grid.module";
 import { MinerDetailComponent } from './miner-detail/miner-detail.component';
 import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
 import { NzIconModule } from "ng-zorro-antd/icon";
+import { WorkersComponent } from './workers/workers.component';
+import { RewardsComponent } from './rewards/rewards.component';
+import { PayoutComponent } from './payout/payout.component';
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 const routes: Routes = [
   {
@@ -44,7 +57,26 @@ const routes: Routes = [
   },
   {
     path: 'miners/:id',
-    component: MinerDetailComponent
+    component: MinerDetailComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'workers',
+        pathMatch: 'full'
+      },
+      {
+        path: 'workers',
+        component: WorkersComponent
+      },
+      {
+        path: 'rewards',
+        component: RewardsComponent
+      },
+      {
+        path: 'payout',
+        component: PayoutComponent
+      }
+    ]
   }
 ]
 
@@ -56,6 +88,9 @@ const routes: Routes = [
     PoolInformationComponent,
     MinersComponent,
     MinerDetailComponent,
+    WorkersComponent,
+    RewardsComponent,
+    PayoutComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -77,7 +112,9 @@ const routes: Routes = [
     DecimalPipe,
     TitleCasePipe,
     NzPageHeaderModule,
-    NzIconModule
+    NzIconModule,
+    PercentPipe,
+    NzTabsModule
   ]
 })
 export class EthereumClassicModule { }

@@ -81,7 +81,6 @@ export class PoolChartComponent {
           data: nhr
         },
         {
-          type: 'area',
           xKey: 'x',
           yKey: 'y',
           xName: 'Date',

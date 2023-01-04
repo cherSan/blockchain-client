@@ -33,5 +33,6 @@
   </nz-page-header-footer>
 </nz-page-header>
 <nz-content>
+  <nz-empty *ngIf="error" [nzNotFoundContent]="error.message"></nz-empty>
   <ng-content></ng-content>
 </nz-content>

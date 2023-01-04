@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { ExchangeData } from "../models/exchange-data.model";
 @ObjectType()
-class MinerChart {
+export class MinerStatMinerChart {
   @Field()
   x: number;
   @Field({ nullable: true })
@@ -12,7 +12,7 @@ class MinerChart {
   workerOnline: number;
 }
 @ObjectType()
-class ShareChart {
+export class MinerStatShareChart {
   @Field()
   x: number;
   @Field()
@@ -23,7 +23,7 @@ class ShareChart {
   workerOnline: number;
 }
 @ObjectType()
-class MinerStats {
+class MinerStatMinerStats {
   @Field()
   lastShare: number;
   @Field()
@@ -32,7 +32,7 @@ class MinerStats {
   roundShares: number;
 }
 @ObjectType()
-class SumReward {
+class MinerStatSumReward {
   @Field()
   inverval: number;
   @Field()
@@ -45,7 +45,23 @@ class SumReward {
   blocks: number;
 }
 @ObjectType()
-export class Worker {
+export class MinerStatPayments {
+  @Field()
+  amount: number;
+  @Field()
+  timestamp: number;
+  @Field()
+  tx: string;
+}
+@ObjectType()
+export class MinerStatPaymentChart {
+  @Field()
+  amount: number;
+  @Field()
+  x: number;
+}
+@ObjectType()
+export class MinerStatWorker {
   @Field()
   id: string;
   @Field()
@@ -76,6 +92,21 @@ export class Worker {
   w_stat_s: number;
 }
 @ObjectType()
+export class MinerStatReward {
+  @Field()
+  blockhash: string;
+  @Field()
+  blockheight: number;
+  @Field()
+  immature: boolean;
+  @Field()
+  percent: number;
+  @Field()
+  reward: number;
+  @Field()
+  timestamp: number;
+}
+@ObjectType()
 export class MinerStat {
   @Field()
   id: string;
@@ -87,24 +118,30 @@ export class MinerStat {
   exchangedata: ExchangeData;
   @Field()
   hashrate: number;
-  @Field(() => [MinerChart])
-  minerCharts: MinerChart[];
+  @Field(() => [MinerStatMinerChart])
+  minerCharts: MinerStatMinerChart[];
   @Field()
   paymentsTotal: number;
   @Field()
   roundShares: number;
-  @Field(() => [ShareChart])
-  shareCharts: ShareChart[];
-  @Field(() => MinerStats)
-  stats: MinerStats;
-  @Field(() => [SumReward])
-  sumrewards: SumReward[];
-  @Field(() => [Worker])
-  workers: Worker[];
+  @Field(() => [MinerStatShareChart])
+  shareCharts: MinerStatShareChart[];
+  @Field(() => MinerStatMinerStats)
+  stats: MinerStatMinerStats;
+  @Field(() => [MinerStatSumReward])
+  sumrewards: MinerStatSumReward[];
+  @Field(() => [MinerStatWorker])
+  workers: MinerStatWorker[];
   @Field()
   workersOffline: number;
   @Field()
   workersOnline: number;
   @Field()
   workersTotal: number;
+  @Field(() => [MinerStatPayments], { nullable: true })
+  payments?: MinerStatPayments[];
+  @Field(() => [MinerStatPaymentChart], { nullable: true })
+  paymentCharts?: MinerStatPaymentChart[]
+  @Field(() => [MinerStatReward], { nullable: true })
+  rewards?: MinerStatReward[]
 }

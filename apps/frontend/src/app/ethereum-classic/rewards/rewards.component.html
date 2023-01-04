@@ -1,0 +1,19 @@
+<nz-empty *ngIf="(stateError$ | async)" [nzNotFoundContent]="'Unknown ETC Account or Information Unavailable'"></nz-empty>
+<div nz-row [nzGutter]="[20, 20]">
+  <div nz-col [nzXs]="24">
+    <nz-descriptions *ngIf="data" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 3, 'xl': 3, 'xxl': 6}">
+      <nz-descriptions-item nzTitle="Last 30 minutes">{{rewards.m30}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Last 60 minutes">{{rewards.m60}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Last 12 hours">{{rewards.h12}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Last 24 hours">{{rewards.h24}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Last 7 days">{{rewards.d7}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Last 30 days">{{rewards.d30}}</nz-descriptions-item>
+    </nz-descriptions>
+  </div>
+  <div nz-col [nzXs]="24">
+    <grid
+      [rowData]="data?.rewards"
+      [columnDefs]="columnDefs"
+    ></grid>
+  </div>
+</div>

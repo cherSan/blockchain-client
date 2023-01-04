@@ -16,6 +16,7 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzEmptyModule } from "ng-zorro-antd/empty";
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
     NzInputModule,
     NzButtonModule,
     NzDescriptionsModule,
+    NzEmptyModule
   ],
   declarations: [
     MainLayoutComponent,

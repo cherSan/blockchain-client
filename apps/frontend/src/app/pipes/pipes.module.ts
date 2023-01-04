@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { SiSymbolPipe } from './si-symbol.pipe';
+import { MomentPipe } from './moment.pipe';
 
 
 
 @NgModule({
   declarations: [
-    SiSymbolPipe
+    SiSymbolPipe,
+    MomentPipe
   ],
   exports: [
-    SiSymbolPipe
+    SiSymbolPipe,
+    MomentPipe
   ]
 })
 export class PipesModule { }
