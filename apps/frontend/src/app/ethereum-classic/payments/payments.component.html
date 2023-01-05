@@ -1,0 +1,10 @@
+<lo-pool
+  [error]="error$ | async"
+  [title]="'Ethereum Classic'"
+  [code]="'ETC'"
+>
+  <grid
+    [rowData]="data?.payments"
+    [columnDefs]="columnDef"
+  ></grid>
+</lo-pool>

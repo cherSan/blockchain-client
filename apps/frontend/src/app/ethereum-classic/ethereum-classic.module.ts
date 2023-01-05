@@ -22,7 +22,6 @@ import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
 
 import { PoolComponent } from './pool/pool.component';
-import { BlocksComponent } from './blocks/blocks.component';
 import { PoolChartComponent } from './pool-chart/pool-chart.component';
 import { PoolInformationComponent } from './pool-information/pool-information.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
@@ -36,6 +35,7 @@ import { WorkersComponent } from './workers/workers.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
 import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
   {
@@ -48,12 +48,12 @@ const routes: Routes = [
     component: PoolComponent
   },
   {
-    path: 'blocks',
-    component: BlocksComponent
-  },
-  {
     path: 'miners',
     component: MinersComponent
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent
   },
   {
     path: 'miners/:id',
@@ -83,7 +83,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PoolComponent,
-    BlocksComponent,
     PoolChartComponent,
     PoolInformationComponent,
     MinersComponent,
@@ -91,6 +90,7 @@ const routes: Routes = [
     WorkersComponent,
     RewardsComponent,
     PayoutComponent,
+    PaymentsComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

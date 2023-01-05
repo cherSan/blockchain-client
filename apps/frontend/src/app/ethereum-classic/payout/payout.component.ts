@@ -72,6 +72,9 @@ export class PayoutComponent {
 
   }
   createChart(data: undefined | MinerStat) {
+    if (!data?.paymentCharts) {
+      return;
+    }
     const startDay = moment(data?.paymentCharts[0].x).startOf('day');
     const endDay = moment().endOf('day');
     const diff = endDay.diff(startDay, 'days');
@@ -91,7 +94,7 @@ export class PayoutComponent {
       subtitle: {
         text: moment().format('L LTS')
       },
-      data: [...data!.paymentCharts],
+      data: data?.paymentCharts,
       series: [
         {
           type: 'histogram',

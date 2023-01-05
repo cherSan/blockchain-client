@@ -16,6 +16,9 @@ import { MinerStatisticsPaymentChartResolver } from "./miner-statistic/miner-sta
 import { MinerStatisticPaymentsResolver } from "./miner-statistic/miner-stat-payments.resolver";
 import { MinerStatisticShareChartResolver } from "./miner-statistic/miner-stat-share-chart.resolver";
 import { MinerStatisticMinerChartResolver } from "./miner-statistic/miner-stat-miner-chart.resolver";
+import { MinerPaymentsResolver } from "./payments/miner-payments.resolver";
+import { MinerPaymentsService } from "./payments/miner-payments.service";
+import { MinerPaymentResolver } from "./payments/miner-payment.resolver";
 
 @Module({
   imports: [HttpModule],
@@ -31,6 +34,9 @@ import { MinerStatisticMinerChartResolver } from "./miner-statistic/miner-stat-m
     MinerStatisticPaymentsResolver,
     MinerStatisticShareChartResolver,
     MinerStatisticMinerChartResolver,
+    MinerPaymentsResolver,
+    MinerPaymentsService,
+    MinerPaymentResolver,
     {
       provide: POOL_REST_TIMER_UPDATE,
       useValue: 10000

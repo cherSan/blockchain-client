@@ -1,0 +1,21 @@
+query EtcMinerPayments {
+  etcMinersPaymentsData {
+    payments {
+      timestamp
+      tx
+      amount
+      address
+    }
+  }
+}
+
+subscription EtcMinerPaymentsListen {
+  etcMinersPaymentsData {
+    payments {
+      timestamp
+      tx
+      amount
+      address
+    }
+  }
+}
