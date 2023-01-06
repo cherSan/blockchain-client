@@ -26,19 +26,22 @@ export class CoinsService extends ListenerService<Coins[]> {
     protected readonly pubsub: PubSubService
   ) {
     super(httpService, pubsub);
-    this.observer$(`${uri}/coins`, timer).subscribe();
+    this.observer$(`${uri}coins`, timer).subscribe();
   }
 
   protected observer$(url: string, timer: number): Observable<Coins[]> {
-    return this.httpService.get(url).pipe(
+    return this.httpService.get(url, { proxy: false }).pipe(
       tap(() => this.error = undefined),
       map(response => response?.data),
-      catchError(async (_) => {
+      catchError(async (e) => {
+        console.error(e.response.data);
         this.error = new GraphQLError('Problem with connection to API');
         await this.pubsub.publish(this.serviceKey, { error: this.error });
         throw this.error;
       }),
-      retry(),
+      retry({
+        delay: 5000
+      }),
       tap(async (data) => {
         this.data = data.filter((v) =>
           v.network_hashrate !== -1 &&

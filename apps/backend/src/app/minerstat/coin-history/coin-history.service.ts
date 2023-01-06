@@ -91,12 +91,14 @@ export class CoinHistoryService extends ListenerService<CoinsHistory> {
             }, {})
           }),
           catchError(async (e) => {
-            console.error(JSON.stringify(e.error));
+            console.error(e.response.data);
             this.error = new GraphQLError('Problem with connection to API');
             await this.pubsub.publish(this.serviceKey, { error: this.error });
             throw this.error;
           }),
-          retry(),
+          retry({
+            delay: 5000
+          }),
           tap(async (data) => this.data = data),
           delay(timer),
           repeat()

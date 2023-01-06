@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { map, Observable } from "rxjs";
-
 @Component({
   selector: 'coin-details',
   templateUrl: './coin-details.component.html',

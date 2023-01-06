@@ -72,12 +72,14 @@ export class MinerStatisticService extends ListenerService<MinerStats> {
           }),
           tap((data) => this.minersMap.next(data)),
           catchError(async (e) => {
-            console.error(JSON.stringify(e.error));
+            console.error(e.response.data);
             this.error = new GraphQLError('Problem with connection to API');
             await this.pubsub.publish(this.serviceKey, { error: this.error });
             throw this.error;
           }),
-          retry(),
+          retry({
+            delay: 5000
+          }),
           delay(timer),
           repeat()
         )

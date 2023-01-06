@@ -26,12 +26,15 @@ export class ListenerService<T> {
     return this.httpService.get(url).pipe(
       tap(() => this.error = undefined),
       map(response => response?.data),
-      catchError(async (_) => {
+      catchError(async (e) => {
+        console.error(e.response.data);
         this.error = new GraphQLError('Problem with connection to API');
         await this.pubsub.publish(this.serviceKey, { error: this.error });
         throw this.error;
       }),
-      retry(),
+      retry({
+        delay: 5000
+      }),
       tap(async (data) => {
         this.data = data;
         await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: data })
