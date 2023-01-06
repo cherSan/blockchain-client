@@ -19,6 +19,7 @@ import { NzStatisticModule } from "ng-zorro-antd/statistic";
 import { GridModule } from "../shared/grid/grid.module";
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
+import { ModelViewerModule } from "../model-viewer/model-viewer.module";
 
 const routes: Routes = [
   {
@@ -53,7 +54,8 @@ const routes: Routes = [
     NzImageModule,
     NzTagModule,
     NzStatisticModule,
-    PipesModule
+    PipesModule,
+    ModelViewerModule
   ]
 })
 export class MiningDataModule { }

@@ -1,5 +1,5 @@
 <grid
-  [error]="error$ | async"
+  *ngIf="!(error$ | async)"
   [rowData]="data?.data"
   [columnDefs]="columnDefs"
   (rowClick)="onRowClick($event)"

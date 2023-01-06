@@ -36,6 +36,7 @@ import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { PaymentsComponent } from './payments/payments.component';
+import { ModelViewerModule } from "../model-viewer/model-viewer.module";
 
 const routes: Routes = [
   {
@@ -114,7 +115,8 @@ const routes: Routes = [
     NzPageHeaderModule,
     NzIconModule,
     PercentPipe,
-    NzTabsModule
+    NzTabsModule,
+    ModelViewerModule
   ]
 })
 export class EthereumClassicModule { }

@@ -1,10 +1,17 @@
 <lo-pool
-  [error]="error$ | async"
   [title]="'Ethereum Classic'"
   [code]="'ETC'"
 >
-  <grid
-    [rowData]="data?.payments"
-    [columnDefs]="columnDef"
-  ></grid>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <mdl-etc-payments>
+        <ng-template etc-payments let-data>
+          <grid
+            [rowData]="data?.payments"
+            [columnDefs]="columnDef"
+          ></grid>
+        </ng-template>
+      </mdl-etc-payments>
+    </nz-col>
+  </nz-row>
 </lo-pool>

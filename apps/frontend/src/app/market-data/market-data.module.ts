@@ -3,7 +3,7 @@ import {
   AsyncPipe,
   CurrencyPipe,
   DatePipe,
-  DecimalPipe,
+  DecimalPipe, JsonPipe,
   NgForOf,
   NgIf,
   PercentPipe,
@@ -18,8 +18,20 @@ import { NzListModule } from "ng-zorro-antd/list";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzImageModule } from "ng-zorro-antd/image";
+import { NzSpaceModule } from "ng-zorro-antd/space";
+import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
+import { NzBackTopModule } from "ng-zorro-antd/back-top";
+import { NzCarouselModule } from "ng-zorro-antd/carousel";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 import { GridModule } from "../shared/grid/grid.module";
+import { PipesModule } from "../pipes/pipes.module";
+import { ModelViewerModule } from "../model-viewer/model-viewer.module";
 
 import { GetRatesPipe } from "./pipes/get-rates.pipe";
 
@@ -28,17 +40,7 @@ import { MainRatesComponent } from "./main-rates/main-rates.component";
 import { NewsComponent } from "./news/news.component";
 import { MarketDataComponent } from './market-data/market-data.component';
 import { CoinDetailsComponent } from './coin-details/coin-details.component';
-import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { NzEmptyModule } from "ng-zorro-antd/empty";
-import { NzIconModule } from "ng-zorro-antd/icon";
-import { NzImageModule } from "ng-zorro-antd/image";
-import { PipesModule } from "../pipes/pipes.module";
-import { NzSpaceModule } from "ng-zorro-antd/space";
-import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
-import { NzBadgeModule } from "ng-zorro-antd/badge";
-import { NzBackTopModule } from "ng-zorro-antd/back-top";
-import { NzCarouselModule } from "ng-zorro-antd/carousel";
-import { NzCardModule } from "ng-zorro-antd/card";
+
 
 const routes: Routes = [
   {
@@ -87,7 +89,9 @@ const routes: Routes = [
     NzBackTopModule,
     NzCarouselModule,
     NzCardModule,
-    TitleCasePipe
+    TitleCasePipe,
+    ModelViewerModule,
+    JsonPipe,
   ]
 })
 export class MarketDataModule { }

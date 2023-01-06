@@ -1,23 +1,26 @@
 <lo-pool
-  [error]="stateError$ | async"
   [title]="'Ethereum Classic'"
   [code]="'ETC'"
 >
-  <div nz-row [nzGutter]="[20, 20]">
-    <div nz-col [nzXs]="24">
-      <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 4, 'xl': 4, 'xxl': 4}">
-        <nz-descriptions-item nzTitle="Algorithm">{{coinStats.algorithm}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Network Hashrate">{{coinStats.network_hashrate | siSymbol}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Price">{{coinStats.price | currency: "$"}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Reward">{{coinStats.reward | siSymbol}} {{coinStats.reward_unit}}</nz-descriptions-item>
-      </nz-descriptions>
-    </div>
-  </div>
+  <nz-row  [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <mdl-coin [coin]="'ETC'">
+        <ng-template coin let-coinStats="coinStats">
+            <nz-descriptions *ngIf="coinStats" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 4, 'xl': 4, 'xxl': 4}">
+              <nz-descriptions-item nzTitle="Algorithm">{{coinStats.algorithm}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Network Hashrate">{{coinStats.network_hashrate | siSymbol}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Price">{{coinStats.price | currency: "$"}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Reward">{{coinStats.reward | siSymbol}} {{coinStats.reward_unit}}</nz-descriptions-item>
+            </nz-descriptions>
+        </ng-template>
+      </mdl-coin>
+    </nz-col>
+  </nz-row>
   <pool-information
     [difficulty]="coinStats?.difficulty"
     [rewardBlock]="coinStats?.reward_block"
   ></pool-information>
-  <div nz-row [nzGutter]="[20, 20]">
+  <div nz-row [nzGutter]="[10, 10]">
     <div nz-col [nzXs]="24" *ngIf="coinStats?.coin && coinStats?.algorithm">
       <pool-chart></pool-chart>
     </div>

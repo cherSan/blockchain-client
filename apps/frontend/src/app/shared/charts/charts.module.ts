@@ -7,11 +7,14 @@ import { NzAlertModule } from "ng-zorro-antd/alert";
 import { ChartComponent } from './chart/chart.component';
 import { CoinHistoryChartComponent } from './coin-history-chart/coin-history-chart.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { ModelViewerModule } from "../../model-viewer/model-viewer.module";
+import { CoinHistoryDataToOptionsPipe } from './pipes/coin-history-data-to-options.pipe';
 
 @NgModule({
   declarations: [
     ChartComponent,
     CoinHistoryChartComponent,
+    CoinHistoryDataToOptionsPipe,
   ],
   imports: [
     AgChartsAngularModule,
@@ -19,7 +22,8 @@ import { NzEmptyModule } from "ng-zorro-antd/empty";
     NgIf,
     AsyncPipe,
     NzEmptyModule,
-    JsonPipe
+    JsonPipe,
+    ModelViewerModule
   ],
   exports: [
     ChartComponent,

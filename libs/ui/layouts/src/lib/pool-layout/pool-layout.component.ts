@@ -13,9 +13,6 @@ export class PoolLayoutComponent {
   @Input()
   public code: string = '';
 
-  @Input()
-  public error: any = '';
-
   constructor(
     public activeRoute: ActivatedRoute
   ) {

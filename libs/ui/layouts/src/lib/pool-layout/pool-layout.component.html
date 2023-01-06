@@ -21,7 +21,7 @@
         <a *nzTabLink nz-tab-link [routerLink]="['.', 'pool']" [relativeTo]="activeRoute.parent">Pool</a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['.', 'miners']" [relativeTo]="activeRoute.parent">Miners</a>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'miners']" [relativeTo]="activeRoute.parent">EtcPayments</a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['.', 'payments']" [relativeTo]="activeRoute.parent">Payments</a>
@@ -30,6 +30,5 @@
   </nz-page-header-footer>
 </nz-page-header>
 <nz-content>
-  <nz-empty *ngIf="error" [nzNotFoundContent]="error.message"></nz-empty>
   <ng-content></ng-content>
 </nz-content>

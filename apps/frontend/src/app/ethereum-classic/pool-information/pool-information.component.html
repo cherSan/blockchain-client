@@ -1,4 +1,4 @@
-<div nz-row [nzGutter]="[20, 20]">
+<div nz-row [nzGutter]="[10, 10]">
   <div nz-col [nzXs]="24" [nzLg]="12">
     <nz-empty *ngIf="error$ | async"></nz-empty>
     <nz-card
@@ -7,7 +7,7 @@
       [nzExtra]="updateDate"
     >
       <nz-descriptions [nzColumn]="1" [nzBordered]="true" [nzSize]="'small'">
-        <nz-descriptions-item nzTitle="Miners Online">{{data.minersTotal}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="EtcPayments Online">{{data.minersTotal}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Pool Hash Rate">{{data.hashrate | siSymbol: 'H/s' }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Luck">{{((data?.stats?.roundShares || 0) / (difficulty || 1))  | percent: '1.2-2' }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="Epoch">{{((bestHeight || 0) / 60000) | number: '1.0-0' }}</nz-descriptions-item>

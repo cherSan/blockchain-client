@@ -20,9 +20,6 @@ export class GridComponent {
   extra?: string | null = undefined;
 
   @Input()
-  error?: string = undefined;
-
-  @Input()
   rowData?: any[] | null;
 
   @Input()

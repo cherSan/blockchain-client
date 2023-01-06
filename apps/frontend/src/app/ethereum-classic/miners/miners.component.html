@@ -2,19 +2,28 @@
   [title]="'Ethereum Classic'"
   [code]="'ETC'"
 >
-  <div nz-row [nzGutter]="[20, 20]">
-    <div nz-col [nzXs]="24">
-      <nz-descriptions *ngIf="data" nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 3, 'lg': 3, 'xl': 3, 'xxl': 3}">
-        <nz-descriptions-item nzTitle="Total Hashrate">{{data.hashrate | siSymbol}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Total Miners">{{data.minersTotal}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Last update">{{data.now | date: 'yyyy-MM-dd HH:mm:ss'}}</nz-descriptions-item>
-      </nz-descriptions>
-    </div>
-  </div>
-  <grid
-    [error]="error$ | async"
-    [rowData]="data?.miners"
-    [columnDefs]="columnDefs"
-    (rowClick)="onRowClick($event)"
-  ></grid>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <mdl-etc-miners>
+        <ng-template etc-miners let-data>
+          <nz-descriptions nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 3, 'lg': 3, 'xl': 3, 'xxl': 3}">
+            <nz-descriptions-item nzTitle="Total Hashrate">{{data.hashrate | siSymbol}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Total EtcPayments">{{data.minersTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Last update">{{data.now | date: 'yyyy-MM-dd HH:mm:ss'}}</nz-descriptions-item>
+          </nz-descriptions>
+        </ng-template>
+      </mdl-etc-miners>
+    </nz-col>
+    <nz-col [nzXs]="24">
+      <mdl-etc-miners>
+        <ng-template etc-miners let-data>
+          <grid
+            [rowData]="data?.miners"
+            [columnDefs]="columnDefs"
+            (rowClick)="onRowClick($event)"
+          ></grid>
+        </ng-template>
+      </mdl-etc-miners>
+    </nz-col>
+  </nz-row>
 </lo-pool>

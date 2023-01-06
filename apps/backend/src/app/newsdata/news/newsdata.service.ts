@@ -16,7 +16,7 @@ import { ListenerService } from "../../utils/listener.service";
 
 @Injectable()
 export class NewsdataService extends ListenerService<NewsData> {
-  protected serviceKey = 'hotNews';
+  protected serviceKey = 'newsData';
   constructor(
     @Inject(NEWSDATA_REST_TIMER_UPDATE) protected readonly timer: number,
     @Inject(NEWSDATA_REST_CONNECTION_URL) protected readonly uri: string,

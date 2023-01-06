@@ -1,7 +1,10 @@
-<grid
-  [title]="'Assets'"
-  [error]="error$ | async"
-  [rowData]="data"
-  [columnDefs]="columnDefs"
-  (rowClick)="onRowClick($event)"
-></grid>
+<mdl-coins>
+  <ng-template coins let-data>
+    <grid
+      [title]="'Assets'"
+      [rowData]="data"
+      [columnDefs]="columnDefs"
+      (rowClick)="onRowClick($event)"
+    ></grid>
+  </ng-template>
+</mdl-coins>
