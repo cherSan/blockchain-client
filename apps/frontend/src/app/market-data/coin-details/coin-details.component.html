@@ -1,94 +1,113 @@
-<nz-empty *ngIf="error$ | async"></nz-empty>
 <nz-page-header [nzBackIcon]="back">
   <ng-template #back>
     <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
   </ng-template>
-  <nz-page-header-title>{{title}}</nz-page-header-title>
-  <nz-page-header-subtitle>{{symbol}}</nz-page-header-subtitle>
+  <nz-page-header-title>
+    <ldr-assets>
+      <ng-template assets let-data>
+        <ng-container *ngIf="data | currentAsset: (symbol$ | async) as asset">
+          {{asset.name}}
+        </ng-container>
+      </ng-template>
+    </ldr-assets>
+  </nz-page-header-title>
+  <nz-page-header-subtitle>{{(symbol$ | async)}}</nz-page-header-subtitle>
   <nz-page-header-extra>
     <img
       nz-image
-      [nzSrc]="'/assets/crypto-icons/' + symbol.toLowerCase() + '.svg'"
+      [nzSrc]="'/assets/crypto-icons/' + (symbol$ | async)?.toLowerCase() + '.svg'"
       [nzFallback]="'/assets/no-image.png'"
-      [alt]="symbol"
+      [alt]="(symbol$ | async)"
       width="60px"
       height="60px"
     />
   </nz-page-header-extra>
-
   <nz-page-header-tags>
-    <nz-tag>
-      RANK: {{rank}}
-    </nz-tag>
-    <nz-tag [nzColor]="'success'">
-      {{price | currency: '$'}}
-    </nz-tag>
-    <nz-tag [nzColor]="changePercent24Hr < 0 ? 'error': 'success'">
-      <span *ngIf="changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-chevron-circle-left'"></span>
-      <span *ngIf="changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-chevron-circle-right'"></span>
-      {{((changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'}}
-    </nz-tag>
+    <ldr-assets>
+      <ng-template assets let-data>
+        <ng-container *ngIf="data | currentAsset: (symbol$ | async) as asset">
+          <nz-tag>
+            RANK: {{asset.rank}}
+          </nz-tag>
+          <nz-tag [nzColor]="'success'">
+            {{asset.priceUsd | currency: '$'}}
+          </nz-tag>
+          <nz-tag [nzColor]="asset.changePercent24Hr < 0 ? 'error': 'success'">
+            <span *ngIf="asset.changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-chevron-circle-left'"></span>
+            <span *ngIf="asset.changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-chevron-circle-right'"></span>
+            {{((asset.changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'}}
+          </nz-tag>
+        </ng-container>
+      </ng-template>
+    </ldr-assets>
   </nz-page-header-tags>
-  <nz-page-header-content>
-    <nz-row [nzGutter]="[22, 10]">
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="((changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'"
-          [nzTitle]="'CHANGE'"
-          [nzPrefix]="prefixTplTwo"
-          [nzValueStyle]="{ color: changePercent24Hr < 0 ? 'red': 'green' }"
-        >
-          <ng-template #prefixTplTwo>
-            <span *ngIf="changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-arrow-down'"></span>
-            <span *ngIf="changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-arrow-up'"></span>
-          </ng-template>
-        </nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="(marketCapUsd | siSymbol) || 'N/A'"
-          [nzPrefix]="'$'"
-          [nzTitle]="'Market Cap'"
-        ></nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="(volumeUsd24Hr | siSymbol) || 'N/A'"
-          [nzPrefix]="'$'"
-          [nzTitle]="'Volume (24Hr)'"
-        ></nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="(volumeUsd24Hr | siSymbol) || 'N/A'"
-          [nzPrefix]="'$'"
-          [nzTitle]="'Volume (24Hr)'"
-        ></nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="(vwap24Hr | siSymbol) || 'N/A'"
-          [nzPrefix]="'$'"
-          [nzTitle]="'VWARP (24Hr)'"
-        ></nz-statistic>
-      </nz-col>
-      <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-        <nz-statistic
-          [nzValue]="(supply | siSymbol) || 'N/A'"
-          [nzPrefix]="'$'"
-          [nzTitle]="'Supply'"
-        ></nz-statistic>
-      </nz-col>
-    </nz-row>
-  </nz-page-header-content>
 </nz-page-header>
 <div class="content">
-  <grid
-    *ngIf="symbol"
-    [rowData]="pairs"
-    [columnDefs]="columns"
-    (rowClick)="onRowClick($event)"
-    [title]="'Coin pairs'"
-    [extra]="update | date: 'yyyy-MM-dd hh:mm:ss'"
-  ></grid>
+  <ldr-assets>
+    <ng-template assets let-data>
+      <nz-row [nzGutter]="[10, 10]" *ngIf="data | currentAsset: (symbol$ | async) as asset">
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="((asset.changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'"
+            [nzTitle]="'CHANGE'"
+            [nzPrefix]="prefixTplTwo"
+            [nzValueStyle]="{ color: asset.changePercent24Hr < 0 ? 'red': 'green' }"
+          >
+            <ng-template #prefixTplTwo>
+              <span *ngIf="asset.changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-arrow-down'"></span>
+              <span *ngIf="asset.changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-arrow-up'"></span>
+            </ng-template>
+          </nz-statistic>
+        </nz-col>
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="(asset.marketCapUsd | siSymbol) || 'N/A'"
+            [nzPrefix]="'$'"
+            [nzTitle]="'Market Cap'"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="(asset.volumeUsd24Hr | siSymbol) || 'N/A'"
+            [nzPrefix]="'$'"
+            [nzTitle]="'Volume (24Hr)'"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="(asset.volumeUsd24Hr | siSymbol) || 'N/A'"
+            [nzPrefix]="'$'"
+            [nzTitle]="'Volume (24Hr)'"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="(asset.vwap24Hr | siSymbol) || 'N/A'"
+            [nzPrefix]="'$'"
+            [nzTitle]="'VWARP (24Hr)'"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col [nzXs]="12" [nzMd]="8" [nzLg]="4" [nzXXl]="4">
+          <nz-statistic
+            [nzValue]="(asset.supply | siSymbol) || 'N/A'"
+            [nzPrefix]="'$'"
+            [nzTitle]="'Supply'"
+          ></nz-statistic>
+        </nz-col>
+      </nz-row>
+    </ng-template>
+  </ldr-assets>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzSm]="24">
+      <ldr-assets>
+        <ng-template assets let-data>
+          <grid
+            [rowData]="data | pairs: (symbol$ | async)"
+            [columnDefs]="(symbol$ | async) | columnDef"
+            (rowClick)="onRowClick($event)"
+          ></grid>
+        </ng-template>
+      </ldr-assets>
+    </nz-col>
+  </nz-row>
 </div>

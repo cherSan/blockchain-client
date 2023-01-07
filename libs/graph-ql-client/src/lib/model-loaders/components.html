@@ -1,6 +1,6 @@
 <nz-result
   *ngIf="(error$ | async) as error; else contentTpl"
-  [nzTitle]="'There should be ' + title + ' here. But something went wrong.'"
+  [nzTitle]="'There should be some data here. But something went wrong.'"
   nzStatus="error"
   [nzSubTitle]="error?.toString()"
 ></nz-result>
@@ -9,7 +9,7 @@
     <nz-skeleton [nzActive]="true" [nzTitle]="true"></nz-skeleton>
   </ng-container>
   <ng-container *ngIf="data === null">
-    <nz-empty [nzNotFoundContent]="noDataMessage" [title]="title"></nz-empty>
+    <nz-empty [nzNotFoundContent]="noDataMessage"></nz-empty>
   </ng-container>
   <ng-container *ngIf="data" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{$implicit: data!}"></ng-container>
 </ng-template>

@@ -1,28 +1,24 @@
+import { EventEmitter, TemplateRef } from "@angular/core";
 import { catchError, ignoreElements, Observable, of, switchMap, tap } from "rxjs";
 import { GraphQLError } from "graphql/error";
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from "@angular/core";
-@Component({
-  template: ''
-})
-export class ModelViewerComponent<T> implements OnInit {
-  template!: TemplateRef<{$implicit: T}>;
-  protected query$!: Observable<undefined | T>;
-  protected listener$!: Observable<undefined | T>;
-  protected data$!: Observable<undefined | T>;
+export class ModelViewerComponent<T> {
+  public template!: TemplateRef<{$implicit: T}>;
   public data?: null | T = undefined;
-  public error$!: Observable<GraphQLError>;
-  public noDataMessage = "Sorry, but we didn't find anything.";
-  public title = '';
-  @Output()
-  change: EventEmitter<T | null> = new EventEmitter<T | null>()
-  ngOnInit() {
-    this.data$ = this.query$
+  public readonly error$!: Observable<GraphQLError>;
+  public noDataMessage = "Sorry, but we didn't find any data.";
+  private data$: Observable<undefined | T>;
+  public change!: EventEmitter<null | T>;
+  constructor(
+    private readonly query$: Observable<undefined | T>,
+    private readonly listener$: Observable<undefined | T>
+  ) {
+    this.data$ = query$
       .pipe(
         tap(data => {
           this.data = data || null;
           this.change.emit(this.data);
         }),
-        switchMap(() => this.listener$),
+        switchMap(() => listener$),
         tap(data => {
           this.data = data || null;
           this.change.emit(this.data);

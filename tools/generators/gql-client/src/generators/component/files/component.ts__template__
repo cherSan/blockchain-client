@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from "@angular/core";
 import { map } from "rxjs";
 import { ApolloAngularSDK } from "@blockchain_client/graph-ql-client";
 import { ModelViewerComponent } from "../components";
@@ -9,16 +9,17 @@ import { <%= className %>LoaderType } from "./type";
   styleUrls: ['../components.scss']
 })
 export class <%= className %>LoaderComponent extends ModelViewerComponent<<%= className %>LoaderType> {
-  protected override query$ = this.gql.<%= propertyName %>Get().pipe(
-    map(response => response.data?.<%= propertyName %>)
-  );
-  protected override listener$ = this.gql.<%= propertyName %>Listen().pipe(
-    map(response => response.data?.<%= propertyName %>)
-  );
-  public override noDataMessage = "Sorry, but we didn't find any data.";
+  @Output()
+  public override change: EventEmitter<null | <%= className %>LoaderType> = new EventEmitter<null | <%= className %>LoaderType>();
   constructor(
     private gql: ApolloAngularSDK
   ) {
-    super()
+    const query$ = gql.<%= propertyName %>Get().pipe(
+     map(response => response.data?.<%= propertyName %>)
+    );
+    const listener$ = gql.<%= propertyName %>Listen().pipe(
+      map(response => response.data?.<%= propertyName %>)
+    );
+    super(query$, listener$);
   }
 }

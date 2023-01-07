@@ -1,4 +1,4 @@
-query Assets {
+query AssetsGet {
   assets {
     data {
       id
@@ -17,7 +17,7 @@ query Assets {
   }
 }
 
-subscription ListenAssets {
+subscription AssetsListen {
   assets {
     data {
       id

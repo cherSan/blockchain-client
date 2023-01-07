@@ -1,6 +1,5 @@
-import { Directive, TemplateRef } from "@angular/core";
+import { TemplateRef } from "@angular/core";
 import { ModelViewerComponent } from "./components";
-@Directive()
 export class ModelViewerDirective<T> {
   static ngTemplateContextGuard<T>(
     dir: ModelViewerDirective<T>,
