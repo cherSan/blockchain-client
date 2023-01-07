@@ -7,10 +7,7 @@ export class CmOneHourData {
   @Field()
   time: number;
   @Field()
-  DiffMean: number;
-  HashRate: number;
-  @Field()
-  PriceUSD: number;
+  ReferenceRate: number;
 }
 @ObjectType({ description: 'Coin Data Per hour' })
 export class CmOneHour {

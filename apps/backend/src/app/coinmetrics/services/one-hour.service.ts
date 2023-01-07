@@ -11,7 +11,7 @@ import { CmLast } from "../models/last-data.model";
 @Injectable()
 export class CMOneHourService extends ListenerService<CmOneHour> {
   protected serviceKey = 'cmOneHour';
-  protected lastStateServiceKey = 'cmOneHour';
+  protected lastStateServiceKey = 'cmLast';
   protected lastStateValue: CmLast;
   set lastState(data: CmLast) {
     this.lastStateValue = data
@@ -26,11 +26,10 @@ export class CMOneHourService extends ListenerService<CmOneHour> {
   ) {
     super(httpService, pubsub);
     const assets = AssetList.map(v => Assets[v]).join(',');
-    const metrics = [Metrics.HashRate,Metrics.PriceUSD,Metrics.DiffMean].map(v => Metrics[v]).join(',');
-    const limit_per_asset = 240;
+    const limit_per_asset = 360;
     const page_size = AssetList.length * limit_per_asset;
-    const url = `${uri}timeseries/asset-metrics?assets=${assets}&metrics=${metrics}&page_size=${page_size}&limit_per_asset=${limit_per_asset}`;
-    this.observer$(url, 1000*60*30)
+    const url = `${uri}timeseries/asset-metrics?assets=${assets}&metrics=ReferenceRate&page_size=${page_size}&limit_per_asset=${limit_per_asset}&frequency=1m`;
+    this.observer$(url, 1000*60)
       .subscribe();
   }
   protected override observer$(url: string, timer: number): Observable<CmOneHour> {
@@ -49,7 +48,7 @@ export class CMOneHourService extends ListenerService<CmOneHour> {
       tap(async ({ data }) => {
         const tmpData = data.reduce((accum, value) => {
           const asset = value.asset.toUpperCase();
-          accum.data[asset] = [...(accum[asset] || []), value]
+          accum.data[asset] = [...(accum.data[asset] || []), value]
           accum.lastState[asset] = accum.lastState[asset] && accum.lastState[asset].time > value.time
             ? accum.lastState[asset] : value;
           return accum;

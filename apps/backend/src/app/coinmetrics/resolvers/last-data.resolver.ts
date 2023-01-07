@@ -14,16 +14,8 @@ export class CmLastDataResolver {
   time(@Parent() data: CmLastData) {
     return moment(data.time).valueOf()
   }
-  @ResolveField(() => Number, {name: 'DiffMean'})
-  DiffMean(@Parent() data: CmLastData) {
-    return parseFloat(`${data.DiffMean}`)
-  }
-  @ResolveField(() => Number, {name: 'HashRate'})
-  HashRate(@Parent() data: CmLastData) {
-    return parseFloat(`${data.HashRate}`)
-  }
-  @ResolveField(() => Number, {name: 'PriceUSD'})
-  PriceUSD(@Parent() data: CmLastData) {
-    return parseFloat(`${data.PriceUSD}`)
+  @ResolveField(() => Number, {name: 'ReferenceRate'})
+  ReferenceRate(@Parent() data: CmLastData) {
+    return parseFloat(`${data.ReferenceRate}`)
   }
 }

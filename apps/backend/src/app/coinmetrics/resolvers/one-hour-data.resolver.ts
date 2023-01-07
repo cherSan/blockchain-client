@@ -14,16 +14,8 @@ export class CmOneHourDataResolver {
   time(@Parent() data: CmOneHourData) {
     return moment(data.time).valueOf()
   }
-  @ResolveField(() => Number, {name: 'DiffMean'})
-  DiffMean(@Parent() data: CmOneHourData) {
-    return parseFloat(`${data.DiffMean}`)
-  }
-  @ResolveField(() => Number, {name: 'HashRate'})
-  HashRate(@Parent() data: CmOneHourData) {
-    return parseFloat(`${data.HashRate}`)
-  }
-  @ResolveField(() => Number, {name: 'PriceUSD'})
-  PriceUSD(@Parent() data: CmOneHourData) {
-    return parseFloat(`${data.PriceUSD}`)
+  @ResolveField(() => Number, {name: 'ReferenceRate'})
+  ReferenceRate(@Parent() data: CmOneHourData) {
+    return parseFloat(`${data.ReferenceRate}`)
   }
 }
