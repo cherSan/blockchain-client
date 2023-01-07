@@ -3,23 +3,21 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 
-import { UserModule } from "./user/user.module";
-import { EthersModule } from "./ethers/ethers.module";
 import { CoincapModule } from "./coincap/coincap.module";
 import { EtcPoolModule } from "./etc-pool/etc-pool.module";
 import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
-import { MinerstatModule } from "./minerstat/minerstat.module";
 import { NewsdataModule } from "./newsdata/newsdata.module";
+import { CoinmetricsModule } from "./coinmetrics/coinmetrics.module";
+import { MinerstatModule } from "./minerstat/minerstat.module";
 
 @Module({
   imports: [
-    UserModule,
     EtcPoolModule,
-    EthersModule,
     CoincapModule,
     CryptopanicModule,
     MinerstatModule,
     NewsdataModule,
+    CoinmetricsModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver: MercuriusDriver,
       autoSchemaFile: 'apps/backend/src/schema.gql',

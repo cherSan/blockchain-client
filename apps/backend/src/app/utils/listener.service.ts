@@ -2,10 +2,18 @@ import { GraphQLError } from "graphql/error";
 import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
 import { HttpService } from "@nestjs/axios";
 import { PubSubService } from "./pubsub.service";
+import { CMMetric, CMMetrics } from "../coinmetrics/models/metrics.model";
+import { MetricsList } from "../coinmetrics/constants/assets.constants";
 
 export class ListenerService<T> {
   protected serviceKey;
-  protected data: T;
+  protected dataValue: T;
+  set data(data: T) {
+    this.dataValue = data
+  }
+  get data(): T {
+    return this.dataValue;
+  }
   protected error?: GraphQLError = undefined;
   constructor(
     protected readonly httpService: HttpService,
@@ -37,7 +45,7 @@ export class ListenerService<T> {
       }),
       tap(async (data) => {
         this.data = data;
-        await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: data })
+        await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: this.data })
       }),
       delay(timer),
       repeat()
