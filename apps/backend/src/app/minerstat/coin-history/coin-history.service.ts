@@ -36,7 +36,7 @@ export class CoinHistoryService extends ListenerService<CoinsHistory> {
     private readonly coinService: CoinsService
   ) {
     super(httpService, pubsub);
-    this.observer$(`${uri}/coins-history`, timer).subscribe();
+    // this.observer$(`${uri}/coins-history`, timer).subscribe();
   }
 
   protected observer$(url: string, timer: number): Observable<CoinsHistory> {

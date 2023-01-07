@@ -24,24 +24,3 @@ generates:
       defaultScalarType: 'unknown'
       strictScalars: true
       dedupeOperationSuffix: true
-  libs/graph-ql-client/src/lib/graph-ql.helpers.ts:
-    documents: "libs/graph-ql-client/src/lib/documents/**/*.graphql"
-    plugins:
-      - "typescript"
-      - 'typescript-apollo-client-helpers'
-  libs/graph-ql-client/src/lib/graph-ql.validation.ts:
-    documents: "libs/graph-ql-client/src/lib/documents/**/*.graphql"
-    config:
-      strictScalars: true
-      schema: 'yup'
-    plugins:
-      - "typescript"
-      - 'typescript-validation-schema'
-  libs/graph-ql-client/src/lib/graph-ql.mock.ts:
-    documents: "libs/graph-ql-client/src/lib/documents/**/*.graphql"
-    config:
-      strictScalars: true
-      schema: 'yup'
-    plugins:
-      - "typescript"
-      - 'typescript-mock-data'

@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "gql-client",
+  "version": "0.0.1",
+  "generators": {
+    "gql-client": {
+      "factory": "./src/generators/gql-client/generator",
+      "schema": "./src/generators/gql-client/schema.json",
+      "description": "gql-client generator"
+    },
+    "component": {
+      "factory": "./src/generators/component/generator",
+      "schema": "./src/generators/component/schema.json",
+      "description": "component generator"
+    }
+  }
+}

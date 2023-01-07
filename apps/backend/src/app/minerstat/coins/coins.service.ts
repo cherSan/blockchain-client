@@ -22,7 +22,7 @@ export class CoinsService extends ListenerService<Coins[]> {
     protected readonly pubsub: PubSubService
   ) {
     super(httpService, pubsub);
-    this.observer$(`${uri}coins`, timer).subscribe();
+    // this.observer$(`${uri}coins`, timer).subscribe();
   }
 
   protected observer$(url: string, timer: number): Observable<Coins[]> {

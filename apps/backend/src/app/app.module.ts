@@ -15,7 +15,7 @@ import { MinerstatModule } from "./minerstat/minerstat.module";
     EtcPoolModule,
     CoincapModule,
     CryptopanicModule,
-    // MinerstatModule,
+    MinerstatModule,
     NewsdataModule,
     CoinmetricsModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({

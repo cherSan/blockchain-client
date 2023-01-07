@@ -6,8 +6,6 @@ import { NzResultModule } from "ng-zorro-antd/result";
 
 import { ModelViewerComponent } from "./components";
 
-import { NewsDirective } from './news/news.directive';
-import { NewsComponent } from './news/news.component';
 import { CoinHistoryComponent } from "./coin-details/coin-history.component";
 import { CoinHistoryDirective } from "./coin-details/coin-history.directive";
 import { CoinsDetailsComponent } from "./coins-details/coins-details.component";
@@ -21,8 +19,6 @@ import { EtcPaymentsDirective } from "./etc-payments/etc-payments.directive";
 @NgModule({
   declarations: [
     ModelViewerComponent,
-    NewsComponent,
-    NewsDirective,
     CoinHistoryComponent,
     CoinHistoryDirective,
     CoinsDetailsComponent,
@@ -43,8 +39,6 @@ import { EtcPaymentsDirective } from "./etc-payments/etc-payments.directive";
     NzResultModule
   ],
   exports: [
-    NewsComponent,
-    NewsDirective,
     CoinHistoryComponent,
     CoinHistoryDirective,
     CoinsDetailsComponent,

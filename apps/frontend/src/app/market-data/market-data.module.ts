@@ -10,6 +10,7 @@ import {
   TitleCasePipe
 } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
+import { NewsDataLoaderModule } from "@blockchain_client/graph-ql-client";
 
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzGridModule } from "ng-zorro-antd/grid";
@@ -92,6 +93,7 @@ const routes: Routes = [
     TitleCasePipe,
     ModelViewerModule,
     JsonPipe,
+    NewsDataLoaderModule
   ]
 })
 export class MarketDataModule { }

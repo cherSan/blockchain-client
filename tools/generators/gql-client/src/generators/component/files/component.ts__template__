@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import { map } from "rxjs";
+import { ApolloAngularSDK } from "@blockchain_client/graph-ql-client";
+import { ModelViewerComponent } from "../components";
+import { <%= className %>LoaderType } from "./type";
+@Component({
+  selector: 'ldr-<%= fileName %>',
+  templateUrl: '../components.html',
+  styleUrls: ['../components.scss']
+})
+export class <%= className %>LoaderComponent extends ModelViewerComponent<<%= className %>LoaderType> {
+  protected override query$ = this.gql.<%= propertyName %>Get().pipe(
+    map(response => response.data?.<%= propertyName %>)
+  );
+  protected override listener$ = this.gql.<%= propertyName %>Listen().pipe(
+    map(response => response.data?.<%= propertyName %>)
+  );
+  public override noDataMessage = "Sorry, but we didn't find any data.";
+  constructor(
+    private gql: ApolloAngularSDK
+  ) {
+    super()
+  }
+}
