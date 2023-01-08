@@ -10,7 +10,11 @@ import {
   TitleCasePipe
 } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
-import { AssetsLoaderModule, NewsDataLoaderModule } from "@blockchain_client/graph-ql-client";
+import {
+  AssetsLoaderModule,
+  CmAssetsPriceHistoryLoaderModule,
+  NewsDataLoaderModule
+} from "@blockchain_client/graph-ql-client";
 
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzGridModule } from "ng-zorro-antd/grid";
@@ -44,6 +48,9 @@ import { CoinDetailsComponent } from './coin-details/coin-details.component';
 import { ColumnDefPipe } from './coin-details/column-def.pipe';
 import { PairsPipe } from './coin-details/pairs.pipe';
 import { CurrentAssetPipe } from './coin-details/current-asset.pipe';
+import { PricesComponent } from './prices/prices.component';
+import { ChartsModule } from "../shared/charts/charts.module";
+import { ChartOptionsPipe } from './prices/chart-options.pipe';
 
 
 const routes: Routes = [
@@ -66,7 +73,9 @@ const routes: Routes = [
     CoinDetailsComponent,
     ColumnDefPipe,
     PairsPipe,
-    CurrentAssetPipe
+    CurrentAssetPipe,
+    PricesComponent,
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -100,7 +109,9 @@ const routes: Routes = [
     ModelViewerModule,
     JsonPipe,
     NewsDataLoaderModule,
-    AssetsLoaderModule
+    AssetsLoaderModule,
+    CmAssetsPriceHistoryLoaderModule,
+    ChartsModule
   ]
 })
 export class MarketDataModule { }

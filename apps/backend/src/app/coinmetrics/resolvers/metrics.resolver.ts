@@ -9,18 +9,16 @@ export class CMMetricsResolver {
     private readonly service: CMMetricsService
   ) {
   }
-
   @Query(() => CMMetrics, { name: 'cmMetrics' })
-  async getCMMetrics(): Promise<CMMetrics> {
+  async cmMetricsGet(): Promise<CMMetrics> {
     try {
       return await this.service.get()
     } catch (e) {
       throw new GraphQLError(e)
     }
   }
-
-  @Subscription(() => CMMetrics)
-  async cmMetrics() {
+  @Subscription(() => CMMetrics, { name: 'cmMetrics' })
+  async cmMetricsSubscribe() {
     try {
       return this.service.subscribe();
     } catch (e) {

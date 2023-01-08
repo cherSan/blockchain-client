@@ -1,0 +1,30 @@
+fragment AssetPriceHistory on CMAssetPriceHistory {
+  asset
+  ReferenceRateUSD
+  ReferenceRateEUR
+  time
+}
+query CMAssetsPriceHistoryGet {
+  cmAssetsPriceHistory {
+    BTC { ...AssetPriceHistory }
+    ETC { ...AssetPriceHistory }
+    ETH { ...AssetPriceHistory }
+    DOGE { ...AssetPriceHistory }
+    DASH { ...AssetPriceHistory }
+    BSV { ...AssetPriceHistory }
+    BCH { ...AssetPriceHistory }
+    LTC { ...AssetPriceHistory }
+  }
+}
+subscription CMAssetsPriceHistoryListen {
+  cmAssetsPriceHistory {
+    BTC { ...AssetPriceHistory }
+    ETC { ...AssetPriceHistory }
+    ETH { ...AssetPriceHistory }
+    DOGE { ...AssetPriceHistory }
+    DASH { ...AssetPriceHistory }
+    BSV { ...AssetPriceHistory }
+    BCH { ...AssetPriceHistory }
+    LTC { ...AssetPriceHistory }
+  }
+}

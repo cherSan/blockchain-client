@@ -2,9 +2,6 @@ import { GraphQLError } from "graphql/error";
 import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
 import { HttpService } from "@nestjs/axios";
 import { PubSubService } from "./pubsub.service";
-import { CMMetric, CMMetrics } from "../coinmetrics/models/metrics.model";
-import { MetricsList } from "../coinmetrics/constants/assets.constants";
-
 export class ListenerService<T> {
   protected serviceKey;
   protected dataValue: T;

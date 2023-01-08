@@ -1,0 +1,7 @@
+<ldr-cm-assets-price-history>
+  <ng-template cmAssetsPriceHistory let-data>
+    <chart
+      [options]="data | chartOptions: asset"
+    ></chart>
+  </ng-template>
+</ldr-cm-assets-price-history>

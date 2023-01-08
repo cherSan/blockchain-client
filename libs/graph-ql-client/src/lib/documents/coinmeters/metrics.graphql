@@ -1,0 +1,18 @@
+fragment CmMetricsFragment on CMMetrics {
+  data {
+    description
+    metric
+    unit
+  }
+  list
+}
+query CMMetricsGet {
+  cmMetrics {
+    ...CmMetricsFragment
+  }
+}
+subscription CMMetricsListen {
+  cmMetrics {
+    ...CmMetricsFragment
+  }
+}

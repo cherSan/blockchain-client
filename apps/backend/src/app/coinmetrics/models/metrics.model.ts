@@ -1,7 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Metrics } from "../constants/assets.constants";
-
-@ObjectType({ description: 'Coin Metrics Assets' })
+@ObjectType({ description: 'Asset Metrics' })
 export class CMMetric {
   @Field(() => Metrics)
   metric: Metrics;
@@ -10,8 +9,7 @@ export class CMMetric {
   @Field()
   unit: string;
 }
-
-@ObjectType({ description: 'Coin Metrics Assets' })
+@ObjectType({ description: 'Assets Metrics' })
 export class CMMetrics {
   @Field(() => [Metrics])
   list: Metrics[]

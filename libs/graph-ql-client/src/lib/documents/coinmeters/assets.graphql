@@ -1,0 +1,10 @@
+query CMAssetsGet {
+  cmAssets {
+    list
+  }
+}
+subscription CMAssetsListen {
+  cmAssets {
+    list
+  }
+}

@@ -1,14 +1,14 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
+import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
+import { GraphQLError } from "graphql/error";
 import {
   COINMETRICS_REST_CONNECTION_URL
 } from "../constants/connection.constants";
 import { ListenerService } from "../../utils/listener.service";
 import { PubSubService } from "../../utils/pubsub.service";
-import { Metrics, MetricsList } from "../constants/assets.constants";
+import { Metrics } from "../constants/assets.constants";
 import { CMMetrics } from "../models/metrics.model";
-import { catchError, delay, map, Observable, repeat, retry, tap } from "rxjs";
-import { GraphQLError } from "graphql/error";
 @Injectable()
 export class CMMetricsService extends ListenerService<CMMetrics> {
   protected serviceKey = 'rates';
@@ -18,7 +18,7 @@ export class CMMetricsService extends ListenerService<CMMetrics> {
     protected readonly pubsub: PubSubService
   ) {
     super(httpService, pubsub);
-    const url = `${uri}catalog/asset-metrics?metrics=${MetricsList.map(v => Metrics[v]).join(',')}`;
+    const url = `${uri}catalog/asset-metrics?metrics=${Object.values(Metrics).join(',')}`;
     this.observer$(url, 1000*60*60*12)
       .subscribe();
   }
@@ -37,11 +37,8 @@ export class CMMetricsService extends ListenerService<CMMetrics> {
       }),
       tap(async ({ data }) => {
         this.data = {
-          list: MetricsList,
-          data: data.map(v => ({
-            ...v,
-            metric: Metrics[v.metric]
-          }))
+          list: Object.values(Metrics),
+          data
         };
         await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: this.data })
       }),

@@ -23,7 +23,7 @@ export class GetRatesPipe implements PipeTransform {
     const symbol1Value = value.data.find(v => v.symbol === symbol1);
     const symbol2Value = value.data.find(v => v.symbol === symbol2);
     if (!symbol1Value || !symbol2Value) return 'N/A'
-    return (symbol2Value.priceUsd / symbol1Value.priceUsd).toFixed(4);
+    return (symbol1Value.priceUsd / symbol2Value.priceUsd).toFixed(4);
   }
 
 }

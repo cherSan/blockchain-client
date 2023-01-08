@@ -1,15 +1,13 @@
 import { registerEnumType } from "@nestjs/graphql";
-import { CurrencyType } from "../../coincap/rates/rate.model";
-
 export enum Assets {
-  ETH,
-  ETC,
-  BTC,
-  BCH,
-  BSV,
-  DOGE,
-  DASH,
-  LTC
+  ETH = "ETH",
+  ETC = "ETC",
+  BTC = "BTC",
+  BCH = "BCH",
+  BSV = "BSV",
+  DOGE = "DOGE",
+  DASH = "DASH",
+  LTC = "LTC"
 }
 export const AssetList = [
   Assets.BTC,
@@ -22,19 +20,21 @@ export const AssetList = [
   Assets.LTC
 ];
 export enum Metrics {
-  FeeMeanUSD,
-  GasLmtTxMean,
-  CapMrktCurUSD,
-  BlkWghtMean,
-  BlkSizeMeanByte,
-  BlkCnt,
-  RevUSD,
-  PriceUSD,
-  HashRate,
-  DiffMean,
-  PriceBTC
+  FeeMeanUSD = "FeeMeanUSD",
+  GasLmtTxMean = "GasLmtTxMean",
+  CapMrktCurUSD = "CapMrktCurUSD",
+  BlkWghtMean = "BlkWghtMean",
+  BlkSizeMeanByte = "BlkSizeMeanByte",
+  BlkCnt = "BlkCnt",
+  RevUSD = "RevUSD",
+  PriceUSD = "PriceUSD",
+  HashRate = "HashRate",
+  DiffMean = "DiffMean",
+  PriceBTC = "PriceBTC",
+  ReferenceRateUSD = "ReferenceRateUSD",
+  ReferenceRateEUR = "ReferenceRateEUR"
 }
-export const MetricsList = [
+export const MetricsHistoryList = [
   Metrics.FeeMeanUSD,
   Metrics.GasLmtTxMean,
   Metrics.CapMrktCurUSD,
@@ -46,6 +46,10 @@ export const MetricsList = [
   Metrics.HashRate,
   Metrics.DiffMean,
   Metrics.PriceBTC
+];
+export const MetricsPriceList = [
+  Metrics.ReferenceRateUSD,
+  Metrics.ReferenceRateEUR
 ];
 
 registerEnumType(Assets, {
