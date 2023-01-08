@@ -8,6 +8,10 @@ export class CMMetric {
   description: string;
   @Field()
   unit: string;
+  @Field({nullable: true})
+  full_name?: string;
+  @Field({nullable: true})
+  display_name?: string;
 }
 @ObjectType({ description: 'Assets Metrics' })
 export class CMMetrics {

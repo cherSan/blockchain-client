@@ -6,9 +6,12 @@ fragment AssetsHistory on CMAssetHistory {
   FeeMeanUSD
   HashRate
   PriceUSD
+  PriceBTC
   RevUSD
   asset
   time
+  BlkWghtMean
+  GasLmtTxMean
 }
 query CMAssetsHistoryGet {
   cmAssetsHistory {

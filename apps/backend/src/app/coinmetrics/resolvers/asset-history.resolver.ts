@@ -15,34 +15,46 @@ export class CMAssetHistoryResolver {
   }
   @ResolveField(() => Number, {name: 'BlkCnt'})
   BlkCnt(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.BlkCnt}`)
+    return parseFloat(`${data.BlkCnt || 0}`)
   }
   @ResolveField(() => Number, {name: 'BlkSizeMeanByte'})
   BlkSizeMeanByte(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.BlkSizeMeanByte}`)
+    return parseFloat(`${data.BlkSizeMeanByte || 0}`)
   }
   @ResolveField(() => Number, {name: 'CapMrktCurUSD'})
   CapMrktCurUSD(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.CapMrktCurUSD}`)
+    return parseFloat(`${data.CapMrktCurUSD || 0}`)
   }
   @ResolveField(() => Number, {name: 'DiffMean'})
   DiffMean(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.DiffMean}`)
+    return parseFloat(`${data.DiffMean || 0}`)
   }
   @ResolveField(() => Number, {name: 'FeeMeanUSD'})
   FeeMeanUSD(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.FeeMeanUSD}`)
+    return parseFloat(`${data.FeeMeanUSD || 0}`)
   }
   @ResolveField(() => Number, {name: 'HashRate'})
   HashRate(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.HashRate}`)
+    return parseFloat(`${data.HashRate || 0}`)
   }
   @ResolveField(() => Number, {name: 'PriceUSD'})
   PriceUSD(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.PriceUSD}`)
+    return parseFloat(`${data.PriceUSD || 0}`)
+  }
+  @ResolveField(() => Number, {name: 'PriceBTC'})
+  PriceBTC(@Parent() data: CMAssetHistory) {
+    return parseFloat(`${data.PriceBTC || 0}`)
   }
   @ResolveField(() => Number, {name: 'RevUSD'})
   RevUSD(@Parent() data: CMAssetHistory) {
-    return parseFloat(`${data.RevUSD}`)
+    return parseFloat(`${data.RevUSD || 0}`)
+  }
+  @ResolveField(() => Number, {name: 'BlkWghtMean'})
+  BlkWghtMean(@Parent() data: CMAssetHistory) {
+    return parseFloat(`${data.BlkWghtMean || 0}`)
+  }
+  @ResolveField(() => Number, {name: 'GasLmtTxMean'})
+  GasLmtTxMean(@Parent() data: CMAssetHistory) {
+    return parseFloat(`${data.GasLmtTxMean || 0}`)
   }
 }

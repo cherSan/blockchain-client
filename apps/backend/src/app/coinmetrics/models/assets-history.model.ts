@@ -21,7 +21,13 @@ export class CMAssetHistory {
   @Field()
   PriceUSD: number;
   @Field()
+  PriceBTC: number;
+  @Field()
   RevUSD: number;
+  @Field()
+  BlkWghtMean: number;
+  @Field()
+  GasLmtTxMean: number;
 }
 @ObjectType({ description: 'Assets Histories' })
 export class CMAssetsHistory {

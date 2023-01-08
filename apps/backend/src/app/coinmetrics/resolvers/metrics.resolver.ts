@@ -2,7 +2,6 @@ import { Query, Resolver, Subscription } from "@nestjs/graphql";
 import { CMMetrics } from "../models/metrics.model";
 import { CMMetricsService } from "../services/metrics.service";
 import { GraphQLError } from "graphql/error";
-
 @Resolver(() => CMMetrics)
 export class CMMetricsResolver {
   constructor(

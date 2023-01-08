@@ -11,12 +11,18 @@ import {
   TitleCasePipe
 } from "@angular/common";
 
+import { LayoutsModule } from "@blockchain_client/ui/layouts";
+import { CmAssetsHistoryLoaderModule, CmMetricsLoaderModule } from "@blockchain_client/graph-ql-client";
+
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzGridModule } from "ng-zorro-antd/grid";
-
-import { LayoutsModule } from "@blockchain_client/ui/layouts";
+import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
@@ -24,19 +30,18 @@ import { PipesModule } from "../pipes/pipes.module";
 import { PoolComponent } from './pool/pool.component';
 import { PoolChartComponent } from './pool-chart/pool-chart.component';
 import { PoolInformationComponent } from './pool-information/pool-information.component';
-import { NzEmptyModule } from "ng-zorro-antd/empty";
-import { NzCollapseModule } from "ng-zorro-antd/collapse";
+
 import { MinersComponent } from './miners/miners.component';
 import { GridModule } from "../shared/grid/grid.module";
 import { MinerDetailComponent } from './miner-detail/miner-detail.component';
-import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { NzIconModule } from "ng-zorro-antd/icon";
+
 import { WorkersComponent } from './workers/workers.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
-import { NzTabsModule } from "ng-zorro-antd/tabs";
+
 import { PaymentsComponent } from './payments/payments.component';
 import { ModelViewerModule } from "../model-viewer/model-viewer.module";
+import { ChartOptionsPipe } from './pool/chart-options.pipe';
 
 const routes: Routes = [
   {
@@ -92,6 +97,7 @@ const routes: Routes = [
     RewardsComponent,
     PayoutComponent,
     PaymentsComponent,
+    ChartOptionsPipe,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -116,7 +122,9 @@ const routes: Routes = [
     NzIconModule,
     PercentPipe,
     NzTabsModule,
-    ModelViewerModule
+    ModelViewerModule,
+    CmAssetsHistoryLoaderModule,
+    CmMetricsLoaderModule
   ]
 })
 export class EthereumClassicModule { }

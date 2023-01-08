@@ -3,6 +3,8 @@ fragment CmMetricsFragment on CMMetrics {
     description
     metric
     unit
+    display_name
+    full_name
   }
   list
 }
