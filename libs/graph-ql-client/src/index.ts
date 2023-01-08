@@ -11,3 +11,4 @@ export * from './lib/model-loaders/cm-metrics';
 export * from './lib/model-loaders/cm-assets-last-price';
 export * from './lib/model-loaders/cm-assets-price-history';
 export * from './lib/model-loaders/cm-assets-history';
+export * from './lib/model-loaders/pool-etc-stats';

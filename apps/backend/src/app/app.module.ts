@@ -3,19 +3,25 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { MercuriusDriver, MercuriusDriverConfig } from "@nestjs/mercurius";
 
+/**
+ * @deprecated The API should not be used
+ */
+// import { MinerstatModule } from "./minerstat/minerstat.module";
+/**
+ * @deprecated The API should not be used
+ */
+// import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
 import { CoincapModule } from "./coincap/coincap.module";
-import { EtcPoolModule } from "./etc-pool/etc-pool.module";
-import { CryptopanicModule } from "./cryptopanic/cryptopanic.module";
 import { NewsdataModule } from "./newsdata/newsdata.module";
 import { CoinmetricsModule } from "./coinmetrics/coinmetrics.module";
-import { MinerstatModule } from "./minerstat/minerstat.module";
+import { PoolsModule } from "./pools/pools.module";
 
 @Module({
   imports: [
-    EtcPoolModule,
+    // CryptopanicModule,
+    // MinerstatModule,
+    PoolsModule,
     CoincapModule,
-    CryptopanicModule,
-    MinerstatModule,
     NewsdataModule,
     CoinmetricsModule,
     GraphQLModule.forRoot<MercuriusDriverConfig>({

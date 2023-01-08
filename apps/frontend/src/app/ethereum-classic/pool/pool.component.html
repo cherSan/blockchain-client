@@ -2,36 +2,49 @@
   [title]="'Ethereum Classic'"
   [code]="'ETC'"
 >
-  <pool-information></pool-information>
-  <ldr-cm-metrics (change)="this.metricsData = $event"></ldr-cm-metrics>
-  <nz-row  [nzGutter]="[10, 10]">
-    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
-      <ldr-cm-assets-history>
-        <ng-template cmAssetsHistory let-data>
-          <chart [options]="data | chartOptions: [metrics.HashRate, metrics.DiffMean]: metricsData"></chart>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24" [nzLg]="12">
+      <ldr-pool-etc-stats>
+        <ng-template poolEtcStats let-data>
+          <nz-card [nzTitle]="'Pool statistic'">
+            <nz-descriptions [nzColumn]="1" [nzBordered]="true" [nzSize]="'small'">
+              <nz-descriptions-item nzTitle="Miners Online">{{data.minersTotal}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Pool Hash Rate">{{data.hashrate | siSymbol: 'H/s'}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Last Block Found">{{data.stats.lastBlockFound | moment}} ({{data.stats.lastBlockFound | momentDiff}})</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Block time (Avg.)">{{data.bestNode.blocktime | number: '1.2-2'}}s</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Pool Luck">{{data?.poolLuck  | percent: '1.0-0'}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Epoch">{{data.epoch | number: '1.0-0'}}</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="DAG Size">{{data.dagSize | number: '1.2-2'}}GB</nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
         </ng-template>
-      </ldr-cm-assets-history>
+      </ldr-pool-etc-stats>
     </nz-col>
-    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
-      <ldr-cm-assets-history>
-        <ng-template cmAssetsHistory let-data>
-          <chart [options]="data | chartOptions: [metrics.BlkCnt, metrics.BlkSizeMeanByte]: metricsData"></chart>
+    <nz-col [nzXs]="24" [nzLg]="12">
+      <ldr-pool-etc-stats>
+        <ng-template poolEtcStats let-data>
+          <nz-collapse [nzBordered]="true" [nzAccordion]="true">
+            <nz-collapse-panel [nzActive]="true" *ngFor="let node of data!.nodes; trackBy:tracker" [nzHeader]="(node.name | titlecase) + ' Node'" [nzExtra]="extraTpl">
+              <ng-template #extraTpl>
+                <span *ngIf="data.bestNode.name === node.name" nz-icon [nzIconfont]="'icon-medal'"></span>
+              </ng-template>
+              <nz-descriptions [nzColumn]="1" [nzBordered]="true" [nzSize]="'small'">
+                <nz-descriptions-item nzTitle="Network Difficulty">{{ node.difficulty | siSymbol: '': 3 }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Network Hash Rate">{{ node.hashrate | siSymbol: 'H/s' }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Blockchain Height">{{ node.height | number }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Avg Block Time">{{ node.blocktime | number: '1.2-2' }} s</nz-descriptions-item>
+              </nz-descriptions>
+            </nz-collapse-panel>
+          </nz-collapse>
         </ng-template>
-      </ldr-cm-assets-history>
+      </ldr-pool-etc-stats>
     </nz-col>
-    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
-      <ldr-cm-assets-history>
-        <ng-template cmAssetsHistory let-data>
-          <chart [options]="data | chartOptions: [metrics.PriceUsd, metrics.PriceBtc]: metricsData"></chart>
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-stats>
+        <ng-template poolEtcStats let-data>
+          <chart [options]="data | poolInformationChart"></chart>
         </ng-template>
-      </ldr-cm-assets-history>
-    </nz-col>
-    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
-      <ldr-cm-assets-history>
-        <ng-template cmAssetsHistory let-data>
-          <chart [options]="data | chartOptions: [metrics.CapMrktCurUsd, metrics.GasLmtTxMean]: metricsData"></chart>
-        </ng-template>
-      </ldr-cm-assets-history>
+      </ldr-pool-etc-stats>
     </nz-col>
   </nz-row>
 </lo-pool>

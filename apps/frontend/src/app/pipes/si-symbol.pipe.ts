@@ -4,7 +4,7 @@ import { siSymbol } from '../utils/si-symbol';
   name: 'siSymbol'
 })
 export class SiSymbolPipe implements PipeTransform {
-  transform(value?: number | string | null, suffix: string = ''): string {
-    return siSymbol(value, suffix);
+  transform(value?: number | string | null, suffix: string = '', fixed: number = 2): string {
+    return siSymbol(value, suffix, fixed);
   };
 }

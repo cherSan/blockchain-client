@@ -5,16 +5,12 @@ import { AsyncPipe, JsonPipe, NgIf } from "@angular/common";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 
 import { ChartComponent } from './chart/chart.component';
-import { CoinHistoryChartComponent } from './coin-history-chart/coin-history-chart.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
 import { ModelViewerModule } from "../../model-viewer/model-viewer.module";
-import { CoinHistoryDataToOptionsPipe } from './pipes/coin-history-data-to-options.pipe';
 
 @NgModule({
   declarations: [
-    ChartComponent,
-    CoinHistoryChartComponent,
-    CoinHistoryDataToOptionsPipe,
+    ChartComponent
   ],
   imports: [
     AgChartsAngularModule,
@@ -26,8 +22,7 @@ import { CoinHistoryDataToOptionsPipe } from './pipes/coin-history-data-to-optio
     ModelViewerModule
   ],
   exports: [
-    ChartComponent,
-    CoinHistoryChartComponent
+    ChartComponent
   ]
 })
 export class ChartsModule { }

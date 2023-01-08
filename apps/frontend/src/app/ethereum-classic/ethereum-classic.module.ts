@@ -12,7 +12,11 @@ import {
 } from "@angular/common";
 
 import { LayoutsModule } from "@blockchain_client/ui/layouts";
-import { CmAssetsHistoryLoaderModule, CmMetricsLoaderModule } from "@blockchain_client/graph-ql-client";
+import {
+  CmAssetsHistoryLoaderModule,
+  CmMetricsLoaderModule,
+  PoolEtcStatsLoaderModule
+} from "@blockchain_client/graph-ql-client";
 
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -26,22 +30,20 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
+import { ModelViewerModule } from "../model-viewer/model-viewer.module";
+import { GridModule } from "../shared/grid/grid.module";
 
 import { PoolComponent } from './pool/pool.component';
-import { PoolChartComponent } from './pool-chart/pool-chart.component';
-import { PoolInformationComponent } from './pool-information/pool-information.component';
-
 import { MinersComponent } from './miners/miners.component';
-import { GridModule } from "../shared/grid/grid.module";
 import { MinerDetailComponent } from './miner-detail/miner-detail.component';
-
 import { WorkersComponent } from './workers/workers.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
-
+import { CoinInformationComponent } from './coin-information/coin-information.component';
 import { PaymentsComponent } from './payments/payments.component';
-import { ModelViewerModule } from "../model-viewer/model-viewer.module";
+
 import { ChartOptionsPipe } from './pool/chart-options.pipe';
+import { PoolInformationChartPipe } from './pool/pool-information-chart.pipe';
 
 const routes: Routes = [
   {
@@ -60,6 +62,10 @@ const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsComponent
+  },
+  {
+    path: 'coin-information',
+    component: CoinInformationComponent
   },
   {
     path: 'miners/:id',
@@ -85,12 +91,9 @@ const routes: Routes = [
     ]
   }
 ]
-
 @NgModule({
   declarations: [
     PoolComponent,
-    PoolChartComponent,
-    PoolInformationComponent,
     MinersComponent,
     MinerDetailComponent,
     WorkersComponent,
@@ -98,6 +101,8 @@ const routes: Routes = [
     PayoutComponent,
     PaymentsComponent,
     ChartOptionsPipe,
+    PoolInformationChartPipe,
+    CoinInformationComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -124,7 +129,8 @@ const routes: Routes = [
     NzTabsModule,
     ModelViewerModule,
     CmAssetsHistoryLoaderModule,
-    CmMetricsLoaderModule
+    CmMetricsLoaderModule,
+    PoolEtcStatsLoaderModule
   ]
 })
 export class EthereumClassicModule { }

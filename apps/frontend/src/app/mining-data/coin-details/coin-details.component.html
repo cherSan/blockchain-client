@@ -17,88 +17,11 @@
   </nz-page-header-extra>
 
   <nz-page-header-tags>
-    <mdl-coin [coin]="(params$ | async)?.coin">
-      <ng-template coin let-data>
-        <nz-tag>
-          {{data?.algorithm}}
-        </nz-tag>
-        <nz-tag [nzColor]="'success'">
-          {{data?.price}} $
-        </nz-tag>
-        <nz-tag>
-          {{((data?.updated || 0) * 1000) | moment}}
-        </nz-tag>
-      </ng-template>
-    </mdl-coin>
+
   </nz-page-header-tags>
 </nz-page-header>
 <div class="content">
   <nz-row [nzGutter]="[10, 10]">
-    <nz-col [nzXs]="24">
-      <mdl-coin [coin]="(params$ | async)?.coin">
-        <ng-template coin let-data>
-          <nz-row [nzGutter]="[22, 10]">
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.algorithm"
-                [nzTitle]="'Algorithm'"
-              ></nz-statistic>
-            </nz-col>
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.network_hashrate | siSymbol"
-                [nzTitle]="'Network Hashrate'"
-              ></nz-statistic>
-            </nz-col>
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.difficulty | siSymbol"
-                [nzTitle]="'Difficulty'"
-              ></nz-statistic>
-            </nz-col>
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.reward_block"
-                [nzTitle]="'Reward Block'"
-              ></nz-statistic>
-            </nz-col>
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.reward | siSymbol"
-                [nzTitle]="'Reward'"
-              ></nz-statistic>
-            </nz-col>
-            <nz-col [nzSpan]="4" [nzXs]="12" [nzMd]="8" [nzLg]="8" [nzXXl]="4">
-              <nz-statistic
-                [nzValue]="data.reward_unit"
-                [nzTitle]="'Reward Unit'"
-              ></nz-statistic>
-            </nz-col>
-          </nz-row>
-        </ng-template>
-      </mdl-coin>
-    </nz-col>
-    <nz-col [nzXs]="24">
-      <coin-history-chart
-        [coin]="(params$ | async)?.coin"
-        [algo]="(params$ | async)?.algo"
-        [fields]="{
-          network_hashrate: true,
-          price: true,
-          difficulty: false
-        }"
-      ></coin-history-chart>
-    </nz-col>
-    <nz-col nz-col [nzXs]="24">
-      <coin-history-chart
-        [coin]="(params$ | async)?.coin"
-        [algo]="(params$ | async)?.algo"
-        [fields]="{
-          network_hashrate: false,
-          price: true,
-          difficulty: true
-        }"
-      ></coin-history-chart>
-    </nz-col>
+
   </nz-row>
 </div>

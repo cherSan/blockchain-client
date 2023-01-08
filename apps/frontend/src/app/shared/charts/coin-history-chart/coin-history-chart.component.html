@@ -1,8 +1,0 @@
-<mdl-coin-history
-  [algo]="algo"
-  [coin]="coin"
->
-  <ng-template coin-history let-data>
-    <chart [options]="data | coinHistoryDataToOptions: {fields, title, coin, algo}"></chart>
-  </ng-template>
-</mdl-coin-history>

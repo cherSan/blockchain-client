@@ -6,18 +6,12 @@ import { catchError, ignoreElements, map, Observable, of, switchMap, tap } from 
 import {
   ApolloAngularSDK,
   IEtcMinerStatQuery,
-  IEtcPoolStatsQuery,
   IListenEtcMinerStatSubscription,
-  IListenEtcPoolStatsSubscription,
-  IListenMinerstatsCoinsQuery,
-  IMinerstatsCoinsQuery
 } from "@blockchain_client/graph-ql-client";
 import { ActivatedRoute } from "@angular/router";
 import { siSymbol } from "../../utils/si-symbol";
 
 type MinerStat = IEtcMinerStatQuery["etcMinerData"] | IListenEtcMinerStatSubscription['etcMinerData'];
-type PoolData = IEtcPoolStatsQuery["etcPoolStats"] | IListenEtcPoolStatsSubscription["etcPoolStats"];
-type Coins = IMinerstatsCoinsQuery["coins"] | IListenMinerstatsCoinsQuery["coins"];
 @Component({
   selector: 'workers',
   templateUrl: './workers.component.html',
@@ -26,9 +20,6 @@ type Coins = IMinerstatsCoinsQuery["coins"] | IListenMinerstatsCoinsQuery["coins
 export class WorkersComponent {
 
   data: undefined | MinerStat;
-  poolData: undefined | PoolData;
-  blocktime?: number;
-  coinStats?: Coins[number];
   workerChartOptions: AgChartOptions = {};
   shareChartOptions: AgChartOptions = {};
   columnDefs: ColDef[] = [
@@ -94,45 +85,6 @@ export class WorkersComponent {
     ignoreElements(),
     catchError((err) => of(err))
   )
-
-  private data$: Observable<PoolData |  undefined> = this.gql.etcPoolStats()
-    .pipe(
-      map((response) => response.data.etcPoolStats),
-      tap(data => {
-        this.poolData = data;
-        this.blocktime = data.nodes.reduce((a, node) => a < parseFloat(node.blocktime) ? parseFloat(node.blocktime) : a, 0)
-      }),
-      switchMap(() =>  this.gql.listenEtcPoolStats()),
-      map((response) => response.data?.etcPoolStats),
-      tap(data => {
-        this.poolData = data;
-        this.blocktime = data?.nodes.reduce((a, node) => a < parseFloat(node.blocktime) ? parseFloat(node.blocktime) : a, 0)
-      }),
-    )
-  error$ = this.data$.pipe(
-    ignoreElements(),
-    catchError((err) => {
-      return of(err);
-    })
-  )
-
-  coinStats$: Observable<undefined | Coins> = this.gql.minerstatsCoins().pipe(
-    map(response => response.data?.coins),
-    tap(data => {
-      this.coinStats = data.find(v => v.coin === 'ETC')
-    }),
-    switchMap(() => this.gql.listenMinerstatsCoins()),
-    map(response => response.data?.coins),
-    tap(data => {
-      this.coinStats = data.find(v => v.coin === 'ETC')
-    }),
-  );
-
-  coinStateError$ = this.stats$.pipe(
-    ignoreElements(),
-    catchError((err) => of(err))
-  )
-
   constructor(
     private activeRouter: ActivatedRoute,
     private gql: ApolloAngularSDK
