@@ -7,9 +7,9 @@
       <mdl-etc-miners>
         <ng-template etc-miners let-data>
           <nz-descriptions nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 3, 'lg': 3, 'xl': 3, 'xxl': 3}">
-            <nz-descriptions-item nzTitle="Total Hashrate">{{data.hashrate | siSymbol}}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Total EtcPayments">{{data.minersTotal}}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Last update">{{data.now | date: 'yyyy-MM-dd HH:mm:ss'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Total Hashrate">{{data.hashrate | siSymbol: 'H/s'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Total Miners">{{data.minersTotal}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Last update">{{data.now | moment}}</nz-descriptions-item>
           </nz-descriptions>
         </ng-template>
       </mdl-etc-miners>
