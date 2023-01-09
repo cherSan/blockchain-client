@@ -3,3 +3,17 @@
   flex: 1;
   padding: 20px;
 }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  .stat-col {
+    min-width: 80px;
+    width: fit-content;
+  }
+  .graph-col {
+    max-width: 100%;
+    overflow: hidden;
+    min-width: 650px;
+  }
+}

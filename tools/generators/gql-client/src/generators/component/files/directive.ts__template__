@@ -1,0 +1,15 @@
+import { Directive, TemplateRef } from "@angular/core";
+import { <%= className %>LoaderComponent } from './component';
+import { <%= className %>LoaderType } from "./type";
+import { ModelViewerDirective } from "../directive";
+@Directive({
+  selector: 'ng-template[<%= propertyName %>]'
+})
+export class <%= className %>LoaderDirective extends ModelViewerDirective<<%= className %>LoaderType> {
+  constructor(
+    protected override parent: <%= className %>LoaderComponent,
+    protected override template: TemplateRef<{$implicit: <%= className %>LoaderType}>
+  ) {
+    super(parent, template)
+  }
+}

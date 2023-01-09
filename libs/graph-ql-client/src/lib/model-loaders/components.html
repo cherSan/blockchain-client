@@ -1,0 +1,15 @@
+<nz-result
+  *ngIf="(error$ | async) as error; else contentTpl"
+  [nzTitle]="'There should be some data here. But something went wrong.'"
+  nzStatus="error"
+  [nzSubTitle]="error?.toString()"
+></nz-result>
+<ng-template #contentTpl>
+  <ng-container *ngIf="data === undefined">
+    <nz-skeleton [nzActive]="true" [nzTitle]="true"></nz-skeleton>
+  </ng-container>
+  <ng-container *ngIf="data === null">
+    <nz-empty [nzNotFoundContent]="noDataMessage"></nz-empty>
+  </ng-container>
+  <ng-container *ngIf="data" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{$implicit: data!}"></ng-container>
+</ng-template>

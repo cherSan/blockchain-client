@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, DatePipe, NgIf } from "@angular/common";
+import { AsyncPipe, DatePipe, DecimalPipe, NgIf } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 
-
-import { MiningDataComponent } from './mining-data/mining-data.component';
-import { CoinDetailsComponent } from './coin-details/coin-details.component';
-import { StatisticGridComponent } from './statistic-grid/statistic-grid.component';
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
@@ -16,9 +12,20 @@ import { NzImageModule } from "ng-zorro-antd/image";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzStatisticModule } from "ng-zorro-antd/statistic";
 
+import { MiningDataComponent } from './mining-data/mining-data.component';
+import { CoinDetailsComponent } from './coin-details/coin-details.component';
+
 import { GridModule } from "../shared/grid/grid.module";
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
+import {
+  CmAssetsHistoryLoaderModule,
+  CmAssetsLastPriceLoaderModule,
+  CmMetricsLoaderModule
+} from "@blockchain_client/graph-ql-client";
+import { ChartOptionsPipe } from "./chart-options.pipe";
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
 
 const routes: Routes = [
   {
@@ -26,7 +33,7 @@ const routes: Routes = [
     component: MiningDataComponent,
   },
   {
-    path: ':coin/:algo',
+    path: ':coin',
     component: CoinDetailsComponent
   }
 ]
@@ -35,7 +42,7 @@ const routes: Routes = [
   declarations: [
     MiningDataComponent,
     CoinDetailsComponent,
-    StatisticGridComponent
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -53,7 +60,13 @@ const routes: Routes = [
     NzImageModule,
     NzTagModule,
     NzStatisticModule,
-    PipesModule
+    PipesModule,
+    CmAssetsLastPriceLoaderModule,
+    DecimalPipe,
+    CmAssetsHistoryLoaderModule,
+    NzListModule,
+    CmMetricsLoaderModule,
+    NzBadgeModule
   ]
 })
 export class MiningDataModule { }

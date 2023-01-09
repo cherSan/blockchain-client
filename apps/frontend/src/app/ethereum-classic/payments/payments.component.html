@@ -1,0 +1,18 @@
+<lo-pool
+  [title]="'Ethereum Classic'"
+  [code]="'ETC'"
+>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-payments>
+        <ng-template poolEtcPayments let-data>
+          <grid
+            [rowData]="data.payments"
+            [columnDefs]="columnDef"
+            (rowClick)="onRowClick($event)"
+          ></grid>
+        </ng-template>
+      </ldr-pool-etc-payments>
+    </nz-col>
+  </nz-row>
+</lo-pool>

@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { AgChartOptions, time } from "ag-charts-community";
-
 @Component({
   selector: 'chart',
   templateUrl: './chart.component.html',
@@ -78,9 +77,7 @@ export class ChartComponent {
     ],
     series: [],
   }
-
   public options: AgChartOptions = this.defaultOptions;
-
   @Input('options')
   set setOptions(options: AgChartOptions) {
     const newOptions: unknown = {
@@ -91,7 +88,4 @@ export class ChartComponent {
       ...(newOptions as AgChartOptions)
     }
   }
-
-  @Input()
-  error: unknown;
 }

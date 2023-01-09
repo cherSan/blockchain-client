@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from 'moment';
-
 @Pipe({
   name: 'moment'
 })
 export class MomentPipe implements PipeTransform {
-
-  transform(value: number | string, format: string = 'L LTS'): unknown {
+  transform(value: number | string, format: string = 'L LTS'): string {
     const timestamp = typeof value === "string" ? parseFloat(value) : value;
     return moment(timestamp).format(format);
   }

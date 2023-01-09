@@ -1,0 +1,29 @@
+query PoolEtcMinersGet {
+  poolEtcMiners {
+    now
+    hashrate
+    minersTotal
+    miners {
+      id
+      offline
+      blocks
+      lastBeat
+      hr
+    }
+  }
+}
+
+subscription PoolEtcMinersListen {
+  poolEtcMiners {
+    now
+    hashrate
+    minersTotal
+    miners {
+      id
+      offline
+      blocks
+      lastBeat
+      hr
+    }
+  }
+}

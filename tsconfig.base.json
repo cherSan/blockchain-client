@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@blockchain_client/gql-client": [
+        "tools/generators/gql-client/src/index.ts"
+      ],
       "@blockchain_client/graph-ql-client": [
         "libs/graph-ql-client/src/index.ts"
       ],

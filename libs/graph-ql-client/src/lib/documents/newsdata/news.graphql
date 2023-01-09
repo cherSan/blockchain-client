@@ -1,4 +1,4 @@
-query NewsData {
+query newsDataGet {
   newsData {
     data {
       title
@@ -18,7 +18,7 @@ query NewsData {
     update_at
   }
 }
-subscription ListenNewsData {
+subscription newsDataListen {
   newsData {
     data {
       title

@@ -5,25 +5,25 @@ export class Asset {
   @Field()
   id: string;
   @Field()
-  rank: string;
+  rank: number;
   @Field()
   symbol: string;
   @Field()
   name: string;
   @Field()
-  supply: string;
+  supply: number;
   @Field({ nullable: true })
-  maxSupply: string;
+  maxSupply: number;
   @Field()
-  marketCapUsd: string;
+  marketCapUsd: number;
   @Field()
-  volumeUsd24Hr: string;
+  volumeUsd24Hr: number;
   @Field()
-  priceUsd: string;
+  priceUsd: number;
   @Field()
-  changePercent24Hr: string;
+  changePercent24Hr: number;
   @Field({nullable: true})
-  vwap24Hr: string;
+  vwap24Hr: number;
 }
 
 @ObjectType({ description: 'node assets' })

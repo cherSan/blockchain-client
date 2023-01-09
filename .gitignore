@@ -45,3 +45,6 @@ Thumbs.db
 /libs/graph-ql-client/src/lib/graph-ql.service.ts
 
 ./error.log
+/libs/graph-ql-client/src/lib/graph-ql.helpers.ts
+/libs/graph-ql-client/src/lib/graph-ql.mock.ts
+/libs/graph-ql-client/src/lib/graph-ql.validation.ts

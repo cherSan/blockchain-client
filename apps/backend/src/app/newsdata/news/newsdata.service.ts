@@ -16,7 +16,7 @@ import { ListenerService } from "../../utils/listener.service";
 
 @Injectable()
 export class NewsdataService extends ListenerService<NewsData> {
-  protected serviceKey = 'hotNews';
+  protected serviceKey = 'newsData';
   constructor(
     @Inject(NEWSDATA_REST_TIMER_UPDATE) protected readonly timer: number,
     @Inject(NEWSDATA_REST_CONNECTION_URL) protected readonly uri: string,
@@ -46,12 +46,15 @@ export class NewsdataService extends ListenerService<NewsData> {
           update_at: Date.now()
         };
       }),
-      catchError(async (_) => {
+      catchError(async (e) => {
+        console.error(e.response.data);
         this.error = new GraphQLError('Problem with connection to API');
         await this.pubsub.publish(this.serviceKey, { error: this.error });
         throw this.error;
       }),
-      retry(),
+      retry({
+        delay: 5000
+      }),
       tap(async (data) => {
         this.data = data;
         await this.pubsub.publish(this.serviceKey, { [this.serviceKey]: data })

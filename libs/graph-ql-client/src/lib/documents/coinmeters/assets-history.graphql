@@ -1,0 +1,40 @@
+fragment AssetsHistory on CMAssetHistory {
+  BlkCnt
+  BlkSizeMeanByte
+  CapMrktCurUSD
+  DiffMean
+  FeeMeanUSD
+  HashRate
+  PriceUSD
+  PriceBTC
+  RevUSD
+  asset
+  time
+  BlkWghtMean
+  GasLmtTxMean
+}
+query CMAssetsHistoryGet {
+  cmAssetsHistory {
+    BTC { ...AssetsHistory }
+    ETC { ...AssetsHistory }
+    ETH { ...AssetsHistory }
+    DOGE { ...AssetsHistory }
+    DASH { ...AssetsHistory }
+    BSV { ...AssetsHistory }
+    BCH { ...AssetsHistory }
+    LTC { ...AssetsHistory }
+  }
+}
+subscription CMAssetsHistoryListen {
+  cmAssetsHistory {
+    BTC { ...AssetsHistory }
+    ETC { ...AssetsHistory }
+    ETH { ...AssetsHistory }
+    DOGE { ...AssetsHistory }
+    DASH { ...AssetsHistory }
+    BSV { ...AssetsHistory }
+    BCH { ...AssetsHistory }
+    LTC { ...AssetsHistory }
+  }
+}
+

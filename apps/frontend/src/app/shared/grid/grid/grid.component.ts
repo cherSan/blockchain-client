@@ -20,9 +20,6 @@ export class GridComponent {
   extra?: string | null = undefined;
 
   @Input()
-  error?: string = undefined;
-
-  @Input()
   rowData?: any[] | null;
 
   @Input()
@@ -60,6 +57,14 @@ export class GridComponent {
       cellStyle: { textAlign: 'right' },
       filter: 'agNumberColumnFilter',
       valueFormatter: (params) => parseInt(`${params?.value}`).toFixed(2),
+    },
+    CoinAmount: {
+      editable: false,
+      aggFunc: 'sum',
+      valueParser: 'Number',
+      cellStyle: { textAlign: 'right' },
+      filter: 'agNumberColumnFilter',
+      valueFormatter: (params) => parseFloat(`${params?.value}`).toFixed(8),
     }
   };
 

@@ -1,6 +1,9 @@
-<grid
-  [error]="error$ | async"
-  [rowData]="data?.data"
-  [columnDefs]="columnDefs"
-  (rowClick)="onRowClick($event)"
-></grid>
+<ldr-assets>
+  <ng-template assets let-data>
+    <grid
+      [rowData]="data?.data"
+      [columnDefs]="columnDefs"
+      (rowClick)="onRowClick($event)"
+    ></grid>
+  </ng-template>
+</ldr-assets>

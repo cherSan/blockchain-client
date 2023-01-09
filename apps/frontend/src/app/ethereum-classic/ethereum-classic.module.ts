@@ -11,31 +11,40 @@ import {
   TitleCasePipe
 } from "@angular/common";
 
+import { LayoutsModule } from "@blockchain_client/ui/layouts";
+import {
+  CmAssetsHistoryLoaderModule,
+  CmMetricsLoaderModule, PoolEtcMinerLoaderModule, PoolEtcMinersLoaderModule, PoolEtcPaymentsLoaderModule,
+  PoolEtcStatsLoaderModule
+} from "@blockchain_client/graph-ql-client";
+
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzAlertModule } from "ng-zorro-antd/alert";
 import { NzDescriptionsModule } from "ng-zorro-antd/descriptions";
 import { NzGridModule } from "ng-zorro-antd/grid";
-
-import { LayoutsModule } from "@blockchain_client/ui/layouts";
+import { NzEmptyModule } from "ng-zorro-antd/empty";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
+import { GridModule } from "../shared/grid/grid.module";
 
 import { PoolComponent } from './pool/pool.component';
-import { BlocksComponent } from './blocks/blocks.component';
-import { PoolChartComponent } from './pool-chart/pool-chart.component';
-import { PoolInformationComponent } from './pool-information/pool-information.component';
-import { NzEmptyModule } from "ng-zorro-antd/empty";
-import { NzCollapseModule } from "ng-zorro-antd/collapse";
 import { MinersComponent } from './miners/miners.component';
-import { GridModule } from "../shared/grid/grid.module";
-import { MinerDetailComponent } from './miner-detail/miner-detail.component';
-import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
-import { NzIconModule } from "ng-zorro-antd/icon";
 import { WorkersComponent } from './workers/workers.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
-import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { PaymentsComponent } from './payments/payments.component';
+import { MinerComponent } from './miner/miner.component';
+
+import { ChartOptionsPipe } from './pool/chart-options.pipe';
+import { PoolInformationChartPipe } from './pool/pool-information-chart.pipe';
+import { WorkerChartPipe } from './workers/worker-chart.pipe';
+import { ShareChartPipe } from './workers/share-chart.pipe';
+import { PayoutChartPipe } from './payout/payout-chart.pipe';
 
 const routes: Routes = [
   {
@@ -48,16 +57,16 @@ const routes: Routes = [
     component: PoolComponent
   },
   {
-    path: 'blocks',
-    component: BlocksComponent
-  },
-  {
     path: 'miners',
     component: MinersComponent
   },
   {
+    path: 'payments',
+    component: PaymentsComponent
+  },
+  {
     path: 'miners/:id',
-    component: MinerDetailComponent,
+    component: MinerComponent,
     children: [
       {
         path: '',
@@ -79,18 +88,23 @@ const routes: Routes = [
     ]
   }
 ]
-
 @NgModule({
   declarations: [
     PoolComponent,
-    BlocksComponent,
-    PoolChartComponent,
-    PoolInformationComponent,
     MinersComponent,
-    MinerDetailComponent,
     WorkersComponent,
     RewardsComponent,
     PayoutComponent,
+    PaymentsComponent,
+    ChartOptionsPipe,
+    PoolInformationChartPipe,
+    MinerComponent,
+    WorkerChartPipe,
+    ShareChartPipe,
+    PayoutChartPipe
+  ],
+  exports: [
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -114,7 +128,13 @@ const routes: Routes = [
     NzPageHeaderModule,
     NzIconModule,
     PercentPipe,
-    NzTabsModule
+    NzTabsModule,
+    CmAssetsHistoryLoaderModule,
+    CmMetricsLoaderModule,
+    PoolEtcStatsLoaderModule,
+    PoolEtcMinersLoaderModule,
+    PoolEtcPaymentsLoaderModule,
+    PoolEtcMinerLoaderModule
   ]
 })
 export class EthereumClassicModule { }

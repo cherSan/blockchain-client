@@ -5,7 +5,7 @@ import { PubSubService } from "../utils/pubsub.service";
 import { RateService } from "./rates/rate.service";
 import { RateResolver } from "./rates/rate.resolver";
 import { AssetService } from "./assets/asset.service";
-import { AssetResolver } from "./assets/asset.resolver";
+import { AssetInfoResolver } from "./assets/asset-info.resolver";
 import { ETCHistoryService } from "./etc-history/history.service";
 import { ETCHistoryResolver } from "./etc-history/history.resolver";
 
@@ -23,7 +23,7 @@ import { ETCHistoryResolver } from "./etc-history/history.resolver";
     RateService,
     RateResolver,
     AssetService,
-    AssetResolver,
+    AssetInfoResolver,
     ETCHistoryService,
     ETCHistoryResolver,
     PubSubService

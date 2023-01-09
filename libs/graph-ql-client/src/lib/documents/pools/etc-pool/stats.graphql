@@ -1,0 +1,53 @@
+fragment PoolEtcStatsFragment on PoolETCStats {
+  bestNode {
+    blocktime
+    difficulty
+    hashrate
+    height
+    lastBeat
+    name
+  }
+  candidatesTotal
+  stats {
+    lastBlockFound
+    nShares
+    roundShares
+  }
+  hashrate
+  immatureTotal
+  maturedTotal
+  minersTotal
+  nextEpoch
+  now
+  offsetEpoch
+  nextEpoch
+  epoch
+  dagSize
+  poolLuck
+  poolCharts {
+    x
+    y
+  }
+  netCharts {
+    x
+    y
+  }
+  nodes {
+    blocktime
+    difficulty
+    hashrate
+    height
+    lastBeat
+    name
+  }
+}
+query PoolEtcStatsGet {
+  poolEtcStats {
+    ...PoolEtcStatsFragment
+  }
+}
+subscription PoolEtcStatsListen {
+  poolEtcStats {
+    ...PoolEtcStatsFragment
+  }
+}

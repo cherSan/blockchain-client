@@ -1,0 +1,84 @@
+fragment PoolEtcMinerFragment on PoolETCMiner {
+  currentHashrate
+  hashrate
+  id
+  minerCharts {
+    minerHash
+    minerLargeHash
+    workerOnline
+    x
+  }
+  paymentCharts {
+    x
+    amount
+  }
+  payments {
+    timestamp
+    amount
+    tx
+  }
+  paymentsTotal
+  reward24h
+  rewards {
+    blockhash
+    blockheight
+    immature
+    percent
+    reward
+    timestamp
+  }
+  roundShares
+  shareCharts {
+    stale
+    valid
+    workerOnline
+    x
+  }
+  stats {
+    balance
+    blocksFound
+    immature
+    lastShare
+    lastShareDiff
+    paid
+    pending
+    roundShares
+  }
+  sumrewards {
+    blocks
+    inverval
+    name
+    offset
+    reward
+  }
+  workers {
+    blocks
+    hr
+    hr2
+    i_per
+    id
+    invalid
+    lastBeat
+    offline
+    s_per
+    stale
+    v_per
+    valid
+    w_stat
+    w_stat_s
+  }
+  workersOffline
+  workersOnline
+  workersTotal
+}
+
+query PoolETCMinerGet($id: String!) {
+  poolEtcMiner(id: $id) {
+    ...PoolEtcMinerFragment
+  }
+}
+subscription PoolETCMinerListen($id: String!) {
+  poolEtcMiner(id: $id) {
+    ...PoolEtcMinerFragment
+  }
+}

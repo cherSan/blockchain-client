@@ -1,11 +1,29 @@
-<div nz-row [nzGutter]="[20, 20]">
-  <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
+<nz-row [nzGutter]="[10, 10]">
+  <nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
     <news></news>
-  </div>
-  <div nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="12" [nzXXl]="8">
     <main-rates></main-rates>
-  </div>
-  <div nz-col [nzXs]="24">
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Btc"></prices>
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Etc"></prices>
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Eth"></prices>
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Dash"></prices>
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Doge"></prices>
+  </nz-col>
+  <nz-col [nzXs]="24" [nzXl]="8" [nzXXl]="8">
+    <prices [asset]="assets.Bch"></prices>
+  </nz-col>
+  <div nz-col [nzXs]="24" [nzXXl]="8">
     <assets></assets>
   </div>
-</div>
+</nz-row>

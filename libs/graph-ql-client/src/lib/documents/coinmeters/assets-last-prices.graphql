@@ -1,0 +1,30 @@
+fragment AssetLastPrice on CMAssetLastPrice {
+  asset
+  ReferenceRateUSD
+  ReferenceRateEUR
+  time
+}
+query CMAssetsLastPriceGet {
+  cmAssetsLastPrice {
+    BTC { ...AssetLastPrice }
+    ETC { ...AssetLastPrice }
+    ETH { ...AssetLastPrice }
+    DOGE { ...AssetLastPrice }
+    DASH { ...AssetLastPrice }
+    BSV { ...AssetLastPrice }
+    BCH { ...AssetLastPrice }
+    LTC { ...AssetLastPrice }
+  }
+}
+subscription CMAssetsLastPriceListen {
+  cmAssetsLastPrice {
+    BTC { ...AssetLastPrice }
+    ETC { ...AssetLastPrice }
+    ETH { ...AssetLastPrice }
+    DOGE { ...AssetLastPrice }
+    DASH { ...AssetLastPrice }
+    BSV { ...AssetLastPrice }
+    BCH { ...AssetLastPrice }
+    LTC { ...AssetLastPrice }
+  }
+}

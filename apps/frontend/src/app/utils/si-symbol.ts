@@ -19,15 +19,13 @@ export const prefixes: Prefixes = {
   '-21': 'z',
   '-24': 'y'
 };
-export function siSymbol(value?: number | string | null, suffix: string = ''): string {
+export function siSymbol(value?: number | string | null, suffix: string = '', fixed: number = 2): string {
   if (value === null || typeof value !== 'number' && typeof value !== 'string') {
     return 'N/A'
   }
-
   const num =  parseFloat(`${value}`);
-
   if (num === 0) {
-    return '0' + suffix;
+    return '0.00' + suffix;
   }
   let sig = Math.abs(num);
   let exponent: Exponent = 0;
@@ -40,11 +38,10 @@ export function siSymbol(value?: number | string | null, suffix: string = ''): s
     sig *= 1000;
     exponent -= 3;
   }
-
   const signPrefix = num < 0 ? '-' : '';
   if (sig > 1000) {
-    return signPrefix + sig.toFixed(3) + (prefixes[exponent as keyof Prefixes]) + suffix;
+    return signPrefix + sig.toFixed(fixed) + (prefixes[exponent as keyof Prefixes]) + `${suffix}`;
   }
-  return signPrefix + parseFloat(sig.toPrecision(3)) + (prefixes[exponent as keyof Prefixes] || '') + suffix;
+  return signPrefix + parseFloat(`${sig}`).toFixed(fixed) + (prefixes[exponent as keyof Prefixes] || '') + `${suffix}`;
 
 }

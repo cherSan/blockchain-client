@@ -1,0 +1,2 @@
+import { I<%= className %>ListenSubscription, I<%= className %>GetQuery } from "@blockchain_client/graph-ql-client";
+export type <%= className %>LoaderType = I<%= className %>GetQuery['<%= propertyName %>'] | I<%= className %>ListenSubscription['<%= propertyName %>'];
