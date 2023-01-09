@@ -1,0 +1,14 @@
+<lo-pool
+  [title]="'Ethereum Classic'"
+  [code]="'ETC'"
+>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-finders>
+        <ng-template poolEtcFinders let-data>
+          <grid [rowData]="data.finders" [columnDefs]="dataColDef"></grid>
+        </ng-template>
+      </ldr-pool-etc-finders>
+    </nz-col>
+  </nz-row>
+</lo-pool>

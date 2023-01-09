@@ -24,7 +24,13 @@
         <a *nzTabLink nz-tab-link [routerLink]="['.', 'miners']" [relativeTo]="activeRoute.parent">Miners</a>
       </nz-tab>
       <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'blocks']" [relativeTo]="activeRoute.parent">Pool Blocks</a>
+      </nz-tab>
+      <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['.', 'payments']" [relativeTo]="activeRoute.parent">Payments</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'finders']" [relativeTo]="activeRoute.parent">Finders</a>
       </nz-tab>
     </nz-tabset>
   </nz-page-header-footer>

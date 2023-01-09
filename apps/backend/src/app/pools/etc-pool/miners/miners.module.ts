@@ -30,7 +30,7 @@ import { PoolETCMinerSumRewardResolver } from "./miner-sum-reward.resolver";
     PubSubService,
     {
       provide: POOL_REST_TIMER_UPDATE,
-      useValue: 10000
+      useValue: 30000
     },
     {
       provide: POOL_REST_CONNECTION_URL,

@@ -29,7 +29,7 @@
       <ng-template poolEtcMiner let-data>
         <grid
           [columnDefs]="columnDefs"
-          [rowData]="data.workers"
+          [rowData]="data.workers || []"
         ></grid>
       </ng-template>
     </ldr-pool-etc-miner>
