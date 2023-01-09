@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ColDef, RowClickedEvent } from "ag-grid-community";
+import { ColDef, ICellRendererParams, RowClickedEvent } from "ag-grid-community";
 import * as moment from "moment";
 import { ActivatedRoute, Router } from "@angular/router";
+import { LinkRenderComponent } from "../../shared/grid/link-render/link-render.component";
 @Component({
   selector: 'payments',
   templateUrl: './payments.component.html',
@@ -23,7 +24,11 @@ export class PaymentsComponent {
       type: 'CoinAmount',
     },
     {
-      field: 'address'
+      field: 'address',
+      cellRendererSelector:  (_: ICellRendererParams) =>  ({
+        component: LinkRenderComponent,
+      }),
+      onCellClicked: this.onClick.bind(this)
     },
     {
       headerName: 'Tx ID',
@@ -34,7 +39,7 @@ export class PaymentsComponent {
     private router: Router,
     private activeRoute: ActivatedRoute
   ) { }
-  onRowClick($event: RowClickedEvent<any>) {
+  onClick($event: RowClickedEvent<any>) {
     return this.router.navigate(['.', 'miners', $event.data?.address], {relativeTo: this.activeRoute.parent})
   }
 }

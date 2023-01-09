@@ -14,11 +14,14 @@ import { CoinRenderComponent } from './coin-render/coin-render.component';
 import { NzStatisticModule } from "ng-zorro-antd/statistic";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzImageModule } from "ng-zorro-antd/image";
+import { LinkRenderComponent } from './link-render/link-render.component';
+import { NzButtonModule } from "ng-zorro-antd/button";
 
 @NgModule({
   declarations: [
     GridComponent,
-    CoinRenderComponent
+    CoinRenderComponent,
+    LinkRenderComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +33,13 @@ import { NzImageModule } from "ng-zorro-antd/image";
     NzBadgeModule,
     NzStatisticModule,
     NzIconModule,
-    NzImageModule
+    NzImageModule,
+    NzButtonModule
   ],
   exports: [
     GridComponent,
-    CoinRenderComponent
+    CoinRenderComponent,
+    LinkRenderComponent
   ]
 })
 export class GridModule { }

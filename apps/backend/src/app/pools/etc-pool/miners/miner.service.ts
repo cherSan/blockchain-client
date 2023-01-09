@@ -4,7 +4,7 @@ import {
   catchError,
   combineLatest,
   delay,
-  map,
+  map, Observable,
   of,
   repeat,
   retry,
@@ -24,6 +24,7 @@ type MinersMap = {
 export class PoolETCMinerService extends ListenerService<PoolETCMiner[]> {
   protected serviceKey = 'poolEtcMiner';
   private miners: MinersMap = {};
+  private additionalMiners: string[] = [];
   constructor(
     @Inject(POOL_REST_TIMER_UPDATE) protected readonly timer: number,
     @Inject(POOL_REST_CONNECTION_URL) protected readonly uri: string,
@@ -35,8 +36,11 @@ export class PoolETCMinerService extends ListenerService<PoolETCMiner[]> {
     this.observer$(`${uri}accounts/`, timer).subscribe()
   }
   protected override observer$(uri, timer) {
-    return this.minersService.miners.pipe(
-      switchMap((miners) => {
+    return this.minersService.miners$.pipe(
+      switchMap((miners1) => {
+        const miners = [...miners1, ...this.additionalMiners].filter((v, i, arr) => {
+          return arr.indexOf(v) === i
+        });
         if (!miners.length) {
           return of([])
         }
@@ -69,6 +73,19 @@ export class PoolETCMinerService extends ListenerService<PoolETCMiner[]> {
       delay(timer),
       repeat()
     )
+  }
+  public forceGet(id: string): Observable<PoolETCMiner> {
+    return this.httpService.get<PoolETCMiner>(`${this.uri}accounts/${id}`).pipe(
+      tap(() => {
+        this.additionalMiners = [...this.additionalMiners, id];
+      }),
+      map(response => {
+        return {
+          ...response.data,
+          id
+        }
+      }),
+    );
   }
   public getMiner(id: string): PoolETCMiner {
     return this.miners[id];

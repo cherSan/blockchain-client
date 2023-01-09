@@ -2,6 +2,7 @@ import { Args, Parent, Query, ResolveField, Resolver, Subscription } from "@nest
 import { GraphQLError } from "graphql/error";
 import { PoolETCMiner, PoolETCMinerWorker } from "./miner.model";
 import { PoolETCMinerService } from "./miner.service";
+import { firstValueFrom } from "rxjs";
 @Resolver(() => PoolETCMiner)
 export class PoolETCMinerResolver {
   constructor(
@@ -13,7 +14,11 @@ export class PoolETCMinerResolver {
     @Args('id') id: string
   ): Promise<PoolETCMiner> {
     try {
-      return await this.statsService.getMiner(id)
+      const tryOne = await this.statsService.getMiner(id);
+      if (!tryOne) {
+        return await firstValueFrom(this.statsService.forceGet(id));
+      }
+      return tryOne;
     } catch (e) {
       throw new GraphQLError(e)
     }

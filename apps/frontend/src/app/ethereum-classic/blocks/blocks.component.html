@@ -1,0 +1,37 @@
+<lo-pool
+  [title]="'Ethereum Classic'"
+  [code]="'ETC'"
+>
+  <nz-row [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-blocks>
+        <ng-template poolEtcBlocks let-data>
+          <chart [options]="data | chartPoolEtcBlocksOptions"></chart>
+        </ng-template>
+      </ldr-pool-etc-blocks>
+    </nz-col>
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-blocks>
+        <ng-template poolEtcBlocks let-data>
+          <grid [rowData]="data.luck" [columnDefs]="dataLuckColDef"></grid>
+        </ng-template>
+      </ldr-pool-etc-blocks>
+    </nz-col>
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-blocks>
+        <ng-template poolEtcBlocks let-data>
+          <h5 nz-typography>Matured</h5>
+          <grid [rowData]="data.matured || []" [columnDefs]="dataColDef"></grid>
+        </ng-template>
+      </ldr-pool-etc-blocks>
+    </nz-col>
+    <nz-col [nzXs]="24">
+      <ldr-pool-etc-blocks>
+        <ng-template poolEtcBlocks let-data>
+          <h5 nz-typography>Immature</h5>
+          <grid [rowData]="data.immature || []" [columnDefs]="dataColDef"></grid>
+        </ng-template>
+      </ldr-pool-etc-blocks>
+    </nz-col>
+  </nz-row>
+</lo-pool>

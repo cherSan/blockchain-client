@@ -1,0 +1,56 @@
+fragment PoolETCBlocksFragment on PoolETCBlocks {
+  immature {
+    difficulty
+    hash
+    height
+    login
+    orphan
+    reward
+    shareDiff
+    shares
+    timestamp
+    uncle
+    uncleHeight
+    worker
+  }
+  immatureTotal
+  luck {
+    block
+    luck
+    orphanRate
+    uncleRate
+  }
+  luckCharts {
+    difficulty
+    height
+    reward
+    shares
+    sharesDiff
+    x
+  }
+  matured {
+    difficulty
+    hash
+    height
+    login
+    orphan
+    reward
+    shareDiff
+    shares
+    timestamp
+    uncle
+    uncleHeight
+    worker
+  }
+  maturedTotal
+}
+query PoolETCBlocksGet {
+  poolEtcBlocks {
+    ...PoolETCBlocksFragment
+  }
+}
+subscription PoolETCBlocksListen {
+  poolEtcBlocks {
+    ...PoolETCBlocksFragment
+  }
+}

@@ -14,7 +14,11 @@ import {
 import { LayoutsModule } from "@blockchain_client/ui/layouts";
 import {
   CmAssetsHistoryLoaderModule,
-  CmMetricsLoaderModule, PoolEtcMinerLoaderModule, PoolEtcMinersLoaderModule, PoolEtcPaymentsLoaderModule,
+  CmMetricsLoaderModule,
+  PoolEtcBlocksLoaderModule, PoolEtcFindersLoaderModule,
+  PoolEtcMinerLoaderModule,
+  PoolEtcMinersLoaderModule,
+  PoolEtcPaymentsLoaderModule,
   PoolEtcStatsLoaderModule
 } from "@blockchain_client/graph-ql-client";
 
@@ -40,11 +44,14 @@ import { PayoutComponent } from './payout/payout.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { MinerComponent } from './miner/miner.component';
 
-import { ChartOptionsPipe } from './pool/chart-options.pipe';
 import { PoolInformationChartPipe } from './pool/pool-information-chart.pipe';
 import { WorkerChartPipe } from './workers/worker-chart.pipe';
 import { ShareChartPipe } from './workers/share-chart.pipe';
 import { PayoutChartPipe } from './payout/payout-chart.pipe';
+import { BlocksComponent } from './blocks/blocks.component';
+import { ChartPoolEtcBlocksOptionsPipe } from './blocks/chart-pool-etc-blocks-options.pipe';
+import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { FindersComponent } from './finders/finders.component';
 
 const routes: Routes = [
   {
@@ -63,6 +70,14 @@ const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsComponent
+  },
+  {
+    path: 'finders',
+    component: FindersComponent
+  },
+  {
+    path: 'blocks',
+    component: BlocksComponent
   },
   {
     path: 'miners/:id',
@@ -96,15 +111,14 @@ const routes: Routes = [
     RewardsComponent,
     PayoutComponent,
     PaymentsComponent,
-    ChartOptionsPipe,
     PoolInformationChartPipe,
     MinerComponent,
     WorkerChartPipe,
     ShareChartPipe,
-    PayoutChartPipe
-  ],
-  exports: [
-    ChartOptionsPipe
+    PayoutChartPipe,
+    BlocksComponent,
+    ChartPoolEtcBlocksOptionsPipe,
+    FindersComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -134,7 +148,10 @@ const routes: Routes = [
     PoolEtcStatsLoaderModule,
     PoolEtcMinersLoaderModule,
     PoolEtcPaymentsLoaderModule,
-    PoolEtcMinerLoaderModule
+    PoolEtcMinerLoaderModule,
+    PoolEtcBlocksLoaderModule,
+    NzTypographyModule,
+    PoolEtcFindersLoaderModule
   ]
 })
 export class EthereumClassicModule { }
