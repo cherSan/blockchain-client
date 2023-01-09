@@ -3,24 +3,38 @@
   [code]="'ETC'"
 >
   <nz-row [nzGutter]="[10, 10]">
-    <nz-col [nzXs]="24" [nzLg]="12">
+    <nz-col [nzXs]="24" [nzMd]="24" [nzLg]="16">
       <ldr-pool-etc-stats>
         <ng-template poolEtcStats let-data>
-          <nz-card [nzTitle]="'Pool statistic'">
-            <nz-descriptions [nzColumn]="1" [nzBordered]="true" [nzSize]="'small'">
-              <nz-descriptions-item nzTitle="Miners Online">{{data.minersTotal}}</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Pool Hash Rate">{{data.hashrate | siSymbol: 'H/s'}}</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Last Block Found">{{data.stats.lastBlockFound | moment}} ({{data.stats.lastBlockFound | momentDiff}})</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Block time (Avg.)">{{data.bestNode.blocktime | number: '1.2-2'}}s</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Pool Luck">{{data?.poolLuck  | percent: '1.0-0'}}</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Epoch">{{data.epoch | number: '1.0-0'}}</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="DAG Size">{{data.dagSize | number: '1.2-2'}}GB</nz-descriptions-item>
-            </nz-descriptions>
+          <nz-card class="poll-stat">
+            <nz-row [nzGutter]="[10, 21]" class="poll-stat--body">
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Miners Online'" [nzValue]="data.minersTotal"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Pool Hash Rate'" [nzValue]="data.hashrate | siSymbol: 'H/s'"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Last Block Found'" [nzValue]="data.stats.lastBlockFound | momentDiff"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Block time (Avg.)'" [nzValue]="(data.bestNode.blocktime | number: '1.2-2') || '0'"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Pool Luck'" [nzValue]="(data.poolLuck | percent: '1.0-0') || '0'"></nz-statistic>
+              </nz-col>
+              <nz-col [nzSm]="8">
+                <nz-statistic [nzTitle]="'Epoch / DAG Size'" [nzValueTemplate]="valueTpl"></nz-statistic>
+                <ng-template #valueTpl>
+                  {{data.epoch | number: '1.0-0'}} / {{data.dagSize | number: '1.2-2'}}Gb
+                </ng-template>
+              </nz-col>
+            </nz-row>
           </nz-card>
         </ng-template>
       </ldr-pool-etc-stats>
     </nz-col>
-    <nz-col [nzXs]="24" [nzLg]="12">
+    <nz-col [nzXs]="24" [nzMd]="24" [nzLg]="8">
       <ldr-pool-etc-stats>
         <ng-template poolEtcStats let-data>
           <nz-collapse [nzBordered]="true" [nzAccordion]="true">

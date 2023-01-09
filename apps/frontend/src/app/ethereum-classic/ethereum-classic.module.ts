@@ -52,6 +52,7 @@ import { BlocksComponent } from './blocks/blocks.component';
 import { ChartPoolEtcBlocksOptionsPipe } from './blocks/chart-pool-etc-blocks-options.pipe';
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { FindersComponent } from './finders/finders.component';
+import { NzStatisticModule } from "ng-zorro-antd/statistic";
 
 const routes: Routes = [
   {
@@ -151,7 +152,8 @@ const routes: Routes = [
     PoolEtcMinerLoaderModule,
     PoolEtcBlocksLoaderModule,
     NzTypographyModule,
-    PoolEtcFindersLoaderModule
+    PoolEtcFindersLoaderModule,
+    NzStatisticModule
   ]
 })
 export class EthereumClassicModule { }

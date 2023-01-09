@@ -84,3 +84,11 @@ html {
 .ag-grid-cell-non-uncle {
   background: #177ddc;
 }
+.ag-chart-wrapper {
+  border: 1px solid #434343 !important;
+  border-radius: 2px;
+}
+.nz-page-header {
+  border-bottom: 1px solid #434343 !important;
+  z-index: 5;
+}
