@@ -1,5 +1,5 @@
-query EtcMiners {
-  etcMinersList {
+query PoolEtcMinersGet {
+  poolEtcMiners {
     now
     hashrate
     minersTotal
@@ -13,8 +13,8 @@ query EtcMiners {
   }
 }
 
-subscription ListenEtcMiners {
-  etcMinersList {
+subscription PoolEtcMinersListen {
+  poolEtcMiners {
     now
     hashrate
     minersTotal

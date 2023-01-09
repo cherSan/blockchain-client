@@ -1,22 +1,16 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { map, Observable } from "rxjs";
+import { map } from "rxjs";
+import { CmMetricsLoaderType, IMetrics } from "@blockchain_client/graph-ql-client";
 @Component({
   selector: 'coin-details',
   templateUrl: './coin-details.component.html',
   styleUrls: ['./coin-details.component.scss']
 })
 export class CoinDetailsComponent {
-  public params$: Observable<{coin?: string, algo?: string}> = this.activeRoute.params.pipe(
-    map((params) => {
-      const coin = params['coin'];
-      const algo = params['algo'];
-      if (!coin || !algo) {
-        return {};
-      }
-      return {coin, algo}
-    })
-  );
+  coin$ = this.activeRoute.params.pipe(map((v) => v['coin']));
+  metricsData?: CmMetricsLoaderType | null;
+  metrics = IMetrics;
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute

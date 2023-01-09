@@ -1,0 +1,41 @@
+<nz-page-header [nzBackIcon]="back">
+  <ng-template #back>
+    <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
+  </ng-template>
+  <nz-page-header-title>Miner Statistic</nz-page-header-title>
+  <nz-page-header-subtitle>{{userId$ | async}}</nz-page-header-subtitle>
+  <nz-page-header-content>
+    <ldr-pool-etc-miner [variables]="{id: userId$ | async}">
+      <ng-template poolEtcMiner let-data>
+        <nz-descriptions nzBordered [nzSize]="'small'" [nzColumn]="{'xs': 1, 'sm': 1, 'md': 2, 'lg': 2, 'xl': 5, 'xxl': 5}">
+          <nz-descriptions-item nzTitle="Immature Balance">{{data.stats.immature | number: '1.8-8'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Pending Balance">{{data.stats.balance | number: '1.8-8'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Current Payment">{{data.stats.pending | number: '1.8-8'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Total Paid">{{data.stats.paid | number: '1.8-8'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Last 24h Reward">{{data.reward24h | number: '1.8-8'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Last Share Submitted">{{data.stats.lastShare | moment}} ({{data.stats.lastShare | momentDiff}})</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Workers Online/Offline">{{data.workersOnline}} / {{data.workersOffline}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Shares found">{{data.stats.lastShareDiff | siSymbol: 'H/s'}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Blocks Found">{{data.stats.blocksFound}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Total Payment">{{data.paymentsTotal}}</nz-descriptions-item>
+        </nz-descriptions>
+      </ng-template>
+    </ldr-pool-etc-miner>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'workers']" [relativeTo]="relativeTo" replaceUrl>Workers</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'rewards']" [relativeTo]="relativeTo" replaceUrl>Rewards</a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['.', 'payout']" [relativeTo]="relativeTo" replaceUrl>Payout</a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
+</nz-page-header>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

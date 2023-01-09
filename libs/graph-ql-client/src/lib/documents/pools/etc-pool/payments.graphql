@@ -1,0 +1,20 @@
+query PoolEtcPaymentsGet {
+  poolEtcPayments {
+    payments {
+      timestamp
+      tx
+      amount
+      address
+    }
+  }
+}
+subscription PoolEtcPaymentsListen {
+  poolEtcPayments {
+    payments {
+      timestamp
+      tx
+      amount
+      address
+    }
+  }
+}

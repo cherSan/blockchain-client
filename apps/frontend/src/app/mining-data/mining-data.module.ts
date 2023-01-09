@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, DatePipe, NgIf } from "@angular/common";
+import { AsyncPipe, DatePipe, DecimalPipe, NgIf } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 
 import { NzGridModule } from "ng-zorro-antd/grid";
@@ -18,7 +18,14 @@ import { CoinDetailsComponent } from './coin-details/coin-details.component';
 import { GridModule } from "../shared/grid/grid.module";
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
-import { ModelViewerModule } from "../model-viewer/model-viewer.module";
+import {
+  CmAssetsHistoryLoaderModule,
+  CmAssetsLastPriceLoaderModule,
+  CmMetricsLoaderModule
+} from "@blockchain_client/graph-ql-client";
+import { ChartOptionsPipe } from "./chart-options.pipe";
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
 
 const routes: Routes = [
   {
@@ -26,7 +33,7 @@ const routes: Routes = [
     component: MiningDataComponent,
   },
   {
-    path: ':coin/:algo',
+    path: ':coin',
     component: CoinDetailsComponent
   }
 ]
@@ -34,7 +41,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MiningDataComponent,
-    CoinDetailsComponent
+    CoinDetailsComponent,
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -53,7 +61,12 @@ const routes: Routes = [
     NzTagModule,
     NzStatisticModule,
     PipesModule,
-    ModelViewerModule
+    CmAssetsLastPriceLoaderModule,
+    DecimalPipe,
+    CmAssetsHistoryLoaderModule,
+    NzListModule,
+    CmMetricsLoaderModule,
+    NzBadgeModule
   ]
 })
 export class MiningDataModule { }

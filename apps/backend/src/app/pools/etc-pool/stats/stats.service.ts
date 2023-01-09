@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { PoolETCStats } from "./stats.model";
+import { POOL_REST_CONNECTION_URL, POOL_REST_TIMER_UPDATE } from "../contants/connection.constants";
 import { ListenerService } from "../../../utils/listener.service";
 import { PubSubService } from "../../../utils/pubsub.service";
-import { POOL_REST_CONNECTION_URL, POOL_REST_TIMER_UPDATE } from "../contants/connection.constants";
 
 
 @Injectable()

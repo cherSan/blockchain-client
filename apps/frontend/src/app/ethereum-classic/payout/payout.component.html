@@ -1,14 +1,19 @@
-<nz-empty *ngIf="(stateError$ | async)" [nzNotFoundContent]="'Unknown ETC Account or Information Unavailable'"></nz-empty>
 <div nz-row [nzGutter]="[20, 20]">
   <div nz-col [nzXs]="24">
-    <chart
-      [options]="chartOptions"
-    ></chart>
+    <ldr-pool-etc-miner [variables]="{id: userId$ | async}">
+      <ng-template poolEtcMiner let-data>
+        <chart [options]="data | payoutChart"></chart>
+      </ng-template>
+    </ldr-pool-etc-miner>
   </div>
   <div nz-col [nzXs]="24">
-    <grid
-      [rowData]="data?.payments"
-      [columnDefs]="columnDefs"
-    ></grid>
+    <ldr-pool-etc-miner [variables]="{id: userId$ | async}">
+      <ng-template poolEtcMiner let-data>
+        <grid
+          [rowData]="data.payments"
+          [columnDefs]="columnDefs"
+        ></grid>
+      </ng-template>
+    </ldr-pool-etc-miner>
   </div>
 </div>

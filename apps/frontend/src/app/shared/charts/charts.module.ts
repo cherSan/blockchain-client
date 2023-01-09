@@ -6,8 +6,6 @@ import { NzAlertModule } from "ng-zorro-antd/alert";
 
 import { ChartComponent } from './chart/chart.component';
 import { NzEmptyModule } from "ng-zorro-antd/empty";
-import { ModelViewerModule } from "../../model-viewer/model-viewer.module";
-
 @NgModule({
   declarations: [
     ChartComponent
@@ -19,7 +17,6 @@ import { ModelViewerModule } from "../../model-viewer/model-viewer.module";
     AsyncPipe,
     NzEmptyModule,
     JsonPipe,
-    ModelViewerModule
   ],
   exports: [
     ChartComponent

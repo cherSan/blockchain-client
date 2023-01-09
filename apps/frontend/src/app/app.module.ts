@@ -8,7 +8,6 @@ import { UserModule } from "@blockchain_client/user";
 import { AppComponent } from './app.component';
 import { NavigationModule } from "./navigation/navigation.module";
 import { ApplicationModule } from "./application/application.module";
-import { ModelViewerModule } from "./model-viewer/model-viewer.module";
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { ModelViewerModule } from "./model-viewer/model-viewer.module";
     NavigationModule,
     InitializationModule,
     ApplicationModule,
-    UserModule,
-    ModelViewerModule
+    UserModule
   ],
   providers: [
     { provide: DEFAULT_ROUTE, useValue: ['/'] },

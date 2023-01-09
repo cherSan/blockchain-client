@@ -14,7 +14,7 @@ import {
 import { LayoutsModule } from "@blockchain_client/ui/layouts";
 import {
   CmAssetsHistoryLoaderModule,
-  CmMetricsLoaderModule,
+  CmMetricsLoaderModule, PoolEtcMinerLoaderModule, PoolEtcMinersLoaderModule, PoolEtcPaymentsLoaderModule,
   PoolEtcStatsLoaderModule
 } from "@blockchain_client/graph-ql-client";
 
@@ -30,20 +30,21 @@ import { NzTabsModule } from "ng-zorro-antd/tabs";
 
 import { ChartsModule } from "../shared/charts/charts.module";
 import { PipesModule } from "../pipes/pipes.module";
-import { ModelViewerModule } from "../model-viewer/model-viewer.module";
 import { GridModule } from "../shared/grid/grid.module";
 
 import { PoolComponent } from './pool/pool.component';
 import { MinersComponent } from './miners/miners.component';
-import { MinerDetailComponent } from './miner-detail/miner-detail.component';
 import { WorkersComponent } from './workers/workers.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { PayoutComponent } from './payout/payout.component';
-import { CoinInformationComponent } from './coin-information/coin-information.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { MinerComponent } from './miner/miner.component';
 
 import { ChartOptionsPipe } from './pool/chart-options.pipe';
 import { PoolInformationChartPipe } from './pool/pool-information-chart.pipe';
+import { WorkerChartPipe } from './workers/worker-chart.pipe';
+import { ShareChartPipe } from './workers/share-chart.pipe';
+import { PayoutChartPipe } from './payout/payout-chart.pipe';
 
 const routes: Routes = [
   {
@@ -64,12 +65,8 @@ const routes: Routes = [
     component: PaymentsComponent
   },
   {
-    path: 'coin-information',
-    component: CoinInformationComponent
-  },
-  {
     path: 'miners/:id',
-    component: MinerDetailComponent,
+    component: MinerComponent,
     children: [
       {
         path: '',
@@ -95,14 +92,19 @@ const routes: Routes = [
   declarations: [
     PoolComponent,
     MinersComponent,
-    MinerDetailComponent,
     WorkersComponent,
     RewardsComponent,
     PayoutComponent,
     PaymentsComponent,
     ChartOptionsPipe,
     PoolInformationChartPipe,
-    CoinInformationComponent,
+    MinerComponent,
+    WorkerChartPipe,
+    ShareChartPipe,
+    PayoutChartPipe
+  ],
+  exports: [
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -127,10 +129,12 @@ const routes: Routes = [
     NzIconModule,
     PercentPipe,
     NzTabsModule,
-    ModelViewerModule,
     CmAssetsHistoryLoaderModule,
     CmMetricsLoaderModule,
-    PoolEtcStatsLoaderModule
+    PoolEtcStatsLoaderModule,
+    PoolEtcMinersLoaderModule,
+    PoolEtcPaymentsLoaderModule,
+    PoolEtcMinerLoaderModule
   ]
 })
 export class EthereumClassicModule { }

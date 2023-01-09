@@ -4,14 +4,15 @@
 >
   <nz-row [nzGutter]="[10, 10]">
     <nz-col [nzXs]="24">
-      <mdl-etc-payments>
-        <ng-template etc-payments let-data>
+      <ldr-pool-etc-payments>
+        <ng-template poolEtcPayments let-data>
           <grid
-            [rowData]="data?.payments"
+            [rowData]="data.payments"
             [columnDefs]="columnDef"
+            (rowClick)="onRowClick($event)"
           ></grid>
         </ng-template>
-      </mdl-etc-payments>
+      </ldr-pool-etc-payments>
     </nz-col>
   </nz-row>
 </lo-pool>

@@ -36,7 +36,6 @@ import { NzCardModule } from "ng-zorro-antd/card";
 
 import { GridModule } from "../shared/grid/grid.module";
 import { PipesModule } from "../pipes/pipes.module";
-import { ModelViewerModule } from "../model-viewer/model-viewer.module";
 
 import { GetRatesPipe } from "./pipes/get-rates.pipe";
 
@@ -106,7 +105,6 @@ const routes: Routes = [
     NzCarouselModule,
     NzCardModule,
     TitleCasePipe,
-    ModelViewerModule,
     JsonPipe,
     NewsDataLoaderModule,
     AssetsLoaderModule,

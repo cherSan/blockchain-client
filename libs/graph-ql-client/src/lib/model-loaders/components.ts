@@ -6,11 +6,11 @@ export class ModelViewerComponent<T> {
   public data?: null | T = undefined;
   public readonly error$!: Observable<GraphQLError>;
   public noDataMessage = "Sorry, but we didn't find any data.";
-  private data$: Observable<undefined | T>;
+  protected data$: Observable<undefined | T>;
   public change!: EventEmitter<null | T>;
   constructor(
-    private readonly query$: Observable<undefined | T>,
-    private readonly listener$: Observable<undefined | T>
+    protected query$: Observable<undefined | T>,
+    protected listener$: Observable<undefined | T>
   ) {
     this.data$ = query$
       .pipe(

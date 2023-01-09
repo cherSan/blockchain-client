@@ -2,26 +2,81 @@
   <ng-template #back>
     <span nz-icon [nzIconfont]="'icon-chevron-left'"></span>
   </ng-template>
-  <nz-page-header-title>{{(params$ | async)?.coin}}</nz-page-header-title>
-  <nz-page-header-subtitle>{{(params$ | async)?.algo}}</nz-page-header-subtitle>
+  <nz-page-header-title>{{coin$ | async}}</nz-page-header-title>
+  <nz-page-header-subtitle>
+    <ldr-cm-assets-last-price>
+      <ng-template cmAssetsLastPrice let-data>
+        <nz-row [nzGutter]="[10,10]">
+          <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12">
+            <nz-badge
+              [nzText]="(data.BTC.ReferenceRateEUR | number: '1.2-2')!"
+              [nzTitle]="'EUR'"
+            ></nz-badge>
+          </nz-col>
+          <nz-col [nzSpan]="24" [nzXs]="24" [nzSm]="12">
+            <nz-badge
+              [nzText]="(data.BTC.ReferenceRateUSD | number: '1.2-2')!"
+              [nzTitle]="'EUR'"
+            ></nz-badge>
+          </nz-col>
+        </nz-row>
+      </ng-template>
+    </ldr-cm-assets-last-price>
+  </nz-page-header-subtitle>
   <nz-page-header-extra>
     <img
-      *ngIf="(params$ | async)?.coin"
       nz-image
-      [nzSrc]="'/assets/crypto-icons/' + (params$ | async)?.coin?.toLowerCase() + '.svg'"
+      [nzSrc]="'/assets/crypto-icons/' + (coin$ | async)?.toLowerCase() + '.svg'"
       [nzFallback]="'/assets/no-image.png'"
-      [alt]="(params$ | async)?.coin || ''"
+      [alt]="coin$ | async"
       width="60px"
       height="60px"
     />
   </nz-page-header-extra>
 
   <nz-page-header-tags>
-
+    <ldr-cm-assets-last-price>
+      <ng-template cmAssetsLastPrice let-data>
+        <nz-tag>
+          €{{data[coin$ | async].ReferenceRateEUR | number: '1.2-2'}}
+        </nz-tag>
+        <nz-tag>
+          ${{data[coin$ | async].ReferenceRateUSD | number: '1.2-2'}}
+        </nz-tag>
+      </ng-template>
+    </ldr-cm-assets-last-price>
   </nz-page-header-tags>
 </nz-page-header>
 <div class="content">
-  <nz-row [nzGutter]="[10, 10]">
-
+  <ldr-cm-metrics (change)="this.metricsData = $event"></ldr-cm-metrics>
+  <nz-row  [nzGutter]="[10, 10]">
+    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
+      <ldr-cm-assets-history>
+        <ng-template cmAssetsHistory let-data>
+          <chart [options]="data | chartOptions: (coin$ | async): [metrics.HashRate, metrics.DiffMean]: metricsData"></chart>
+        </ng-template>
+      </ldr-cm-assets-history>
+    </nz-col>
+    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
+      <ldr-cm-assets-history>
+        <ng-template cmAssetsHistory let-data>
+          <chart [options]="data | chartOptions: (coin$ | async): [metrics.BlkCnt, metrics.BlkSizeMeanByte]: metricsData"></chart>
+        </ng-template>
+      </ldr-cm-assets-history>
+    </nz-col>
+    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
+      <ldr-cm-assets-history>
+        <ng-template cmAssetsHistory let-data>
+          <chart [options]="data | chartOptions: (coin$ | async): [metrics.PriceUsd, metrics.PriceBtc]: metricsData"></chart>
+        </ng-template>
+      </ldr-cm-assets-history>
+    </nz-col>
+    <nz-col [nzXs]="24" [nzLg]="12" [nzXXl]="6">
+      <ldr-cm-assets-history>
+        <ng-template cmAssetsHistory let-data>
+          <chart [options]="data | chartOptions: (coin$ | async): [metrics.CapMrktCurUsd, metrics.GasLmtTxMean]: metricsData"></chart>
+        </ng-template>
+      </ldr-cm-assets-history>
+    </nz-col>
   </nz-row>
 </div>

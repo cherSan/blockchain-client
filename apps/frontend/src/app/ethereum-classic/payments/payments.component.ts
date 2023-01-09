@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ColDef } from "ag-grid-community";
+import { ColDef, RowClickedEvent } from "ag-grid-community";
 import * as moment from "moment";
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'payments',
   templateUrl: './payments.component.html',
@@ -19,6 +20,7 @@ export class PaymentsComponent {
       field: 'amount',
       minWidth: 120,
       maxWidth: 120,
+      type: 'CoinAmount',
     },
     {
       field: 'address'
@@ -28,4 +30,11 @@ export class PaymentsComponent {
       field: 'tx'
     }
   ]
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute
+  ) { }
+  onRowClick($event: RowClickedEvent<any>) {
+    return this.router.navigate(['.', 'miners', $event.data?.address], {relativeTo: this.activeRoute.parent})
+  }
 }
