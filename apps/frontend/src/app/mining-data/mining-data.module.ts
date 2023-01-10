@@ -26,8 +26,6 @@ import {
 import { ChartOptionsPipe } from "./chart-options.pipe";
 import { NzListModule } from "ng-zorro-antd/list";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
-import { ToStringPipe } from './mining-data/to-string.pipe';
-
 const routes: Routes = [
   {
     path: '',
@@ -38,13 +36,11 @@ const routes: Routes = [
     component: CoinDetailsComponent
   }
 ]
-
 @NgModule({
   declarations: [
     MiningDataComponent,
     CoinDetailsComponent,
-    ChartOptionsPipe,
-    ToStringPipe
+    ChartOptionsPipe
   ],
   imports: [
     RouterModule.forChild(routes),
