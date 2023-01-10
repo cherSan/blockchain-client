@@ -18,23 +18,23 @@
       [nzSrc]="'/assets/crypto-icons/' + (symbol$ | async)?.toLowerCase() + '.svg'"
       [nzFallback]="'/assets/no-image.png'"
       [alt]="(symbol$ | async)"
-      width="60px"
-      height="60px"
+      width="30px"
+      height="30px"
     />
   </nz-page-header-extra>
   <nz-page-header-tags>
     <ldr-assets>
       <ng-template assets let-data>
         <ng-container *ngIf="data | currentAsset: (symbol$ | async) as asset">
-          <nz-tag>
+          <nz-tag [nzColor]="'success'">
             RANK: {{asset.rank}}
           </nz-tag>
           <nz-tag [nzColor]="'success'">
             {{asset.priceUsd | currency: '$'}}
           </nz-tag>
           <nz-tag [nzColor]="asset.changePercent24Hr < 0 ? 'error': 'success'">
-            <span *ngIf="asset.changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-chevron-circle-left'"></span>
-            <span *ngIf="asset.changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-chevron-circle-right'"></span>
+            <span *ngIf="asset.changePercent24Hr < 0" nz-icon [nzIconfont]="'icon-chevron-circle-down'"></span>
+            <span *ngIf="asset.changePercent24Hr > 0" nz-icon [nzIconfont]="'icon-chevron-circle-up'"></span>
             {{((asset.changePercent24Hr / 100) | percent: '0.2-2') || 'N/A'}}
           </nz-tag>
         </ng-container>
