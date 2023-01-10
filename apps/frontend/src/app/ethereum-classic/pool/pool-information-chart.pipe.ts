@@ -75,8 +75,11 @@ export class PoolInformationChartPipe implements PipeTransform {
           title: {
             enabled: false,
           },
+          label: {
+            autoRotate: true
+          },
           tick: {
-            count: time.minute.every(1)
+            count: time.hour.every(1)
           }
         }
       ]

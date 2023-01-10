@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ColDef } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 import * as moment from "moment/moment";
 import { map, of } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
+import { LinkRenderComponent } from "../../shared/grid/link-render/link-render.component";
 @Component({
   selector: 'payout',
   templateUrl: './payout.component.html',
@@ -19,7 +20,13 @@ export class PayoutComponent {
     },
     {
       headerName: 'Tx ID',
-      field: 'tx'
+      field: 'tx',
+      cellRendererSelector:  (_: ICellRendererParams) =>  ({
+        component: LinkRenderComponent,
+      }),
+      onCellClicked: (param) => {
+        window.open(`https://etcblockexplorer.com/tx/${param.value}`, '_blank')
+      }
     },
     {
       maxWidth: 160,

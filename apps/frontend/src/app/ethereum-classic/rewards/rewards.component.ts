@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { map, of } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
-import { ColDef } from "ag-grid-community";
+import { ColDef, ICellRendererParams } from "ag-grid-community";
 import * as moment from "moment";
+import { LinkRenderComponent } from "../../shared/grid/link-render/link-render.component";
 @Component({
   selector: 'rewards',
   templateUrl: './rewards.component.html',
@@ -20,7 +21,13 @@ export class RewardsComponent {
     },
     {
       headerName: 'Block Hash',
-      field: 'blockhash'
+      field: 'blockhash',
+      cellRendererSelector:  (_: ICellRendererParams) =>  ({
+        component: LinkRenderComponent,
+      }),
+      onCellClicked: (param) => {
+        window.open(`https://etcblockexplorer.com/block/${param.value}`, '_blank')
+      }
     },
     {
       maxWidth: 140,
@@ -33,8 +40,7 @@ export class RewardsComponent {
       maxWidth: 120,
       minWidth: 120,
       headerName: 'Block Height',
-      field: 'blockheight',
-      valueFormatter: (data) => data.value.toLocaleString()
+      field: 'blockheight'
     },
     {
       maxWidth: 120,
