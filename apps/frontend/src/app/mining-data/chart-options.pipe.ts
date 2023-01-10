@@ -94,6 +94,9 @@ export class ChartOptionsPipe implements PipeTransform {
       subtitle: {
         text: moment().format('L LTS')
       },
+      legend: {
+        position: 'bottom'
+      },
       data: value[coin],
       series,
       axes

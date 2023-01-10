@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IAssets, IMetrics } from "@blockchain_client/graph-ql-client";
+import { IAssets } from "@blockchain_client/graph-ql-client";
 import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'mining-data',
@@ -7,8 +7,16 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./mining-data.component.scss']
 })
 export class MiningDataComponent {
-  metrics = IMetrics;
-  assets = IAssets;
+  assetsList = [
+    IAssets.Etc,
+    IAssets.Btc,
+    IAssets.Eth,
+    IAssets.Dash,
+    IAssets.Doge,
+    IAssets.Bch,
+    IAssets.Bsv,
+    IAssets.Ltc
+  ];
   relative = this.activeRoute
   constructor(
     private router: Router,

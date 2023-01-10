@@ -11,7 +11,6 @@ export class MinerComponent {
   userId$ = this.activeRouter.params.pipe(
     map((data) => data["id"])
   )
-
   public readonly relativeTo = this.activeRouter;
   constructor(
     private activeRouter: ActivatedRoute,

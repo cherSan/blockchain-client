@@ -7,29 +7,30 @@
       <ldr-pool-etc-stats>
         <ng-template poolEtcStats let-data>
           <nz-card class="poll-stat">
-            <nz-row [nzGutter]="[10, 21]" class="poll-stat--body">
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Miners Online'" [nzValue]="data.minersTotal"></nz-statistic>
-              </nz-col>
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Pool Hash Rate'" [nzValue]="data.hashrate | siSymbol: 'H/s'"></nz-statistic>
-              </nz-col>
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Last Block Found'" [nzValue]="data.stats.lastBlockFound | momentDiff"></nz-statistic>
-              </nz-col>
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Block time (Avg.)'" [nzValue]="(data.bestNode.blocktime | number: '1.2-2') || '0'"></nz-statistic>
-              </nz-col>
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Pool Luck'" [nzValue]="(data.poolLuck | percent: '1.0-0') || '0'"></nz-statistic>
-              </nz-col>
-              <nz-col [nzSm]="8">
-                <nz-statistic [nzTitle]="'Epoch / DAG Size'" [nzValueTemplate]="valueTpl"></nz-statistic>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Miners Online'" [nzValue]="data.minersTotal"></nz-statistic>
+            </div>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Pool Hash Rate'" [nzValue]="data.hashrate | siSymbol: 'H/s'"></nz-statistic>
+            </div>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Last Block Found'" [nzValue]="data.stats.lastBlockFound | momentDiff"></nz-statistic>
+            </div>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Block time (Avg.)'" [nzValue]="(data.bestNode.blocktime | number: '1.2-2') || '0'"></nz-statistic>
+            </div>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Pool Luck'" [nzValue]="(data.poolLuck | percent: '1.0-0') || '0'"></nz-statistic>
+            </div>
+            <div nz-card-grid>
+              <nz-statistic [nzTitle]="'Epoch / DAG Size'" [nzValueTemplate]="valueTpl">
                 <ng-template #valueTpl>
-                  {{data.epoch | number: '1.0-0'}} / {{data.dagSize | number: '1.2-2'}}Gb
+                  <div class="line-text">
+                    <span>{{data.epoch | number: '1.0-0'}}</span><span> / </span><h5 nz-typography>{{data.dagSize | number: '1.2-2'}}Gb</h5>
+                  </div>
                 </ng-template>
-              </nz-col>
-            </nz-row>
+              </nz-statistic>
+            </div>
           </nz-card>
         </ng-template>
       </ldr-pool-etc-stats>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, DatePipe, DecimalPipe, NgIf } from "@angular/common";
+import { AsyncPipe, DatePipe, DecimalPipe, NgFor, NgIf } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 
 import { NzGridModule } from "ng-zorro-antd/grid";
@@ -26,6 +26,7 @@ import {
 import { ChartOptionsPipe } from "./chart-options.pipe";
 import { NzListModule } from "ng-zorro-antd/list";
 import { NzBadgeModule } from "ng-zorro-antd/badge";
+import { ToStringPipe } from './mining-data/to-string.pipe';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
   declarations: [
     MiningDataComponent,
     CoinDetailsComponent,
-    ChartOptionsPipe
+    ChartOptionsPipe,
+    ToStringPipe
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -54,6 +56,7 @@ const routes: Routes = [
     NzCardModule,
     NzAlertModule,
     NgIf,
+    NgFor,
     NzEmptyModule,
     NzPageHeaderModule,
     NzIconModule,
