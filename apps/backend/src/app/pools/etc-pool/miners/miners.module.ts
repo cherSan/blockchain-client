@@ -1,6 +1,10 @@
 import { Module } from "@nestjs/common";
 import { HttpModule } from "@nestjs/axios";
-import { POOL_REST_CONNECTION_URL, POOL_REST_TIMER_UPDATE } from "../contants/connection.constants";
+import {
+  POOL_REST_CONNECTION_URL, POOL_REST_CONNECTION_URL_VALUE,
+  POOL_REST_TIMER_UPDATE,
+  POOL_REST_TIMER_UPDATE_VALUE
+} from "../contants/connection.constants";
 import { PoolETCMinersService } from "./miners.service";
 import { PoolETCMinersResolver } from "./miners.resolver";
 import { PubSubService } from "../../../utils/pubsub.service";
@@ -30,11 +34,11 @@ import { PoolETCMinerSumRewardResolver } from "./miner-sum-reward.resolver";
     PubSubService,
     {
       provide: POOL_REST_TIMER_UPDATE,
-      useValue: 30000
+      useValue: POOL_REST_TIMER_UPDATE_VALUE
     },
     {
       provide: POOL_REST_CONNECTION_URL,
-      useValue: 'http://94.19.151.45/api/'
+      useValue: POOL_REST_CONNECTION_URL_VALUE
     }
   ]
 })
