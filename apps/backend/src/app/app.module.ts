@@ -33,7 +33,7 @@ import { PoolsModule } from "./pools/pools.module";
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb+srv://test:3Qlx7C2kbRQaUMtu@cluster0.0wawf.mongodb.net/?retryWrites=true&w=majority',
+      url: '',
       database: 'blockchain',
       ssl: true,
       autoLoadEntities: true,
