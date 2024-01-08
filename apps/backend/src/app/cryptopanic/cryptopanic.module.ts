@@ -16,7 +16,7 @@ import { CryptonewsResolver } from "./news/cryptonews.resolver";
   providers: [
     {
       provide: CRYPTOPANIC_REST_API_KEY,
-      useValue:'b9d792c3f70890c3014698c09d8ccc610158687b'
+      useValue:''
     },
     {
       provide: CRYPTOPANIC_REST_CONNECTION_URL,
